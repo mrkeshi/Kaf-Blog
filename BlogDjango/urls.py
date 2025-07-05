@@ -15,8 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from rest_framework_swagger.views import get_swagger_view
+from django.conf.urls.static import static
+from BlogDjango import settings
 
+schema_view = get_swagger_view(title='Kaf API')
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('sepahan-admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/', include('Setting.urls')),
+    path('api/ui', schema_view),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+   path('djrichtextfield/', include('djrichtextfield.urls'))
+
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
