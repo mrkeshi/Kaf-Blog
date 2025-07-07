@@ -28,6 +28,8 @@ class SiteSetting(models.Model):
     site_logo = models.ImageField(upload_to="settings/", verbose_name="لوگو سایت", blank=True, null=True)
     site_icon = models.ImageField(upload_to="settings/", verbose_name="آیکون سایت (favicon)", blank=True, null=True)
 
+    music=models.FileField(upload_to="settings/", verbose_name="موسیقی سایت", blank=True, null=True)
+
     meta_description = models.CharField(max_length=300, verbose_name="توضیحات سئو", blank=True, null=True)
     meta_keywords = models.CharField(max_length=300, verbose_name="کلمات کلیدی سئو", blank=True, null=True)
     meta_author = models.CharField(max_length=150, verbose_name="نویسنده سئو", blank=True, null=True)
@@ -39,3 +41,14 @@ class SiteSetting(models.Model):
     class Meta:
         verbose_name = " عمومی"
         verbose_name_plural = " عمومی"
+
+class Links(models.Model):
+    title = models.CharField(max_length=150, verbose_name="عنوان")
+    link = models.URLField(verbose_name="لینک")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "لینک های دوستان "
+        verbose_name_plural = "لینک های دوستان"

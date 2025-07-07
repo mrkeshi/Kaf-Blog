@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'axes',
     'rest_framework',
-    'rest_framework_swagger',
+    'drf_yasg',
     'Setting',
     'Contact'
 
@@ -163,4 +163,12 @@ JALALI_DATE_DEFAULTS = {
             ]
         }
     },
+}
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '15/hour',
+    }
 }

@@ -2,7 +2,7 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 from django.contrib.admin.sites import AdminSite
-from Setting.models import About,SiteSetting
+from Setting.models import About,SiteSetting,Links
 
 
 @admin.register(About)
@@ -16,6 +16,9 @@ class CustomAdminClass(ModelAdmin):
 class CustomAdminClass(ModelAdmin):
    pass
 
+@admin.register(Links)
+class CustomAdminClass(ModelAdmin):
+   list_display = ['title','link']
 
 
 
