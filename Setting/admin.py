@@ -1,16 +1,13 @@
 # Register your models here.
 from django.contrib import admin
-from unfold.admin import ModelAdmin
+from django.contrib.admin import ModelAdmin
 from django.contrib.admin.sites import AdminSite
-from Setting.models import About,SiteSetting,Links
+from Setting.models import About,SiteSetting,Links,NotificationSubscription
 
 
 @admin.register(About)
 class CustomAdminClass(ModelAdmin):
-   class Media:
-      css = {
-         'all': ('/static/css/admin-override.css',)
-      }
+   pass
 
 @admin.register(SiteSetting)
 class CustomAdminClass(ModelAdmin):
@@ -18,7 +15,11 @@ class CustomAdminClass(ModelAdmin):
 
 @admin.register(Links)
 class CustomAdminClass(ModelAdmin):
-   list_display = ['title','link']
+   pass
+
+@admin.register(NotificationSubscription)
+class CustomAdminClass(ModelAdmin):
+   pass
 
 
 

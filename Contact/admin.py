@@ -1,18 +1,13 @@
 import pytz
 from django.contrib import admin
-
-# Register your models here.
-from django.contrib.admin import ModelAdmin
 from jalali_date import date2jalali
 from Contact.models import ContactMessage
-
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'created_at_jalali')
 
     def created_at_jalali(self, obj):
-        # تبدیل به زمان منطقه تهران
         local_time = obj.created_at.astimezone(pytz.timezone('Asia/Tehran'))
         jalali_date = date2jalali(local_time)
 

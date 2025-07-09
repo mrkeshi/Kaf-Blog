@@ -52,3 +52,19 @@ class Links(models.Model):
     class Meta:
         verbose_name = "لینک های دوستان "
         verbose_name_plural = "لینک های دوستان"
+
+from django.db import models
+
+class NotificationSubscription(models.Model):
+    subscription_info = models.JSONField(verbose_name="اطلاعات نوتیفیکیشن")
+    ip_address = models.GenericIPAddressField(verbose_name="آی‌پی کاربر")
+    browser_info = models.CharField(max_length=255, verbose_name="مدل مرورگر")
+    device_info = models.CharField(max_length=255, verbose_name="مدل دیوایس")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
+
+    class Meta:
+        verbose_name = "مشترکان "
+        verbose_name_plural = "مشترکان"
+
+    def __str__(self):
+        return f"Subscription from {self.ip_address} - {self.browser_info} - {self.device_info}"
