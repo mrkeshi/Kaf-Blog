@@ -6,7 +6,7 @@ from django.utils.text import slugify
 # --- دسته‌بندی ---
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="نام دسته‌بندی")
-    slug = models.SlugField(unique=True, allow_unicode=True, verbose_name="اسلاگ")
+    slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
 
     class Meta:
         verbose_name = "دسته‌بندی"
@@ -15,11 +15,16 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
+
 
 # --- برچسب ---
 class Tag(models.Model):
     name = models.CharField(max_length=30, verbose_name="نام برچسب")
-    slug = models.SlugField(unique=True, allow_unicode=True, verbose_name="اسلاگ")
+    slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
 
     class Meta:
         verbose_name = "برچسب"
@@ -27,6 +32,11 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
 
 
 # --- پست ---
@@ -38,7 +48,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروزرسانی")
     is_draft = models.BooleanField(default=False, verbose_name="پیش‌نویس")
     views = models.PositiveIntegerField(default=0, verbose_name="تعداد بازدید")
-    slug = models.SlugField(unique=True, allow_unicode=True, verbose_name="اسلاگ")
+    slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته‌بندی")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="برچسب‌ها")
 
@@ -70,8 +80,8 @@ class Comment(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام")
     email = models.EmailField(verbose_name="ایمیل")
     message = models.TextField(verbose_name="متن دیدگاه")
-    answer = models.TextField(verbose_name="پاسخ دیدگاه")
-
+    answer = models.TextField(verbose_name="پاسخ دیدگاه" , blank=True)
+    active=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
 
     class Meta:
