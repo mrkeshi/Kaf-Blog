@@ -1,5 +1,5 @@
 import { $fetch, FetchError, FetchOptions } from "ohmyfetch";
-import { ApiResponse } from "../models/ApiRespose";
+import { ApiResponse } from "../app/models/ApiRespose";
 import { BASE_URL } from "./Config";
 import { errorMessages } from "vue/compiler-sfc";
 
