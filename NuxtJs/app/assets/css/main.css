@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* === Mahoor Bold === */
+@font-face {
+    font-family: 'Mahoor';
+    src: url('../fonts/Mahoor-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* === Mahoor ExtraBold === */
+@font-face {
+    font-family: 'Mahoor';
+    src: url('../fonts/Mahoor-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* === Mahoor Medium === */
+@font-face {
+    font-family: 'Mahoor';
+    src: url('../fonts/Mahoor-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* === Mahoor Regular === */
+@font-face {
+    font-family: 'Mahoor';
+    src: url('../fonts/Mahoor-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* === Mahoor SemiBold === */
+@font-face {
+    font-family: 'Mahoor';
+    src: url('/dist/fonts/Mahoor-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Mahoor', sans-serif;
+    background-color: #EDECEA;
+    direction: rtl;
+}
+
+@theme {
+    --color-black-100: #D9D9D9;
+    --color-black-150: #EDECEA;
+
+    --color-black-200: #686565;
+    --color-black-300: #323232;
+    --color-black-400: #2B2929;
+    --color-black-500: #000000;
+    --color-blue-500: #2A73D3;
+    --text-3xl-2: 32px;
+    --text-sm-2: 15px;
+    --font-Mahoor: 'Mahoor';
+}
+
+/* animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.animate-slide-in {
+    animation: slideIn 0.4s ease forwards;
+}
+
+.animate-slide-out {
+    animation: slideOut 0.4s ease forwards;
+}
+
+/* موسیقی */
+.bar {
+    width: 4px;
+    border-radius: 2px;
+
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 2s linear infinite;
+}
