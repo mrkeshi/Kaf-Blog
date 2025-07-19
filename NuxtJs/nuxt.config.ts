@@ -7,6 +7,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["@/assets/css/main.css"],
   
+  modules: ['nuxt-toastify'],
+   toastify: {
+     autoClose: 2000,
+     position: 'top-right',
+     theme: 'auto',
+     rtl:true,
+    
+   },
   vite: {
     plugins: [tailwindcss()],
   },
