@@ -10,10 +10,10 @@ export async function Fetch<G>(
   config: FetchOptions<"json"> = {}
 ): Promise<ApiResponse<G>> {
 
-
+  const nuxtconfig=useRuntimeConfig()
   config = {
     ...config,
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: nuxtconfig.public.baseURL
   };
 
   return $fetch<ApiResponse<G>>(url, config)

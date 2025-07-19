@@ -9,13 +9,12 @@
        {{ data.title }}
         </h2>
 
-        <skeleton-simple v-else width="full" height="16" radius="xl"  />
+        <skeleton-simple v-else class="w-full h-12 rounded-2xl mb-8"  />
 
         <blockquote v-if="!pending" v-html="data.description" class="relative text-justify text-black-300 leading-loose text-base sm:text-lg font-normal italic pr-6 border-r-4 border-black-200">
  
         </blockquote>
-        <skeleton-simple v-else-if="pending" width="full" height="8" radius="xl" :repeat="10" />
-
+      <skeleton-simple v-else  :repeat="15" class="w-full h-6 rounded-lg " />
         <div class="my-12">
           <a href="#" class="inline-block px-6 py-3 text-base font-bold text-white bg-black-400 border border-black-400 rounded-full transition-all duration-300 hover:bg-black-150 hover:text-black-400">
             تماس با من
@@ -33,18 +32,15 @@
 <script lang="ts" setup>
 import { getAboutMe } from '~/services/About.Service';
 
+const nuxt=useNuxtApp()
 
 definePageMeta({
   layout:'simple-layout'
 })
 
-
-
-const {data,pending} = useAsyncData('about-me',() => {
-
-return getAboutMe()
-}
-);
+const {data,pending} = useAsyncData('about-me',() => getAboutMe(),{
+  getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
+});
 
 </script>
 
