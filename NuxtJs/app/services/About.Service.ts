@@ -3,7 +3,8 @@ import { type ApiResponse } from "~/models/ApiRespose";
 import {  type AboutDTO } from "~/models/About/AboutDTO";
 
 export const getAboutMe = (): Promise<ApiResponse<AboutDTO>> => {
-    return Fetch('/about',{
+ 
+    return Fetch<AboutDTO>('about/',{
         method:'GET'
     });
 }

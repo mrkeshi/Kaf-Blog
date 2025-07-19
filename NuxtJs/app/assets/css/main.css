@@ -35,7 +35,7 @@
 /* === Mahoor SemiBold === */
 @font-face {
     font-family: 'Mahoor';
-    src: url('/dist/fonts/Mahoor-SemiBold.woff2') format('woff2');
+    src: url('../fonts/Mahoor-SemiBold.woff2') format('woff2');
     font-weight: 600;
     font-style: normal;
 }
@@ -45,7 +45,9 @@ body {
     background-color: #EDECEA;
     direction: rtl;
 }
-
+.custom-toast,.custom-toast-body{
+    font-family: 'Mahoor';
+}
 @theme {
     --color-black-100: #D9D9D9;
     --color-black-150: #EDECEA;
