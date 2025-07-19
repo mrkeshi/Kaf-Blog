@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlogDjango/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BlogDjango/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/inlines.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/css/admin-override.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/css/admin-override.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/nuxt.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/nuxt.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/Skeleton/simple.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/Skeleton/simple.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/pages/about/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/pages/about/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +137,8 @@
       <workItem from="1752783897813" duration="670000" />
       <workItem from="1752784591130" duration="437000" />
       <workItem from="1752785051804" duration="50000" />
-      <workItem from="1752871459126" duration="6523000" />
+      <workItem from="1752871459126" duration="7337000" />
+      <workItem from="1752962971497" duration="1816000" />
     </task>
     <servers />
   </component>
