@@ -16,11 +16,7 @@ class AboutView(RetrieveAPIView):
     def get_object(self):
         return About.objects.first()
 
-class SettingView(RetrieveAPIView):
-    serializer_class = SettingSerializer
 
-    def get_object(self):
-        return SiteSetting.objects.first()
 
 class LinkView(ListAPIView):
     queryset = Links.objects.all()
@@ -31,7 +27,11 @@ class NotificationSubscriptionCreateView(CreateAPIView):
     serializer_class  = NotificationSubscriptionCreateSerializer
 
 
+class SettingView(RetrieveAPIView):
+    serializer_class = SettingSerializer
 
+    def get_object(self):
+        return SiteSetting.objects.first()
 class NotificationSubscriptionCountView(GenericAPIView):
     serializer_class = NotificationSubscriptionCountSerializer
 

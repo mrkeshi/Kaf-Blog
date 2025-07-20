@@ -1,6 +1,10 @@
 <template>
     <aside class="w-full lg:w-1/4  rounded-2xl  space-y-4">
-    <SideBarMusicBox></SideBarMusicBox>
+    <SideBarMusicBox :music="musicData.music" 
+    :cover="musicData.cover" 
+    :music_title="musicData.music_title" 
+    :music_artist="musicData.music_artist" ></SideBarMusicBox>
+    
       <div class=" rounded-xl my-8 max-md:my-6  ">
         <div class="header-aside-box flex items-center">
             <svg width="35" height="35" viewBox="0 0 37 37" class="fill-black-300" xmlns="http://www.w3.org/2000/svg">
@@ -204,6 +208,17 @@
 
 <script lang="ts" setup>
 
+defineProps({
+  musicData: {
+    type: Object as PropType<{
+    music?: string ,
+      cover?: string ,
+      music_artist?: string ,
+      music_title?: string ,
+    }>,
+    default: () => ({})
+  }
+})
 </script>
 
 <style>

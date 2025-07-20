@@ -18,7 +18,7 @@ export async function Fetch<G>(
 
   return $fetch<ApiResponse<G>>(url, config)
     .then((res) => {
-      console.log(res,"aaaaaaaa")
+  
          return res
     })
   .catch((e: FetchError) => {

@@ -16,7 +16,7 @@ export function useCustomToastify() {
     message,
     type = 'error',
     theme = 'dark',
-    autoClose = 3000,  // مقدار پیش‌فرض اینجا هم هست
+    autoClose = 3000,  
     toastId,
     icon,
     rtl = true,
@@ -42,7 +42,7 @@ export function useCustomToastify() {
     toastId,
     icon,
     rtl = true,
-    autoClose = 3000,  // مقدار پیش‌فرض اینجا هم هست
+    autoClose = 3000,  
   }: ToastParams) => {
     useToastify(`${title}<br>${message}`, {
       type: 'success',
