@@ -7,22 +7,23 @@
 
       <div class="isolate px-6 py-2 sm:py-8 lg:px-6">
 
-        <form action="#" method="POST" class="mx-auto  max-w-2xl">
+        <Form @submit="sendDataContact" :validation-schema="contactSchema" v-slot="{meta}" class="mx-auto  max-w-2xl">
           <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <base-input type="text" name="name" placeholder="لطفا نام خود را وارد نمایید. "
+            <base-input v-model="contactData.name" :disabled="loading" type="text" name="name" placeholder="لطفا نام خود را وارد نمایید. "
               label="نام شما"></base-input>
 
-            <base-input type="email" name="email" placeholder="لطفا ایمیل خود را وارد نمایید. "
-              label=" آدرس ایمیل شما"></base-input>
+            <base-input v-model="contactData.email" type="email" name="email"
+              placeholder="لطفا ایمیل خود را وارد نمایید. " :disabled="loading" label=" آدرس ایمیل شما"></base-input>
 
 
-            <base-textarea name="message" label="پیغام شما" placeholder="هرچه دل تنگت می‌خواهد بنویس..." />
+            <base-textarea v-model="contactData.message" :disabled="loading" name="message" label="پیغام شما"
+              placeholder="هرچه دل تنگت می‌خواهد بنویس..." />
 
           </div>
-          <base-button class="mt-10">
+          <base-button class="mt-10" :disabled="loading">
             ارسال پیغام شما
           </base-button>
-        </form>
+        </Form>
       </div>
 
     </div>
@@ -30,9 +31,51 @@
 </template>
 
 <script lang="ts" setup>
+import { Form } from 'vee-validate';
+import * as Yup from 'yup'
+import { useCustomToastify } from '~/composable/useCustomToastify';
+import type { ContactDTO } from '~/models/Contact/ContactDTO';
+import { sendContactDataService } from '~/services/Contact.Service';
 definePageMeta({
   layout: 'simple-layout'
 })
+
+const loading = ref(false)
+
+const contactSchema = Yup.object().shape({
+  name: Yup.string().required("وارد کردن  نام ضروری هست.").min(1, "حداقل باید یک کاراکتر وارد کنید."),
+  email: Yup.string()
+    .required("وارد کردن ایمیل الزامی‌ست.")
+    .email("ایمیل وارد شده معتبر نیست"),
+
+  message: Yup.string()
+    .required("نوشتن پیام الزامی است.")
+    .min(5, "پیام باید حداقل ۵ کاراکتر داشته باشد."),
+})
+
+const contactData: ContactDTO = reactive({
+  name: "",
+  email: '',
+  message: ''
+
+})
+
+const {showSuccess}=useCustomToastify()
+const sendDataContact =async () => {
+ loading.value=true
+ await sendContactDataService(contactData).then((res)=>{
+  contactData.name = ''
+  contactData.email = ''
+  contactData.message = ''
+  showSuccess({
+    title:"موفقیت",
+    message:"پیغام شما با موفقیت ارسال شد.",
+    autoClose:4000
+  })
+ }).finally(()=>{
+  loading.value=false
+ })
+}
 </script>
 
 <style></style>

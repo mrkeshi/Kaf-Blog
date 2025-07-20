@@ -1,5 +1,3 @@
-
-
 type ToastParams = {
   title: string
   message: string
@@ -18,7 +16,7 @@ export function useCustomToastify() {
     message,
     type = 'error',
     theme = 'dark',
-    autoClose = 3000,
+    autoClose = 3000,  // مقدار پیش‌فرض اینجا هم هست
     toastId,
     icon,
     rtl = true,
@@ -33,11 +31,32 @@ export function useCustomToastify() {
       icon,
       rtl,
       hideProgressBar,
-      
       toastClassName: 'custom-toast',
       bodyClassName: 'custom-toast-body',
     })
   }
 
-  return { showError }
+  const showSuccess = ({
+    title,
+    message,
+    toastId,
+    icon,
+    rtl = true,
+    autoClose = 3000,  // مقدار پیش‌فرض اینجا هم هست
+  }: ToastParams) => {
+    useToastify(`${title}<br>${message}`, {
+      type: 'success',
+      theme: 'dark',
+      autoClose,
+      toastId,
+      icon,
+      rtl,
+      hideProgressBar: false,
+      dangerouslyHTMLString: true,
+      toastClassName: 'custom-toast',
+      bodyClassName: 'custom-toast-body',
+    })
+  }
+
+  return { showError, showSuccess }
 }

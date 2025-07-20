@@ -115,3 +115,6 @@ body {
 .animate-spin-slow {
     animation: spin-slow 2s linear infinite;
 }
+.error-input{
+    outline-color: oklch(63.7% 0.237 25.331);
+}
