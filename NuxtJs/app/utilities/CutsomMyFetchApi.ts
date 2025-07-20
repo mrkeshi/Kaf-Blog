@@ -18,16 +18,16 @@ export async function Fetch<G>(
 
   return $fetch<ApiResponse<G>>(url, config)
     .then((res) => {
+      console.log(res,"aaaaaaaa")
          return res
     })
-    .catch((e: FetchError) => {
-     console.log(e.message)
-     showError({
-      title:"ارور کیر خریدی",
-      message:`${e.message}`
-     })
-      return {
-        data: null,
-      };
-    });
+  .catch((e: FetchError) => {
+  const errorDetail = e.data?.detail || e.message || 'خطای نامشخص';
+  showError({
+    title: "خطا",
+    message: errorDetail
+  });
+  console.log(e);
+  throw e;
+});
 }

@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/Skeleton/simple.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/Skeleton/simple.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/pages/about/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/pages/about/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/base/input.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/base/input.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/base/textarea.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/base/textarea.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/pages/contact/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/pages/contact/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +141,7 @@
       <workItem from="1752784591130" duration="437000" />
       <workItem from="1752785051804" duration="50000" />
       <workItem from="1752871459126" duration="7337000" />
-      <workItem from="1752962971497" duration="1816000" />
+      <workItem from="1752962971497" duration="2632000" />
     </task>
     <servers />
   </component>
