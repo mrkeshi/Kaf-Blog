@@ -6,7 +6,7 @@
       <ul class="flex max-md:mx-auto">
         <li><NuxtLink :to="{name:'index'}" class="text-base max-md:text-sm-2 text-white hover:text-blue-600">خانه</NuxtLink></li>
         <li class="mx-2 text-base text-blue-600">|</li>
-        <li><NuxtLink class="text-base max-md:text-sm-2 text-white hover:text-blue-600">تماس بامن</NuxtLink></li>
+        <li><NuxtLink :to="{name:'contact'}" class="text-base max-md:text-sm-2 text-white hover:text-blue-600">تماس بامن</NuxtLink></li>
         <li class="mx-2 text-base text-blue-600">|</li>
         <li><NuxtLink :to="{name:'about'}" class="text-base max-md:text-sm-2 text-white hover:text-blue-600">درباره من</NuxtLink></li>
       </ul>
