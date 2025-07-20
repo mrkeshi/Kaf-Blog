@@ -1,3 +1,1 @@
-export interface ApiResponse<TData> {
-    data: TData | null;
-  }
+export type ApiResponse<TData> = TData;

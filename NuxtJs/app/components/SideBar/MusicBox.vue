@@ -14,10 +14,10 @@
       </div>
       <div class="BodyCardCateGory w-full flex flex-col mt-5">
         <img src="/images/music.png" class="w-full rounded-2xl h-auto" alt=""/>
-        <h4 class="font-black text-center text-[17px] mt-3 text-black-400">منگه ها</h4>
-        <h5 class="font-medium text-base text-center text-black-200">حیدو هدایتی</h5>
+        <h4 class="font-black text-center text-[17px] mt-3 text-black-400">{{ music_title }} </h4>
+        <h5 class="font-medium text-base text-center text-black-200">{{music_artist}}</h5>
         <div class="rounded-xl p-0 w-full mt-2">
-          <audio ref="audioRef" :src="audioSrc"></audio>
+          <audio ref="audioRef"  preload="none" :src="audioSrc"></audio>
           <div class="flex flex-row-reverse items-end justify-between gap-3">
             <div class="flex flex-col items-center w-16">
               <button @click="togglePlay" class="w-full h-16 text-white bg-black-400 rounded-full text-3xl flex items-center justify-center">
@@ -37,7 +37,30 @@
 </template>
 
 <script lang="ts" setup>
+
+
+
+defineProps({
+  music:{
+    type:String ,
+    default:' '
+  },
+  cover:{
+    type:String,
+    default:' '
+  },
+  music_title:{
+    type:String,
+    default:' '
+  },
+  music_artist:{
+    type:String,
+    default:' '
+  },
+})
+
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { string } from 'yup'
 
 const audioSrc = './heydo.mp3'
 const audioRef = ref<HTMLAudioElement | null>(null)
@@ -74,6 +97,12 @@ const updateVisualizer = () => {
 
 const togglePlay = () => {
   if (!audioRef.value) return
+
+  // فقط اگر src خالی بود، تنظیمش کن
+  if (!audioRef.value.src) {
+    audioRef.value.src = music || ''
+  }
+
   if (audioRef.value.paused) {
     audioRef.value.play()
     isPlaying.value = true
@@ -84,6 +113,7 @@ const togglePlay = () => {
     bars.forEach(bar => (bar.style.animationPlayState = 'paused'))
   }
 }
+
 
 onMounted(() => {
   if (!audioRef.value || !equalizerRef.value) return

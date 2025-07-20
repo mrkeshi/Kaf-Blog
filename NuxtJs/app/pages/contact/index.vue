@@ -36,6 +36,7 @@ import * as Yup from 'yup'
 import { useCustomToastify } from '~/composable/useCustomToastify';
 import type { ContactDTO } from '~/models/Contact/ContactDTO';
 import { sendContactDataService } from '~/services/Contact.Service';
+
 definePageMeta({
   layout: 'simple-layout'
 })

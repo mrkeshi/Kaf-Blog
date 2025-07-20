@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["@/assets/css/main.css"],
   
-  modules: ['nuxt-toastify'],
+  modules: ['nuxt-toastify', "@pinia/nuxt"],
    toastify: {
      autoClose: 2000,
      position: 'top-right',

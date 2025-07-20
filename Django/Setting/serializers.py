@@ -8,13 +8,21 @@ class AboutSerializer(serializers.ModelSerializer):
         model = About
         fields = '__all__'
 class SettingSerializer(serializers.ModelSerializer):
+    count = serializers.SerializerMethodField()
+
     class Meta:
         model = SiteSetting
-        fields = '__all__'
+        exclude = ['id']
+
+    def get_count(self, obj):
+        from .models import NotificationSubscription
+        return NotificationSubscription.objects.count()
+
 class LinksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Links
         fields = '__all__'
+
 
 class NotificationSubscriptionCreateSerializer(serializers.ModelSerializer):
     class Meta:
