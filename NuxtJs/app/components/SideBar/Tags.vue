@@ -15,34 +15,11 @@
         </div>
        <div class="BodyCardCateGory mt-4">
         <ul class="flex gap-2 flex-wrap ">
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
+            <li v-for="item in data" class="bluew-auto flex justify-between my-1 ">
+                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">{{ item.name }}</a>
             </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
-            <li class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-            </li>
+        
+ 
         </ul>
        </div>
             
@@ -50,7 +27,13 @@
 </template>
 
 <script lang="ts" setup>
+import type { TagDTO } from '~/models/SideBarData/MetaDataDTO';
 
+defineProps({
+    data:{
+        type:Object as PropType<TagDTO[]>
+    }
+})
 </script>
 
 <style>

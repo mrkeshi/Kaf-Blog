@@ -3,9 +3,9 @@
         <SideBarMusicBox :music="musicData.music" :cover="musicData.cover" :music_title="musicData.music_title"
             :music_artist="musicData.music_artist"></SideBarMusicBox>
 
-        <SideBarCateGory></SideBarCateGory>
-        <SideBarTags></SideBarTags>
-        <SideBarLinks></SideBarLinks>
+        <SideBarCateGory :data="MetaData?.categories"></SideBarCateGory>
+        <SideBarTags :data="MetaData?.tags"></SideBarTags>
+        <SideBarLinks :data="MetaData?.links"></SideBarLinks>
     </aside>
 
 </template>

@@ -9,3 +9,10 @@ export const getPostListService = (current:number): Promise<ApiResponse<Paginate
         method:'get',
     });
 }
+
+export const getSinglePostService = (Slug:String): Promise<ApiResponse<PaginatedPostListResponseDTO>> => {
+ 
+    return Fetch<PaginatedPostListResponseDTO>(`posts/${Slug}`,{
+        method:'get',
+    });
+}
