@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 
 from Post.models import Tag, Category, Post, Like
 from Post.serializers import TagSerializer, CategoryWithPostCountSerializer,PostListSerializer, PostDetailSerializer,LikeCreateSerializer, CommentCreateSerializer
+from Setting.models import Links
+from Setting.serializers import LinksSerializer
 
 
 class LatestTagsView(ListAPIView):
@@ -104,3 +106,20 @@ class PostsByCategoryView(ListAPIView):
             category__slug=slug,
             is_draft=False
         ).order_by('-created_at')
+
+
+class HomeSidebarDataView(APIView):
+    def get(self, request, *args, **kwargs):
+        tags = Tag.objects.order_by('-id')[:50]
+        categories = Category.objects.annotate(post_count=Count('post'))
+        links = Links.objects.all()
+
+        tag_serializer = TagSerializer(tags, many=True)
+        category_serializer = CategoryWithPostCountSerializer(categories, many=True)
+        link_serializer = LinksSerializer(links, many=True)
+
+        return Response({
+            'tags': tag_serializer.data,
+            'categories': category_serializer.data,
+            'links': link_serializer.data
+        }, status=status.HTTP_200_OK)

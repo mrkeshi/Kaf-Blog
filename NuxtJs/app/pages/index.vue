@@ -42,11 +42,14 @@ import { useRoute, useRouter } from 'vue-router'
 const pageSize = 8
 const route = useRoute()
 const router = useRouter()
-
+const nuxt=useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
+const key = computed(() => `post-list-${currentPage.value}`)
 
-const { data, pending, refresh } = await useAsyncData('post-list', () => {
+const { data, pending, refresh } =  useAsyncData(key, () => {
   return getPostListService(currentPage.value)
+},{
+   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
 })
 
 const totalPages = computed(() => {
@@ -59,10 +62,7 @@ function goToPage(page: number) {
   currentPage.value = page
 }
 
-watch(currentPage, (newPage) => {
-  router.replace({ query: { ...route.query, page: newPage } })
-  refresh()
-})
+
 
 watch(route, (newRoute) => {
   const pageFromQuery = Number(newRoute.query.page) || 1
