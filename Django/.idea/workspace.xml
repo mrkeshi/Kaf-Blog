@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlogDjango/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BlogDjango/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/SideBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/SideBar/CateGory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/SideBar/CateGory.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/SideBar/Tags.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/SideBar/Tags.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/layouts/default.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/layouts/default.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +142,7 @@
       <workItem from="1752962971497" duration="4958000" />
       <workItem from="1753031006453" duration="9023000" />
       <workItem from="1753053812537" duration="3867000" />
+      <workItem from="1753124391299" duration="398000" />
     </task>
     <servers />
   </component>

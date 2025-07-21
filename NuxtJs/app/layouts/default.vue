@@ -20,7 +20,9 @@
       music_title:mySettingStore.siteSettingData?.music_title,
       
     }
-    "></SideBar> 
+    "
+    :MetaData="data"
+    ></SideBar> 
     <div v-else class="w-full lg:w-1/4"> 
     <skeleton-simple class="h-28 w-auto rounded-2xl mb-8" :repeat="7"  />
     </div>
