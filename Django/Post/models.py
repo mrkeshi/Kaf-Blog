@@ -43,7 +43,7 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100, verbose_name="عنوان")
     content = RichTextField(verbose_name="توضیحات")
-    image = models.ImageField(upload_to='post_images', verbose_name="تصویر")
+    image = models.ImageField(upload_to='post_images',null=True, blank=True,verbose_name= "تصویر")
     created_at = models.DateTimeField(verbose_name="تاریخ ایجاد")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروزرسانی")
     is_draft = models.BooleanField(default=False, verbose_name="پیش‌نویس")

@@ -1,10 +1,22 @@
+from jalali_date import datetime2jalali
 from rest_framework import serializers
-from .models import Tag,Category,Post
+from .models import Tag, Category, Post, Comment, Like
+
+
+def to_jalali_readable(dt):
+    if not dt:
+        return None
+    j_date = datetime2jalali(dt)
+    return f"{j_date.day} {j_date.strftime('%B %Y')}"
+
+
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['id', 'name', 'slug']
+
+
 class CategoryWithPostCountSerializer(serializers.ModelSerializer):
     post_count = serializers.IntegerField(read_only=True)
 
@@ -12,20 +24,25 @@ class CategoryWithPostCountSerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name', 'slug', 'post_count']
 
-from rest_framework import serializers
-from .models import Post, Comment, Like
 
 class CommentListSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+
     class Meta:
         model = Comment
         fields = ['id', 'name', 'message', 'answer', 'created_at']
 
+    def get_created_at(self, obj):
+        return to_jalali_readable(obj.created_at)
+
 
 class PostListSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
     like_count = serializers.SerializerMethodField()
     category = CategoryWithPostCountSerializer()
-    tags = TagSerializer()
+    tags = TagSerializer(many=True)
+
     class Meta:
         model = Post
         fields = [
@@ -33,6 +50,9 @@ class PostListSerializer(serializers.ModelSerializer):
             'comment_count', 'like_count', 'category', 'tags',
             'is_draft', 'content'
         ]
+
+    def get_created_at(self, obj):
+        return to_jalali_readable(obj.created_at)
 
     def get_comment_count(self, obj):
         return obj.comments.filter(active=True).count()
@@ -42,13 +62,27 @@ class PostListSerializer(serializers.ModelSerializer):
 
 
 class PostDetailSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
     like_count = serializers.SerializerMethodField()
+    category = CategoryWithPostCountSerializer(read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = [
+            'id', 'title', 'slug', 'image', 'created_at', 'updated_at', 'views',
+            'comment_count', 'like_count', 'category', 'tags', 'is_draft',
+            'content', 'comments'
+        ]
+
+    def get_created_at(self, obj):
+        return to_jalali_readable(obj.created_at)
+
+    def get_updated_at(self, obj):
+        return to_jalali_readable(obj.updated_at) if obj.updated_at else None
 
     def get_comments(self, obj):
         qs = obj.comments.filter(active=True)

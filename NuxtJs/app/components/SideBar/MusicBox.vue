@@ -13,7 +13,7 @@
         <h4 class="text-[18px] max-md:text-base text-black-300 font-black">موسیقی</h4>
       </div>
       <div class="BodyCardCateGory w-full flex flex-col mt-5">
-        <img src="/images/music.png" class="w-full rounded-2xl h-auto" alt=""/>
+        <img :src="cover" class="w-full rounded-2xl h-auto" loading="lazy"  :alt="music_title+music_artist"/>
         <h4 class="font-black text-center text-[17px] mt-3 text-black-400">{{ music_title }} </h4>
         <h5 class="font-medium text-base text-center text-black-200">{{music_artist}}</h5>
         <div class="rounded-xl p-0 w-full mt-2">
