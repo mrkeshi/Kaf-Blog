@@ -12,7 +12,7 @@
     </main>
   
     <!-- Sidebar -->
-    <SideBar :musicData="
+    <SideBar v-if="!pending" :musicData="
     {
       music:mySettingStore.siteSettingData?.music,
       cover:mySettingStore.siteSettingData?.music_cover,
@@ -20,7 +20,12 @@
       music_title:mySettingStore.siteSettingData?.music_title,
       
     }
-    "></SideBar>
+    "></SideBar> 
+    <div v-else class="w-full lg:w-1/4"> 
+    <skeleton-simple class="h-28 w-auto rounded-2xl mb-8" :repeat="7"  />
+    </div>
+
+
   </div>
 
   <TheFooter></TheFooter>
@@ -28,14 +33,19 @@
 </template>
 
 <script lang="ts" setup>
+import { getSideBarDataService } from '~/services/MetaData.service'
 import { getSettingDataService } from '~/services/SiteSetting.Service'
-
 const mySettingStore = useMySettingDataStore()
+const nuxt=useNuxtApp()
 await callOnce(async () => {
   if (!mySettingStore.siteSettingData) {
     const res = await getSettingDataService()
     mySettingStore.setData(res)
   }
+})
+
+const {data,pending}=useAsyncData("sidebar-data",()=>getSideBarDataService(),{
+   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
 })
 
 </script>
