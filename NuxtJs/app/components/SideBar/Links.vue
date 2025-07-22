@@ -19,7 +19,7 @@
                         </svg>
                         
                 </span>
-                <h4 class="text-[18px] max-md:text-base text-black-300 font-black" > پیوندها</h4>
+                <h4 class="text-[17px] max-md:text-base text-black-300 font-black" > پیوندها</h4>
         </div>
        <div class="BodyCardCateGory mt-4">
         <ul class="flex flex-col ">

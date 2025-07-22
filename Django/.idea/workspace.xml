@@ -6,10 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Post/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/Post/SendComment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/Post/SendComment.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/Post/card.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/Post/card.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../NuxtJs/app/pages/[slug].vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/pages/[slug].vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/pages/contact/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/pages/contact/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/services/Post.Service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/services/Post.Service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,6 +147,7 @@
       <workItem from="1753031006453" duration="9023000" />
       <workItem from="1753053812537" duration="3867000" />
       <workItem from="1753124391299" duration="3091000" />
+      <workItem from="1753165100427" duration="1722000" />
     </task>
     <servers />
   </component>

@@ -3,7 +3,7 @@
     <div class="container mx-auto text-center py-12 max-md:py-12 h-auto">
       <h1 class="text-4xl font-bold mb-4 text-black-400">ارتباط با من</h1>
       <p class="text-lg text-black-300 mb-8 px-4 max-md:text-base"> هم می&zwnj;توانی پیام&zwnj;ات را به آدرس ایمیل
-        me@mr-keshi.ir بفرستی و هم اینجا،</p>
+        {{setting.siteSettingData?.email_admin}} بفرستی و هم اینجا،</p>
 
       <div class="isolate px-6 py-2 sm:py-8 lg:px-6">
 
@@ -37,6 +37,8 @@ import { useCustomToastify } from '~/composable/useCustomToastify';
 import type { ContactDTO } from '~/models/Contact/ContactDTO';
 import { sendContactDataService } from '~/services/Contact.Service';
 
+const setting=useMySettingDataStore()
+
 definePageMeta({
   layout: 'simple-layout'
 })
@@ -61,7 +63,7 @@ const contactData: ContactDTO = reactive({
 
 })
 
-const {showSuccess}=useCustomToastify()
+const {showSuccess,showError}=useCustomToastify()
 const sendDataContact =async () => {
  loading.value=true
  await sendContactDataService(contactData).then((res)=>{

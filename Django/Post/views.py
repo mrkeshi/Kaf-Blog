@@ -28,10 +28,24 @@ class PostListView(ListAPIView):
         return Post.objects.filter(is_draft=False).order_by('-created_at')
 
 
+from django.db.models import F
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.response import Response
+from .models import Post
+from .serializers import PostDetailSerializer
+
 class PostDetailView(RetrieveAPIView):
     queryset = Post.objects.filter(is_draft=False)
     serializer_class = PostDetailSerializer
     lookup_field = 'slug'
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        Post.objects.filter(pk=instance.pk).update(views=F('views') + 1)
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 
 class LikeCreateView(CreateAPIView):

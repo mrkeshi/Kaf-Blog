@@ -10,7 +10,7 @@
             <rect x="-2.48486" width="6.21212" height="41" fill="#323232"/>
           </svg>
         </span>
-        <h4 class="text-[18px] max-md:text-base text-black-300 font-black">موسیقی</h4>
+        <h4 class="text-[17px] max-md:text-base text-black-300 font-black">موسیقی</h4>
       </div>
       <div class="BodyCardCateGory w-full flex flex-col mt-5">
         <img :src="cover" class="w-full rounded-2xl h-auto" loading="lazy"  :alt="music_title+music_artist"/>

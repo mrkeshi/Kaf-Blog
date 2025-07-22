@@ -1,5 +1,6 @@
 import { Fetch } from "../utilities/CutsomMyFetchApi";
 import { type ApiResponse } from "~/models/ApiRespose";
+import type { CommentDTO } from "~/models/Post/CommentDTO";
 import type { PaginatedPostListResponseDTO, PostDetailDTO } from "~/models/Post/PostDTO";
 
 
@@ -14,5 +15,12 @@ export const getSinglePostService = (Slug:String): Promise<ApiResponse<PostDetai
  
     return Fetch<PostDetailDTO>(`posts/${Slug}/`,{
         method:'get',
+    });
+}
+export const sendCommentDataService = (data:CommentDTO): Promise<ApiResponse<CommentDTO>> => {
+ 
+    return Fetch<CommentDTO>('comments/create',{
+        method:'post',
+        body:data
     });
 }

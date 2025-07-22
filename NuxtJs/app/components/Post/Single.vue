@@ -38,7 +38,7 @@
                         </clipPath>
                         </defs>
                         </svg>
-                        <span class="text-base max-md:text-xs  text-black-300 font-light"><span v-persian-number="post?.views"></span> بازدید</span>
+                        <span class="text-base max-md:text-xs  text-black-300 font-light"><span v-persian-number="post?.views+1"></span> بازدید</span>
 
                         
                 </div>
