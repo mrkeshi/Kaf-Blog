@@ -10,6 +10,7 @@
         autocomplete="given-name"
         :disabled="disabled"
         @input="handle"
+        :value="value"
         :class="[
           'block w-full rounded-2xl px-3.5 py-3.5 text-base text-black-300 outline-2 -outline-offset-1 outline-black-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600',
           { 'error-input': errorMessage },

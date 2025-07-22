@@ -1,11 +1,11 @@
 <template>
   <div class="articles flex flex-col" v-if="!pending">
     <article class="mt-6" >
-      <PostSingle :post="data"></PostSingle>
+      <PostSingle v-if="data?.id" :post="data"></PostSingle>
       <div class="h-0.5 w-full bg-black-100 my-8 max-md:my-4"></div>
       <div class="comments flex flex-col">
         <PostShowComment :comments="data?.comments" :commentCount="data?.comment_count"></PostShowComment>
-        <PostSendComment class="mb-8"></PostSendComment>
+        <PostSendComment v-if="data?.id" :post="data?.id" class="mb-8"></PostSendComment>
       </div>
     </article>
 

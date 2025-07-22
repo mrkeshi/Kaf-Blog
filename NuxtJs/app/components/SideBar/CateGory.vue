@@ -19,12 +19,12 @@
                         </svg>
                         
                 </span>
-                <h4 class="text-[18px] max-md:text-base text-black-300 font-black" >دسته بندی</h4>
+                <h4 class="text-[17px] max-md:text-base text-black-300 font-black" >دسته بندی</h4>
         </div>
        <div class="BodyCardCateGory mt-4">
         <ul>
             <li  v-for="item in data" class="w-full flex justify-between my-5 ">
-                <a href="#" class="text-black-400 transition hover:text-blue-600 text-[17px] max-md:text-sm-2 font-bold">{{ item.name }} </a>
+                <a href="#" class="text-black-400 transition hover:text-blue-600 text-[16px] max-md:text-sm-2 font-bold">{{ item.name }} </a>
                 <a href="#" class="bg-black-400 rounded-full h-7 w-7  flex justify-center items-center  text-white text-center text-base max-md:text-sm-2" v-persian-number="item.post_count"></a>
             </li>
    
