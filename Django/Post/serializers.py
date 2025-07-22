@@ -3,6 +3,19 @@ from rest_framework import serializers
 from .models import Tag, Category, Post, Comment, Like
 
 
+def to_jalali_readable2(datetime_obj):
+    jalali = datetime2jalali(datetime_obj)
+
+    def to_persian_number(s):
+        return str(s).translate(str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹'))
+
+    day = to_persian_number(jalali.day)
+    month = jalali.strftime('%B')
+    year = to_persian_number(jalali.year)
+    time = to_persian_number(datetime_obj.strftime('%H:%M'))
+
+    return f"{day} {month} {year} | {time}"
+
 def to_jalali_readable(dt):
     if not dt:
         return None
@@ -33,7 +46,7 @@ class CommentListSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'message', 'answer', 'created_at']
 
     def get_created_at(self, obj):
-        return to_jalali_readable(obj.created_at)
+        return to_jalali_readable2(obj.created_at)
 
 
 class PostListSerializer(serializers.ModelSerializer):

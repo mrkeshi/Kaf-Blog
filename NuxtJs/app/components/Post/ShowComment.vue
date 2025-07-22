@@ -1,12 +1,12 @@
 <template>
   <div>
       <h3 class="text-xl max-md:text-lg font-bold text-black-400">
-                    <b class="text-blue-600 font-black">۵</b>
-                    کامنت ثبت شده است.
+                    <b class="text-blue-600 font-black" v-persian-number="commentCount"></b>
+                     کامنت ثبت شده است. 
                   </h3>
                   <div class="comments-box flex my-4 flex-col gap-y-8">
 
-                    <div class="comment w-full p-6 max-md:p-3 border-2 rounded-3xl border-black-100">
+                    <div class="comment w-full p-6 max-md:p-3 border-2 rounded-3xl border-black-100" v-for="comment in comments">
                       <div class="flex justify-between">
                           <div class="user">
                             <li class="bluew-auto flex items-center justify-between font-bold">
@@ -22,22 +22,22 @@
                                       </defs>
                                       </svg>
                                       
-                                  علیرضا 
+                                  {{comment.name}} 
                               </a>
                               گفته:
                           </li>
                           </div>
-                            <div class="date text-black-200 text-sm-2 max-md:text-sm">
-                                ۱۲ اردیبهشت ۱۴۰۳ | ۲۲:۰۵
+                            <div class="date text-black-200 text-sm-2 max-md:text-sm" v-persian-number="comment.created_at">
+                              
                             </div>
                       </div>
                       <p class="text-black-300 my-2 mr-1 max-md:text-sm">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                        {{comment.message}}
                       </p>
                       <div class="flex items-center max-md:text-sm flex-wrap">
-                        <b class="text-blue-600">پاسخ :</b>
-                        <p class="text-black-300 my-2 mr-1">
-                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                        <b class="text-blue-600" v-if="comment.answer">پاسخ :</b>
+                        <p class="text-black-300 my-2 mr-1" v-if="comment.answer">
+                         {{comment.answer}}
                         </p>
                       </div>
                     </div>
@@ -47,6 +47,21 @@
 </template>
 
 <script lang="ts" setup>
+import type { Prop, PropType } from 'vue';
+import { number } from 'yup';
+import type { CommentDTO } from '~/models/Post/PostDTO';
+
+
+defineProps({
+  commentCount:{
+    type:Number,
+    default:0
+  },
+  comments:{
+    type:Object as PropType<CommentDTO[]>
+  }
+})
+
 
 </script>
 

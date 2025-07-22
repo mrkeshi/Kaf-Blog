@@ -1,10 +1,10 @@
 <template>
   <div>
        
-          <img src="/images/post.jpg" class="block rounded-4xl max-md:rounded-3xl w-full h-auto" alt="">
+          <img v-if="post?.image" :src="post.image" class="block rounded-4xl max-md:rounded-3xl w-full h-auto" alt="">
 
-            <h2 class="text-3xl text-black-400 font-black max-md:text-[19px]  text-center my-8">همیشه به رفتن و فرار کردن فکر میکنم؟ چرا واقعا؟
-
+            <h2 class="text-3xl text-black-400 font-black max-md:text-[19px]  text-center my-8">
+{{ post?.title }}
             </h2>
            
 
@@ -21,11 +21,11 @@
                         </clipPath>
                         </defs>
                         </svg>
-                        <span class="text-sm max-md:text-xs  text-black-300 font-light"> ۱۲ اردیبهشت ۱۳۸۲ </span>
+                        <span class="text-sm max-md:text-xs  text-black-300 font-light" v-persian-number="post?.created_at"> </span>
                         
                 </div>
                 <span class="text-sm mx-1.5"> | </span>
-                <span class="text-base max-md:text-xs  text-black-300 font-light"> <i class="text-blue-600 font-black">#</i> روزمرگی</span>
+                <span class="text-base max-md:text-xs  text-black-300 font-light"> <i class="text-blue-600 font-black">#</i> {{ post?.category.name }}</span>
                 <span class="text-sm mx-1.5"> | </span>
                 <div class="flex items-center">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +38,7 @@
                         </clipPath>
                         </defs>
                         </svg>
-                        <span class="text-base max-md:text-xs  text-black-300 font-light">۲۳ بازدید</span>
+                        <span class="text-base max-md:text-xs  text-black-300 font-light"><span v-persian-number="post?.views"></span> بازدید</span>
 
                         
                 </div>
@@ -55,30 +55,25 @@
                         </defs>
                         </svg>
                         
-                        <span class="text-base max-md:text-xs mr-1  text-black-300 font-light">۶ نظر</span>
+                        <span class="text-base max-md:text-xs mr-1  text-black-300 font-light"><span v-persian-number="post?.comment_count"></span> نظر</span>
 
                         
                 </div>
               
             </div>
             <div class="BodyArticle my-8 mb-4 max-md:my-4">
-                <p class="text-base  px-2 text-black-300 font-medium leading-7 text-justify">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                </p>
+                <div class="text-base  px-2 text-black-300 font-medium leading-7 text-justify" v-html="post?.content">
+
+                </div>
             </div>
             <div class="tag mb-6 max-md:mb-4 flex gap-2 items-center">
               <b>برچسپ:</b>
               <ul class="flex gap-2 flex-wrap ">
              
-                <li class="bluew-auto flex justify-between my-1 ">
-                    <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
+                <li class="bluew-auto flex justify-between my-1 " v-for="item in post?.tags">
+                    <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium"> {{ item.name }}</a>
                 </li>
-                <li class="bluew-auto flex justify-between my-1 ">
-                    <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-                </li>
-                <li class="bluew-auto flex justify-between my-1 ">
-                    <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">فصل اول</a>
-                </li>
+              
             </ul>
             </div>
             <div class="FooterArticle w-full flex flex-row-reverse justify-between items-center">
@@ -86,10 +81,10 @@
               <svg class="hover:fill-blue-600 transition cursor-pointer stroke-blue-600 stroke-2" width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.373 3.02051C17.377 -0.33962 22.2217 -0.339604 25.2256 3.02051C28.2582 6.41322 28.2585 11.9346 25.2256 15.3271L14.5938 27.2188C14.2587 27.5935 13.7413 27.5935 13.4062 27.2188L2.77441 15.3271C-0.258493 11.9346 -0.258263 6.41324 2.77441 3.02051C5.77835 -0.33962 10.623 -0.339604 13.627 3.02051L14 3.4375L14.373 3.02051Z"></path>
                 </svg>
-                <span class="font-black -mb-1"> ۳ لایک </span>
+                <span class="font-black -mb-1"> <span v-persian-number="post?.like_count"></span> لایک </span>
 
              </div>
-             <div class="share flex items-center gap-1 text-blue-600">
+             <div class="share flex items-center gap-1 text-blue-600 cursor-pointer" @click="sharePost">
               <svg width="26" height="26" viewBox="0 0 28 28" class="fill-blue-600" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_67_1096)">
                 <path d="M21 18.76C20.1133 18.76 19.32 19.11 18.7133 19.6584L10.395 14.8167C10.4533 14.5484 10.5 14.28 10.5 14C10.5 13.72 10.4533 13.4517 10.395 13.1834L18.62 8.38837C19.25 8.97171 20.0783 9.33337 21 9.33337C22.9367 9.33337 24.5 7.77004 24.5 5.83337C24.5 3.89671 22.9367 2.33337 21 2.33337C19.0633 2.33337 17.5 3.89671 17.5 5.83337C17.5 6.11337 17.5467 6.38171 17.605 6.65004L9.38 11.445C8.75 10.8617 7.92167 10.5 7 10.5C5.06333 10.5 3.5 12.0634 3.5 14C3.5 15.9367 5.06333 17.5 7 17.5C7.92167 17.5 8.75 17.1384 9.38 16.555L17.6867 21.4084C17.6283 21.6534 17.5933 21.91 17.5933 22.1667C17.5933 24.045 19.1217 25.5734 21 25.5734C22.8783 25.5734 24.4067 24.045 24.4067 22.1667C24.4067 20.2884 22.8783 18.76 21 18.76Z"></path>
@@ -100,7 +95,7 @@
                 </clipPath>
                 </defs>
                 </svg>
-                <span class="font-black -mb-1">اشتراک گذاری</span>
+                <span class="font-black -mb-1 ">اشتراک گذاری</span>
              </div>
              
                               </div>
@@ -109,6 +104,57 @@
 
 <script lang="ts" setup>
 
+import { useCustomToastify } from '~/composable/useCustomToastify'
+import type { PostDetailDTO } from '~/models/Post/PostDTO'
+const { showSuccess, showError } = useCustomToastify()
+
+const { post } = defineProps<{
+  post: PostDetailDTO
+}>()
+const isSharing = ref(false)
+
+function sharePost() {
+  if (isSharing.value) return
+  isSharing.value = true
+
+  const title = post?.title || 'مشاهده مطلب'
+  const url = window.location.href
+  const text = `این مطلب رو ببین: ${title}`
+
+  if (navigator.share) {
+    navigator
+      .share({ title, text, url })
+      .then(() => {
+        console.log('اشتراک‌گذاری موفق بود')
+      })
+      .catch((err) => {
+        console.warn('لغو یا خطا در اشتراک‌گذاری:', err)
+      })
+      .finally(() => {
+        isSharing.value = false
+      })
+  } else {
+    copyToClipboard(url)
+    showSuccess({
+      title: 'موفقیت',
+      message: 'لینک مطلب در کلیپ‌بورد کپی شد.',
+      autoClose: 4000
+    })
+    isSharing.value = false
+  }
+}
+
+function copyToClipboard(text: string) {
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  textarea.setAttribute('readonly', '')
+  textarea.style.position = 'absolute'
+  textarea.style.left = '-9999px'
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand('copy')
+  document.body.removeChild(textarea)
+}
 </script>
 
 <style>

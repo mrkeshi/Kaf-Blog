@@ -1,6 +1,6 @@
 import { Fetch } from "../utilities/CutsomMyFetchApi";
 import { type ApiResponse } from "~/models/ApiRespose";
-import type { PaginatedPostListResponseDTO } from "~/models/Post/PostDTO";
+import type { PaginatedPostListResponseDTO, PostDetailDTO } from "~/models/Post/PostDTO";
 
 
 export const getPostListService = (current:number): Promise<ApiResponse<PaginatedPostListResponseDTO>> => {
@@ -10,9 +10,9 @@ export const getPostListService = (current:number): Promise<ApiResponse<Paginate
     });
 }
 
-export const getSinglePostService = (Slug:String): Promise<ApiResponse<PaginatedPostListResponseDTO>> => {
+export const getSinglePostService = (Slug:String): Promise<ApiResponse<PostDetailDTO>> => {
  
-    return Fetch<PaginatedPostListResponseDTO>(`posts/${Slug}`,{
+    return Fetch<PostDetailDTO>(`posts/${Slug}/`,{
         method:'get',
     });
 }

@@ -7,7 +7,7 @@ urlpatterns = [
     path('categories/', CategoryListWithPostCountView.as_view(), name='category-list-with-count'),
 
     # --- Post related (مهم: اول خاص‌ها، بعد عمومی)
-    path('posts/search', PostSearchView.as_view(), name='post-search'),
+    path('posts/search/', PostSearchView.as_view(), name='post-search'),
     path('posts/tag/<str:slug>/', PostsByTagView.as_view(), name='posts-by-tag'),
     path('posts/category/<str:slug>/', PostsByCategoryView.as_view(), name='posts-by-category'),
     path('posts/<str:slug>/', PostDetailView.as_view(), name='post-detail'),
