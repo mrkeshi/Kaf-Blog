@@ -1,5 +1,5 @@
 <template>
-  <div class="articles flex flex-col" v-if="!pending">
+  <div class="articles flex flex-col" v-if="!pending && data">
     <article class="mt-6" >
       <PostSingle v-if="data?.id" :post="data"></PostSingle>
       <div class="h-0.5 w-full bg-black-100 my-8 max-md:my-4"></div>
@@ -20,11 +20,20 @@
 </template>
 
 <script lang="ts" setup>
+
+
 import { getSinglePostService } from '~/services/Post.Service';
 
 const route=useRoute()
 const {error,pending,data}=useAsyncData("single-post",()=>getSinglePostService(route.params.slug as string))
 
+
+
+watchEffect(() => {
+  if (!pending.value && !data.value) {
+    throw createError({ statusCode: 404, statusMessage: 'Page Not Found', fatal: true })
+  }
+})
 
 </script>
 

@@ -5,7 +5,7 @@
       <post-card v-for="item in data?.results" :key="item.id" :post="item"></post-card>
     </template>
 
-    <div dir="ltr" class="flex items-center justify-center gap-2 my-12 max-md:mb-4 select-none text-black-400" v-if="data?.count>8">
+    <div dir="ltr" class="flex items-center justify-center gap-2 my-12 max-md:mb-4 select-none text-black-400" v-if="data && data?.count>8 ">
       <!-- Previous Button -->
       <button @click="goToPage(currentPage - 1)" :disabled="currentPage <= 1" :class="[
         'cursor-pointer hover:text-blue-600 p-2 rounded',
