@@ -60,7 +60,7 @@
 
             </div>
             <div class="FooterArticle">
-                <NuxtLink :to="`${post.slug}`"  class="inline-block float-left px-4 py-1.5 text-sm font-semibold text-black-400 border border-black-400 rounded-full transition-all duration-300 hover:bg-blue-600 hover:text-white">
+                <NuxtLink :to="{name:'slug',params:{slug:post.slug}}"  class="inline-block float-left px-4 py-1.5 text-sm font-semibold text-black-400 border border-black-400 rounded-full transition-all duration-300 hover:bg-blue-600 hover:text-white">
                     ادامه مطلب
                   </NuxtLink>
                               </div>
@@ -70,6 +70,7 @@
 <script lang="ts" setup>
 import { type PostListDTO } from '~/models/Post/PostDTO';
 import { computed } from 'vue';
+import type Slug from '~/pages/[slug].vue';
 const props=defineProps<{post:PostListDTO}>()
 
 const truncatedContent = computed(() => {

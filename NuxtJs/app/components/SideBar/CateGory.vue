@@ -24,8 +24,8 @@
        <div class="BodyCardCateGory mt-4">
         <ul>
             <li  v-for="item in data" class="w-full flex justify-between my-5 ">
-                <a href="#" class="text-black-400 transition hover:text-blue-600 text-[16px] max-md:text-sm-2 font-bold">{{ item.name }} </a>
-                <a href="#" class="bg-black-400 rounded-full h-7 w-7  flex justify-center items-center  text-white text-center text-base max-md:text-sm-2" v-persian-number="item.post_count"></a>
+                <NuxtLink :to="{ name: 'category-slug', params: { slug: item.slug } }"  class="text-black-400 transition hover:text-blue-600 text-[16px] max-md:text-sm-2 font-bold">{{ item.name }} </NuxtLink>
+                <NuxtLink :to="{ name: 'category-slug', params: { slug: item.slug } }" class="bg-black-400 rounded-full h-7 w-7  flex justify-center items-center  text-white text-center text-base max-md:text-sm-2" v-persian-number="item.post_count"></NuxtLink>
             </li>
    
             

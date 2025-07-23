@@ -1,5 +1,11 @@
 <template>
-  <the-header></the-header>
+  <div>
+
+ 
+      <TheHeader :title="mySettingStore.siteSettingData?.site_name"
+      :description="mySettingStore.siteSettingData?.meta_description"
+       :count="mySettingStore.siteSettingData?.count"></TheHeader>
+       
   <div v-if="error?.statusCode == 404">
 
     <div class="container mx-auto text-center py-16 max-md:py-12 h-auto">
@@ -318,7 +324,7 @@
     </div>
 
   </div>
-  <div v-else class="min-h-screen bg-gray-50 flex flex-col pt-28 items-center px-4">
+  <div v-else-if="error" class="min-h-screen bg-gray-50 flex flex-col pt-28 items-center px-4">
     <div class=" shadow-2xl rounded-2xl max-w-xl w-full p-8 border border-gray-200">
       <div class="text-center">
         <h1 class="text-6xl font-extrabold text-red-500 mb-4">
@@ -341,11 +347,20 @@
     </div>
   </div>
   <the-footer></the-footer>
+   </div>
 </template>
 
 <script lang="ts" setup>
 const error = useError()
+import { getSettingDataService } from '~/services/SiteSetting.Service'
 
+const mySettingStore = useMySettingDataStore()
+await callOnce(async () => {
+  if (!mySettingStore.siteSettingData) {
+    const res = await getSettingDataService()
+    mySettingStore.setData(res)
+  }
+})
 </script>
 
 <style></style>
