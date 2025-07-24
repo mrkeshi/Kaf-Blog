@@ -1,3 +1,4 @@
+import { number } from "yup";
 import { Fetch } from "../utilities/CutsomMyFetchApi";
 import { type ApiResponse } from "~/models/ApiRespose";
 import type { CommentDTO } from "~/models/Post/CommentDTO";
@@ -57,3 +58,11 @@ export const toggleLikeService = (id:number): Promise<ApiResponse<LikeResponseDT
     });
 }
 
+export const getSearchedPostListServices = (query: string,current: number): Promise<ApiResponse<PaginatedPostListResponseDTO>> => {
+  return Fetch<PaginatedPostListResponseDTO>(
+    `posts/search/?q=${encodeURIComponent(query)}&page=${current}`,
+    {
+      method: 'get',
+    }
+  );
+};
