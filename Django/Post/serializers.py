@@ -111,7 +111,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
 class LikeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
-        fields = ['post', 'ip_address']
+        fields = ['post']
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
