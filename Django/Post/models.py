@@ -103,6 +103,8 @@ class Like(models.Model):
         verbose_name = "لایک"
         verbose_name_plural = "لایک‌ها"
         unique_together = ('post', 'ip_address')
-
+        indexes = [
+            models.Index(fields=['post', 'ip_address']),
+        ]
     def __str__(self):
         return f"{self.ip_address} -> {self.post.title}"

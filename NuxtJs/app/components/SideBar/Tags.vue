@@ -16,7 +16,7 @@
        <div class="BodyCardCateGory mt-4">
         <ul class="flex gap-2 flex-wrap ">
             <li v-for="item in data" class="bluew-auto flex justify-between my-1 ">
-                <a href="#" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">{{ item.name }}</a>
+                <NuxtLink :to="{name:'tag-slug',params:{slug:item.slug}}" class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">{{ item.name }}</NuxtLink>
             </li>
         
  

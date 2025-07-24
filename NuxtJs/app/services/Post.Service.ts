@@ -1,7 +1,7 @@
 import { Fetch } from "../utilities/CutsomMyFetchApi";
 import { type ApiResponse } from "~/models/ApiRespose";
 import type { CommentDTO } from "~/models/Post/CommentDTO";
-import type { PaginatedPostListResponseDTO, PostDetailDTO } from "~/models/Post/PostDTO";
+import type { LikedDTO, LikeResponseDTO, PaginatedPostListResponseDTO, PostDetailDTO } from "~/models/Post/PostDTO";
 import Slug from "~/pages/[slug].vue";
 
 
@@ -32,3 +32,28 @@ export const getPostListCategoryService = (current:number,category:string): Prom
         method:'get',
     });
 }
+export const getPostListTagService = (current:number,tag:string): Promise<ApiResponse<PaginatedPostListResponseDTO>> => {
+
+    return Fetch<PaginatedPostListResponseDTO>(`posts/tag/${tag}/?page=${current}`,{
+        method:'get',
+    });
+}
+
+
+export const checkingLikePostService = (id:number): Promise<ApiResponse<LikedDTO>> => {
+
+    return Fetch<LikedDTO>(`likes/check/${id}/`,{
+        method:'get',
+    });
+}
+
+export const toggleLikeService = (id:number): Promise<ApiResponse<LikeResponseDTO>> => {
+
+    return Fetch<LikeResponseDTO>(`likes/create/`,{
+        method:'post',
+        body:{
+            'post':id
+        }
+    });
+}
+

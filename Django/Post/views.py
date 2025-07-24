@@ -5,12 +5,14 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 
 from Post.models import Tag, Category, Post, Like
 from Post.serializers import TagSerializer, CategoryWithPostCountSerializer,PostListSerializer, PostDetailSerializer,LikeCreateSerializer, CommentCreateSerializer
 from Setting.models import Links
 from Setting.serializers import LinksSerializer
+from .utils import get_client_ip
 
 
 class LatestTagsView(ListAPIView):
@@ -48,24 +50,58 @@ class PostDetailView(RetrieveAPIView):
         return Response(serializer.data)
 
 
-class LikeCreateView(CreateAPIView):
-    serializer_class = LikeCreateSerializer
+# class LikeCreateView(CreateAPIView):
+#     serializer_class = LikeCreateSerializer
+#
+#     def create(self, request, *args, **kwargs):
+#
+#         data = request.data.copy()
+#
+#         ip= get_client_ip(request)
+#         data['ip_address'] =ip
+#
+#         serializer = self.get_serializer(data=data)
+#         serializer.is_valid(raise_exception=True)
+#
+#         post = serializer.validated_data['post']
+#         if Like.objects.filter(post=post, ip_address=ip).exists():
+#             return Response({'detail': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         self.perform_create(serializer)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+class LikeCreateView(APIView):
+    def post(self, request, *args, **kwargs):
+        post_id = request.data.get("post")
+        if not post_id:
+            return Response({"code": 0, "detail": "post ID is required"}, status=HTTP_400_BAD_REQUEST)
 
-    def create(self, request, *args, **kwargs):
-        ip = request.META.get('REMOTE_ADDR')
-        data = request.data.copy()
-        data['ip_address'] = ip
+        try:
+            post = Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            return Response({"code": 0, "detail": "Post not found"}, status=HTTP_400_BAD_REQUEST)
 
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
+        ip = get_client_ip(request)
+        existing_like = Like.objects.filter(post=post, ip_address=ip).first()
 
-        post = serializer.validated_data['post']
-        if Like.objects.filter(post=post, ip_address=ip).exists():
-            return Response({'detail': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
+        if existing_like:
+            existing_like.delete()
+            return Response({
+                "code": 2,
+                "status": "disliked",
+                "post": post_id
+            }, status=HTTP_200_OK)
 
-        self.perform_create(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+        # Otherwise, create the like
+        serializer = LikeCreateSerializer(data={"post": post_id})
+        if serializer.is_valid():
+            serializer.save(ip_address=ip)
+            return Response({
+                "code": 1,
+                "status": "liked",
+                "post": post_id
+            }, status=HTTP_200_OK)
+        else:
+            return Response({"code": 0, "detail": serializer.errors}, status=HTTP_400_BAD_REQUEST)
 
 class LikeCheckView(APIView):
     def get(self, request, pk):

@@ -56,3 +56,14 @@ export interface PostDetailDTO {
   tags: TagDTO[]
   comments: CommentDTO[]
 }
+
+export interface LikedDTO{
+  liked:boolean
+}
+
+
+export interface LikeResponseDTO {
+  code: 0 | 1 | 2;            // 0 = error, 1 = liked, 2 = disliked
+  status: 'liked' | 'disliked';
+  post: number;
+}

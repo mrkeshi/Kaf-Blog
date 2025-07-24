@@ -1,6 +1,6 @@
 <template>
   <div>
-      <footer class="w-full bg-black-400">
+      <footer class="w-full mt-8 bg-black-400">
     <div class="container mx-auto flex justify-between max-md:text-xs flex-wrap px-2 p-8 max-sm:p-6 max-md:justify-center max-md:flex-col-reverse">
       <p class="text-base max-md:mx-auto text-white max-md:mt-3">© اینا واژه‌ نیستن؛ تکه‌های دلمونه. بردنش آزاده، فراموشیِ اسممون نه.</p>
       <ul class="flex max-md:mx-auto">
