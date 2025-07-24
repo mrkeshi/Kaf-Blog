@@ -1,12 +1,23 @@
 <template>
   <div class="articles flex flex-col">
+
+    <div v-if="data && route.query.q" class="mb-6 border-b pb-4">
+      <p class="text-lg font-semibold">
+        نتیجه جستجو برای
+        <span class="text-blue-600">"{{ route.query.q }}"</span> -
+        <span class="text-blue-600 text-xl" v-persian-number="data.count"></span>
+        پست یافت شد.
+      </p>
+    </div>
+
     <skeleton-simple v-if="pending" class="w-full h-44 rounded-2xl mb-8" :repeat="10" />
+    
     <template v-else>
-      <post-card v-for="item in data?.results" :key="item.id" :post="item"></post-card>
+      <post-card v-for="item in data?.results" :key="item.id" :post="item" />
     </template>
 
-    <div dir="ltr" class="flex items-center justify-center gap-2 my-12 max-md:mb-4 select-none text-black-400" v-if="data && data?.count>8 ">
-      <!-- Previous Button -->
+    <div dir="ltr" class="flex items-center justify-center gap-2 my-12 max-md:mb-4 select-none text-black-400" v-if="data && data?.count > 8">
+      <!-- Prev -->
       <button @click="goToPage(currentPage - 1)" :disabled="currentPage <= 1" :class="[
         'cursor-pointer hover:text-blue-600 p-2 rounded',
         currentPage <= 1 ? 'text-gray-400 cursor-not-allowed' : 'text-black'
@@ -16,12 +27,13 @@
         </svg>
       </button>
 
+      <!-- Pages -->
       <button v-for="page in totalPages" :key="page" @click="goToPage(page)" :class="[
         'text-black font-bold cursor-pointer hover:text-blue-600 px-3 py-1 rounded',
-        currentPage === page ? 'text-blue-600  ' : ''
+        currentPage === page ? 'text-blue-600' : ''
       ]" v-persian-number="page"></button>
 
-      <!-- Next Button -->
+      <!-- Next -->
       <button @click="goToPage(currentPage + 1)" :disabled="currentPage >= totalPages" :class="[
         'cursor-pointer hover:text-blue-600 p-2 rounded',
         currentPage >= totalPages ? 'text-gray-400 cursor-not-allowed' : 'text-black'
@@ -31,12 +43,16 @@
         </svg>
       </button>
     </div>
+
   </div>
 </template>
 
+
 <script setup lang="ts">
+const ui = useUIStore()
+
 import { ref, computed, watch } from 'vue'
-import { getPostListService } from '~/services/Post.Service'
+import { getSearchedPostListServices } from '~/services/Post.Service'
 import { useRoute, useRouter } from 'vue-router'
 
 const pageSize = 8
@@ -44,10 +60,12 @@ const route = useRoute()
 const router = useRouter()
 const nuxt=useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
-const key = computed(() => `post-list-${currentPage.value}`)
+const key = computed(() => `post-list-${currentPage.value}-${route.query.q}`)
 
 const { data, pending, refresh } =  useAsyncData(key, () => {
-  return getPostListService(currentPage.value)
+   ui.closeSearch()
+
+  return getSearchedPostListServices(route.query.q,currentPage.value)
 },{
    getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
 })

@@ -29,8 +29,8 @@
 
       </div>
       <span class="text-sm mx-1.5"> | </span>
-      <span class="text-base max-md:text-xs  text-black-300 font-light"> <i class="text-blue-600 font-black">#</i> {{
-        post?.category.name }}</span>
+      <NuxtLink :to="{name:'category-slug',params:{slug:post.category.slug}}" class="text-base max-md:text-xs  text-black-300 font-light"> <i class="text-blue-600 font-black">#</i> {{
+        post?.category.name }}</NuxtLink>
       <span class="text-sm mx-1.5"> | </span>
       <div class="flex items-center">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,9 +82,9 @@
       <ul class="flex gap-2 flex-wrap ">
 
         <li class="bluew-auto flex justify-between my-1 " v-for="item in post?.tags">
-          <a href="#"
+          <NuxtLink  :to="{name:'tag-slug',params:{slug:item.slug}}"
             class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">
-            {{ item.name }}</a>
+            {{ item.name }}</NuxtLink>
         </li>
 
       </ul>
@@ -128,6 +128,7 @@
 
 import { useCustomToastify } from '~/composable/useCustomToastify'
 import type { PostDetailDTO } from '~/models/Post/PostDTO'
+import type Slug from '~/pages/[slug].vue'
 import { checkingLikePostService, toggleLikeService } from '~/services/Post.Service'
 const liked = ref(false)
 const { showSuccess, showError } = useCustomToastify()

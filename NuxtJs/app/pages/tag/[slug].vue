@@ -3,7 +3,7 @@
     <skeleton-simple v-if="pending || !data" class="w-full h-44 rounded-2xl mb-8" :repeat="10" />
     <template v-else>
       <article class="mt-2">
-          <h2 class="text-2xl text-black-400 font-black max-md:text-[20px] mb-4">#{{route.params.slug}}</h2>
+          <h2 class="text-2xl  text-blue-500 font-black max-md:text-[20px] mb-4">#{{route.params.slug}}</h2>
           <div class="w-full h-[1px] bg-black-100 mt-3 rounded-2xl"></div>
           <div class="BodyArticle my-4">
          

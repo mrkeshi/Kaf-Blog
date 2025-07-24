@@ -18,7 +18,7 @@
                         
                 </div>
                 <span class="text-sm-2 mx-1.5"> | </span>
-                <span class="text-sm-2 max-md:text-xs  text-black-300 font-light"> <i class="text-blue-600 font-black">#</i> {{post.category.name}}</span>
+                <NuxtLink :to="{name:'category-slug',params:{slug:post.category.slug}}" class="text-sm-2 max-md:text-xs  text-black-300 font-light"> <i class="text-blue-600 font-black">#</i> {{post.category.name}}</NuxtLink>
                 <span class="text-sm-2 mx-1.5"> | </span>
                 <div class="flex items-center">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -24,6 +24,7 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@vite-pwa/nuxt": "^1.0.4",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
