@@ -55,7 +55,9 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته‌بندی")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="برچسب‌ها")
     send_notification = models.BooleanField(default=False, verbose_name="ارسال نوتیفیکیشن")
-
+    seo_keywords = models.CharField(max_length=100, default=" ",verbose_name= "کلمات کلیدی")
+    seo_description = models.CharField(max_length=200, default=" ", verbose_name="توضیحات سئو")
+    author = models.ForeignKey('auth.User', blank=True,null=True,on_delete=models.CASCADE, verbose_name="نویسنده")
     class Meta:
         verbose_name = "پست"
         verbose_name_plural = "پست‌ها"

@@ -36,5 +36,6 @@ def send_push_to_all(title: str, body: str, url: str):
                     "sub": "mailto:admin@example.com"
                 }
             )
+            print("\n \n SUCCESS SENDING NOT \n \n")
         except WebPushException as ex:
             print(f"⚠️ خطا در ارسال نوتیف به {sub}: {repr(ex)}")

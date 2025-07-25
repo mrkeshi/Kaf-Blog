@@ -16,14 +16,6 @@
     font-style: normal;
 }
 
-/* === Mahoor Medium === */
-@font-face {
-    font-family: 'Mahoor';
-    src: url('../fonts/Mahoor-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-}
-
 /* === Mahoor Regular === */
 @font-face {
     font-family: 'Mahoor';
@@ -32,13 +24,7 @@
     font-style: normal;
 }
 
-/* === Mahoor SemiBold === */
-@font-face {
-    font-family: 'Mahoor';
-    src: url('../fonts/Mahoor-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-}
+
 
 body {
     font-family: 'Mahoor', sans-serif;

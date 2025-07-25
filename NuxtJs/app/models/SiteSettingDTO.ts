@@ -3,7 +3,7 @@ export interface SiteSettingDTO {
   site_url: string;
   email_admin: string ;
   site_logo: string | null ;
-  site_icon: string |null;
+  site_icon: string;
   music: string ;
   music_cover: string ;
   meta_description: string ;

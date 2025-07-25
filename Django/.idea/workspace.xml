@@ -6,18 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlogDjango/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BlogDjango/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Post/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Post/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Setting/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Setting/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Setting/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Setting/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Setting/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Setting/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../NuxtJs/app/app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/app.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/Post/card.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/Post/card.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../NuxtJs/app/components/TheHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/components/TheHeader.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/nuxt.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/nuxt.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NuxtJs/public/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/public/service-worker.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,6 +150,7 @@
       <workItem from="1753287014763" duration="11000" />
       <workItem from="1753359806558" duration="8511000" />
       <workItem from="1753392960989" duration="9119000" />
+      <workItem from="1753466195882" duration="3447000" />
     </task>
     <servers />
   </component>

@@ -3,6 +3,7 @@
      <TheHeader :title="mySettingStore.siteSettingData?.site_name" 
      :description="mySettingStore.siteSettingData?.meta_description"
      :count="mySettingStore.siteSettingData?.count"
+     :icon="mySettingStore.siteSettingData?.site_icon"
      ></TheHeader>
      <div class="container mx-auto mt-10 max-md:mt-4  px-6 flex flex-col lg:flex-row gap-36 max-xl:gap-12 max-2xl:gap-24  max-lg:gap-6  min-h-screen">
 
