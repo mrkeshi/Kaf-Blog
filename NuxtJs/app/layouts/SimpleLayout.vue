@@ -2,6 +2,7 @@
   <div >
      <TheHeader :title="mySettingStore.siteSettingData?.site_name"
       :description="mySettingStore.siteSettingData?.meta_description"
+      :icon="mySettingStore.siteSettingData?.site_icon"
        :count="mySettingStore.siteSettingData?.count"></TheHeader>
     <slot />
       <TheFooter></TheFooter>

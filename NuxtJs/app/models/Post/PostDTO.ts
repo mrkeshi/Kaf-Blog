@@ -54,7 +54,10 @@ export interface PostDetailDTO {
   like_count: number
   category: CategoryDTO
   tags: TagDTO[]
-  comments: CommentDTO[]
+  comments: CommentDTO[],
+  seo_keywords:string,
+  seo_description:string,
+  author:string | null | undefined,
 }
 
 export interface LikedDTO{

@@ -8,12 +8,17 @@
   </div>
 </template>
 <script lang="ts" setup>
-useHead({
-  link: [
-    {
-      rel: 'manifest',
-      href: '/manifest.webmanifest'
+import { useCustomToastify } from './composable/useCustomToastify';
+
+const {showInfo}=useCustomToastify()
+if (process.client && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.type === 'push') {
+     showInfo({
+message: `پست با عنوان "${event.data.title}" منتشر شد.`,
+      title:"اعلان  "
+     })
     }
-  ]
-});
+  });
+}
 </script>

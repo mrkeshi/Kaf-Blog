@@ -43,21 +43,21 @@
 
 <script lang="ts" setup>
 
-defineProps({
-  title: {
-    type: String,
-    default: "تست"
-  },
-  description: {
-    type: String,
-    default: 'بدون توضیحات'
-  },
-  count: {
-    default: 0,
-    type: Number
-  }
+const props = defineProps({
+  icon: { type: String, default: '' },
+  title: { type: String, default: 'کافه بیگانه' },
+  description: { type: String, default: 'نوشته های یک کافه بیگانه' },
+  count: { type: Number, default: 0 }
 })
 
+
+watch(() => props.icon, (newIcon) => {
+  useHead({
+    link: [
+      { rel: 'icon', type: 'image/png', sizes: '64x64', href: newIcon || 'images/l192.png' }
+    ]
+  })
+}, { immediate: true })
 </script>
 
 <style></style>
