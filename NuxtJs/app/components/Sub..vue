@@ -1,15 +1,6 @@
 <template>
-  <div v-if="title">
-    <div class="container mx-auto">
-      <header>
-        <div class="flex px-2 p-8 max-sm:p-5 items-center justify-between">
-          <div class="flex flex-col">
-            <h1 class="text-3xl text-black-400 font-bold max-sm:text-2xl">{{ title }} </h1>
-            <h3 class="text-base max-sm:text-[15px] font-medium text-black-400 mt-1">{{ description }}</h3>
-          </div>
-          <div class="flex flex-col w-[153px]">
-            <search-bar></search-bar>
-            <div class="flex items-center mt-2">
+
+      <div class="flex items-center mt-2">
               <svg class="ml-1 -mb-1" width="24" height="24" viewBox="0 0 24 24" fill="#2B2929"
                 xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_62_188)">
@@ -31,33 +22,22 @@
               </svg>
               <span class="text-xs text-black-200"><span v-persian-number="count"></span> دنبال کننده</span>
             </div>
-          </div>
-        </div>
-      </header>
-    </div>
 
-
-    <div class="w-full h-1 bg-black-100"></div>
-  </div>
 </template>
 
 <script lang="ts" setup>
+import { number } from 'yup';
+
 
 defineProps({
-  title: {
-    type: String,
-    default: "تست"
-  },
-  description: {
-    type: String,
-    default: 'بدون توضیحات'
-  },
-  count: {
-    default: 0,
-    type: Number
+  count:{
+    type:number,
+    default:0,
   }
 })
 
 </script>
 
-<style></style>
+<style>
+
+</style>

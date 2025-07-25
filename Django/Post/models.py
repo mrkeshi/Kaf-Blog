@@ -3,7 +3,10 @@ from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 
 
-# --- دسته‌بندی ---
+
+from Post.utils import send_push_to_all
+
+
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="نام دسته‌بندی")
     slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
@@ -51,6 +54,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته‌بندی")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="برچسب‌ها")
+    send_notification = models.BooleanField(default=False, verbose_name="ارسال نوتیفیکیشن")
 
     class Meta:
         verbose_name = "پست"
@@ -60,9 +64,17 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        is_new = self.pk is None
+
         if not self.slug:
             self.slug = slugify(self.title, allow_unicode=True)
+
         super().save(*args, **kwargs)
+
+        if self.send_notification:
+            send_push_to_all(self.title,"یک پست جدید در دسترس است. لطفا کلیک کنید.", self.slug)
+            self.send_notification = False
+            super().save(update_fields=['send_notification'])
 
     def get_absolute_url(self):
         return f"/posts/{self.slug}/"

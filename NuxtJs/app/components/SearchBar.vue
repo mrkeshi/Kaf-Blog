@@ -1,10 +1,30 @@
 <template>
-  <div class="flex items-center">
-    <!-- دنبال کردن -->
-    <a href="#"
-       class="bg-black-400 border-2 border-black-400 rounded-full max-md:p-2 max-md:text-sm-2 px-3 py-2 transition hover:bg-black-150 hover:text-black-400 h-12 text-center text-white">
+  <div class="flex items-center gap-3">
+    <!-- دکمه دنبال کردن / لغو اشتراک -->
+    <button
+      v-if="!subscribed"
+      @click="handleSubscribe"
+      :disabled="loading"
+      class="border-2 rounded-full max-md:p-2 max-md:text-sm-2 px-3 py-2 h-12 text-center transition
+        cursor-pointer
+        bg-black-400 border-black-400 text-white
+        hover:bg-black-150 hover:text-black-400
+        disabled:cursor-not-allowed disabled:bg-black-200 disabled:text-gray-400"
+    >
       دنبال کردن
-    </a>
+    </button>
+
+    <button
+      v-else
+      @click="handleUnsubscribe"
+      :disabled="loading"
+      class="border-2 cursor-pointer w-32 border-black-400 text-sm rounded-full max-md:p-2 max-md:text-sm-2 px-3 py-2 transition h-12 text-center
+        bg-transparent text-black-400
+        hover:bg-black-150 hover:text-black-400
+        disabled:cursor-not-allowed disabled:bg-black-200 disabled:text-gray-400"
+    >
+      لغو اشتراک
+    </button>
 
     <!-- آیکون جستجو -->
     <svg @click="ui.openSearch"
@@ -31,11 +51,11 @@
         />
         <div class="flex items-center gap-2 mt-2 sm:mt-0">
           <button @click="SubmitSearch"
-                  class="px-4 py-2 bg-black-400 hover:bg-black-150 border-black-400 border-1 text-white hover:text-black-400 rounded-lg text-sm font-medium transition">
+                  class="px-4 py-2 bg-black-400 cursor-pointer hover:bg-black-150 border-black-400 border-1 text-white hover:text-black-400 rounded-lg text-sm font-medium transition">
             جستجو
           </button>
           <button @click="CloseSearch"
-                  class="px-3 py-2 border border-black-200 text-black-400 rounded-lg hover:bg-red-100 hover:text-red-600 font-medium transition text-sm">
+                  class="px-3 py-2 border cursor-pointer border-black-200 text-black-400 rounded-lg hover:bg-red-100 hover:text-red-600 font-medium transition text-sm">
             بستن
           </button>
         </div>
@@ -45,11 +65,38 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUIStore } from '../stores/useUIStore'
+import { usePushNotification } from '~/composable/usePushNotification'
 
 const ui = useUIStore()
 const router = useRouter()
+
+const { subscribeUserToPush, unsubscribeUserFromPush, isUserSubscribed } = usePushNotification()
+
+const subscribed = ref(false)
+const loading = ref(false)
+
+onMounted(async () => {
+  subscribed.value = await isUserSubscribed()
+})
+
+const handleSubscribe = async () => {
+  loading.value = true
+  await subscribeUserToPush()
+  subscribed.value = await isUserSubscribed()
+  loading.value = false
+}
+
+const handleUnsubscribe = async () => {
+  loading.value = true
+  const success = await unsubscribeUserFromPush()
+  if (success) {
+    subscribed.value = false
+  }
+  loading.value = false
+}
 
 const SubmitSearch = () => {
   ui.searchQuery = ui.searchQuery.trim()
