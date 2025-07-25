@@ -126,13 +126,13 @@ class PostSearchView(ListAPIView):
     serializer_class = PostListSerializer
 
     def get_queryset(self):
-        query = self.request.query_params.get('q', '')  # کوئری رو از پارامتر q بگیر
+        query = self.request.query_params.get('q', '')
         return Post.objects.filter(
             Q(title__icontains=query) | Q(content__icontains=query),
             is_draft=False
         ).order_by('-created_at')
 
-# پست‌های یک برچسب خاص
+
 class PostsByTagView(ListAPIView):
     serializer_class = PostListSerializer
 
@@ -145,7 +145,6 @@ class PostsByTagView(ListAPIView):
         ).order_by('-created_at')
 
 
-# پست‌های یک دسته‌بندی خاص
 class PostsByCategoryView(ListAPIView):
     serializer_class = PostListSerializer
 

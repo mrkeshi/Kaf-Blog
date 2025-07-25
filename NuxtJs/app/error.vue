@@ -2,7 +2,7 @@
   <div>
 
  
-      <TheHeader :title="mySettingStore.siteSettingData?.site_name"
+      <TheHeader  :title="mySettingStore.siteSettingData?.site_name"
       :description="mySettingStore.siteSettingData?.meta_description"
        :count="mySettingStore.siteSettingData?.count"></TheHeader>
        

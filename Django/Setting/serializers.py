@@ -27,7 +27,7 @@ class LinksSerializer(serializers.ModelSerializer):
 class NotificationSubscriptionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = NotificationSubscription
-        fields = ['subscription_info', 'ip_address', 'browser_info', 'device_info']
+        fields = ['subscription_info', 'browser_info', 'device_info']
 
 class NotificationSubscriptionCountSerializer(serializers.Serializer):
     count = serializers.IntegerField()

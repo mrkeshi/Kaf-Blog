@@ -1,6 +1,9 @@
 <template>
    <article class="mt-2">
-            <h2 class="text-2xl text-black-400 font-black max-md:text-[20px] mb-4">{{ post.title }}</h2>
+            <h2 class="text-2xl text-black-400 font-black max-md:text-[20px] mb-4">
+                <NuxtLink :to="{name:'slug',params:{slug:post.slug}}">{{ post.title }}</NuxtLink>
+
+            </h2>
             <div class="flex items-center my-2 ">
                 <div class="flex items-center flex-wrap">
                     <svg width="22" height="22" class="fill-blue-600" viewBox="0 0 24 24"   stroke="none" xmlns="http://www.w3.org/2000/svg">

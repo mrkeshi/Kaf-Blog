@@ -7,3 +7,13 @@
    </nuxt-layout>
   </div>
 </template>
+<script lang="ts" setup>
+useHead({
+  link: [
+    {
+      rel: 'manifest',
+      href: '/manifest.webmanifest'
+    }
+  ]
+});
+</script>
