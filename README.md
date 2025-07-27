@@ -76,7 +76,6 @@ NUXTJS/
 ├── nuxt.config.ts
 ├── package-lock.json
 ├── package.json
-├── README.md
 └── tsconfig.json
 ```
 
