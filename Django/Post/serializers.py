@@ -117,4 +117,4 @@ class LikeCreateSerializer(serializers.ModelSerializer):
 class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['post', 'name', 'email', 'message']
+        fields = ['post', 'name', 'email', 'message','privte']

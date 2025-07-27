@@ -13,6 +13,7 @@
     "@pinia/nuxt": "^0.11.2",
     "@tailwindcss/vite": "^4.1.11",
     "nuxt": "^4.0.0",
+    "nuxt-schema-org": "^5.0.6",
     "nuxt-toast": "^1.1.4",
     "nuxt-toastify": "^1.0.0",
     "ohmyfetch": "^0.4.21",

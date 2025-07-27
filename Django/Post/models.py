@@ -97,7 +97,7 @@ class Comment(models.Model):
     answer = models.TextField(verbose_name="پاسخ دیدگاه" , blank=True)
     active=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
-
+    privte=models.BooleanField(default=False, verbose_name=" نظرخصوصی ")
     class Meta:
         verbose_name = "دیدگاه"
         verbose_name_plural = "دیدگاه‌ها"

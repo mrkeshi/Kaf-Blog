@@ -20,7 +20,6 @@ export const getSinglePostService = (Slug:String): Promise<ApiResponse<PostDetai
     });
 }
 export const sendCommentDataService = (data:CommentDTO): Promise<ApiResponse<CommentDTO>> => {
- 
     return Fetch<CommentDTO>('comments/create',{
         method:'post',
         body:data
