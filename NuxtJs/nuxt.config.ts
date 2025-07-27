@@ -7,7 +7,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["@/assets/css/main.css"],
   
-  modules: ['nuxt-toastify', "@pinia/nuxt",'@vite-pwa/nuxt'],
+  modules: [
+   'nuxt-toastify',
+   "@pinia/nuxt",
+   '@vite-pwa/nuxt',
+   'nuxt-schema-org'
+  ],
    toastify: {
      autoClose: 2000,
      position: 'top-right',
@@ -16,7 +21,10 @@ export default defineNuxtConfig({
     
    },
 
-
+  schemaOrg: {
+    host: 'https://penvis.ir',
+    canonicalHost: 'https://penvis.ir',
+  },
  pwa: {
     registerType: 'autoUpdate',
     manifest: {

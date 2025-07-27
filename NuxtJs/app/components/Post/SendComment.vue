@@ -1,6 +1,6 @@
 <template>
 
-  <Form @submit="sendComment" :validation-schema="CommentSchema" v-slot="{ meta,resetForm  }" class="">
+  <Form @submit="sendComment" :validation-schema="CommentSchema" v-slot="{ meta, resetForm }" class="">
     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
       <base-input v-model="CommentData.name" :disabled="loading" type="text" name="name"
         placeholder="لطفا نام خود را وارد نمایید. " label="نام شما"></base-input>
@@ -11,9 +11,13 @@
 
       <base-textarea v-model="CommentData.message" :disabled="loading" name="message" label="پیغام شما"
         placeholder="هرچه دل تنگت می‌خواهد بنویس..." />
-      
+
+      <BaseCheckbox name="privte" v-model="CommentData.privte" label="نظر به صورت خصوصی ارسال شود." />
+
+
+
     </div>
-    <base-button class="my-10 " :disabled="loading">
+    <base-button class="my-6 " :disabled="loading">
       ارسال پیغام شما
     </base-button>
   </Form>
@@ -42,7 +46,7 @@ const CommentSchema = Yup.object().shape({
 const { post } = defineProps({
   post: {
     required: true,
-    type: Number 
+    type: Number
   }
 })
 const { showSuccess } = useCustomToastify()
@@ -52,13 +56,13 @@ const CommentData: CommentDTO = reactive({
   email: '',
   message: '',
   post: post,
-
+  privte: false
 })
 
-const sendComment = async ( _:unknown , { resetForm }: any) => {
+const sendComment = async (_: unknown, { resetForm }: any) => {
   loading.value = true
   await sendCommentDataService(CommentData).then((res) => {
-  resetForm()
+    resetForm()
     showSuccess({
       title: "موفقیت",
       message: "کامنت شما با موفقیت ارسال شد.",
