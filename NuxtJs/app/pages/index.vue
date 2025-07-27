@@ -79,7 +79,7 @@ if (setting) {
     title: setting.site_name,
     description: setting.meta_description,
     image: setting.site_logo || setting.site_icon,
-    url: setting.site_url,
+    url: `${setting.site_url}${route.fullPath}`,
     keywords: setting.meta_keywords?.split(',').map(k => k.trim()) || [],
     author: setting.meta_author,
     type: 'website'

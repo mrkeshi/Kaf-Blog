@@ -54,6 +54,7 @@ const ui = useUIStore()
 import { ref, computed, watch } from 'vue'
 import { getSearchedPostListServices } from '~/services/Post.Service'
 import { useRoute, useRouter } from 'vue-router'
+import { generateSeoMeta } from '~/utilities/seo'
 
 const pageSize = 8
 const route = useRoute()
@@ -88,6 +89,22 @@ watch(route, (newRoute) => {
     currentPage.value = pageFromQuery
   }
 })
+const setting=useMySettingDataStore().siteSettingData
+
+// watchEffect(() => {
+//   if (!pending.value && data.value && setting) {
+//     const seo = generateSeoMeta({
+//       title: `${setting.site_name} - ${category.value?.name}`,
+//       description: category.value?.meta_description || setting.meta_description,
+//       image: setting.site_logo || setting.site_icon,
+//       url: `${setting.site_url}/tag/${route.params.slug}`,
+//       keywords:category.value?.name?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
+//       author:setting.meta_author,
+//       type: 'tag'
+//     })
+//     useHead(seo)
+//   }
+// })
 </script>
 
 
