@@ -38,6 +38,7 @@
 import { ref, computed, watch } from 'vue'
 import { getPostListService } from '~/services/Post.Service'
 import { useRoute, useRouter } from 'vue-router'
+import { generateSeoMeta } from '~/utilities/seo'
 
 const pageSize = 8
 const route = useRoute()
@@ -70,6 +71,21 @@ watch(route, (newRoute) => {
     currentPage.value = pageFromQuery
   }
 })
+
+const setting=useMySettingDataStore().siteSettingData
+
+if (setting) {
+ const seo= generateSeoMeta({
+    title: setting.site_name,
+    description: setting.meta_description,
+    image: setting.site_logo || setting.site_icon,
+    url: setting.site_url,
+    keywords: setting.meta_keywords?.split(',').map(k => k.trim()) || [],
+    author: setting.meta_author,
+    type: 'website'
+  })
+    useHead(seo)
+}
 </script>
 
 

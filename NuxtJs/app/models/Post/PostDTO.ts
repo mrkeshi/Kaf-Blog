@@ -2,12 +2,14 @@ export interface TagDTO {
   id: number
   name: string
   slug: string
+  meta_description:string
 }
 
 export interface CategoryDTO {
   id: number
   name: string
   slug: string
+  meta_description:string
 }
 
 export interface CommentDTO {

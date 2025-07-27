@@ -353,6 +353,7 @@
 <script lang="ts" setup>
 const error = useError()
 import { getSettingDataService } from '~/services/SiteSetting.Service'
+import { generateSeoMeta } from './utilities/seo'
 
 const mySettingStore = useMySettingDataStore()
 await callOnce(async () => {
@@ -361,6 +362,21 @@ await callOnce(async () => {
     mySettingStore.setData(res)
   }
 })
+
+const setting=mySettingStore.siteSettingData
+
+if (setting) {
+ const seo= generateSeoMeta({
+    title: setting.site_name,
+    description: setting.meta_description,
+    image: setting.site_logo || setting.site_icon,
+    url: setting.site_url,
+    keywords: setting.meta_keywords?.split(',').map(k => k.trim()) || [],
+    author: setting.meta_author,
+    type: 'website'
+  })
+    useHead(seo)
+}
 </script>
 
 <style></style>

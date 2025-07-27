@@ -27,7 +27,7 @@ def to_jalali_readable(dt):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug','meta_description']
 
 
 class CategoryWithPostCountSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class CategoryWithPostCountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'post_count']
+        fields = ['id', 'name', 'slug', 'post_count','meta_description']
 
 
 class CommentListSerializer(serializers.ModelSerializer):
