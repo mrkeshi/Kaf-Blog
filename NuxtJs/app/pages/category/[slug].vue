@@ -106,7 +106,7 @@ watchEffect(() => {
       url: `${setting.site_url}${route.fullPath}`,
       keywords:category.value?.name?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
       author:setting.meta_author,
-      type: 'tag'
+      type: 'category'
     })
     useHead(seo)
   }

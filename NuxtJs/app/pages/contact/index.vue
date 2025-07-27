@@ -36,6 +36,7 @@ import * as Yup from 'yup'
 import { useCustomToastify } from '~/composable/useCustomToastify';
 import type { ContactDTO } from '~/models/Contact/ContactDTO';
 import { sendContactDataService } from '~/services/Contact.Service';
+import { generateSeoMeta } from '~/utilities/seo';
 
 const setting=useMySettingDataStore()
 
@@ -79,6 +80,23 @@ const sendDataContact =async () => {
   loading.value=false
  })
 }
+const route=useRoute()
+watchEffect(() => {
+  if (setting.siteSettingData) {
+    const seo = generateSeoMeta({
+      title: `${setting.siteSettingData.site_name} - تماس با من`,
+      description: 'از طریق این صفحه می‌توانید با من در ارتباط باشید. خوشحال می‌شوم پیام‌تان را دریافت کنم.',
+      image: setting.siteSettingData.site_logo || setting.siteSettingData.site_icon,
+      url: `${setting.siteSettingData.site_url}${route.fullPath}`,
+      keywords: ['تماس', 'ارتباط', 'ایمیل', 'فرم تماس'],
+      author: setting.siteSettingData.meta_author,
+      type: 'contact'
+    })
+
+    useHead(seo)
+  }
+})
+
 </script>
 
 <style></style>
