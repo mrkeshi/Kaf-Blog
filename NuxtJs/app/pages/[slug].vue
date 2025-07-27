@@ -45,7 +45,7 @@ watchEffect(() => {
       title: `${setting.site_name} - ${data.value.title}`,
       description: data.value.seo_description || setting.meta_description,
       image: data.value.image || setting.site_logo || setting.site_icon,
-      url: `${setting.site_url}/${data.value.slug}`,
+      url: `${setting.site_url}${route.fullPath}`,
       keywords:data.value.seo_keywords?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
       author: data.value.author || setting.meta_author,
       type: 'article'

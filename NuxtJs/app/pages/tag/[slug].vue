@@ -101,7 +101,7 @@ watchEffect(() => {
       title: `${setting.site_name} - ${tag.value?.name}`,
       description: tag.value?.meta_description || setting.meta_description,
       image: setting.site_logo || setting.site_icon,
-      url: `${setting.site_url}/tag/${route.params.slug}`,
+      url: `${setting.site_url}${route.fullPath}`,
       keywords:tag.value?.name?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
       author:setting.meta_author,
       type: 'tag'
