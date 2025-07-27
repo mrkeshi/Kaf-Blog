@@ -18,37 +18,36 @@ Optimized for **SEO**, **performance**, and **user experience** with full **SSR*
 - ✅ Push Notification support for new posts  
 - ✅ Modular, clean, and scalable codebase  
 
-
+```
 ## 🐍 Backend – Django Project Structure
 
 Django/
 ├── BlogDjango/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
+│ ├── init.py
+│ ├── asgi.py
+│ ├── settings.py
+│ ├── urls.py
+│ └── wsgi.py
 ├── Contact/
 ├── Post/
 ├── Setting/
-│   ├── migrations/
-│   │   └── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── serializers.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
+│ ├── migrations/
+│ │ └── init.py
+│ ├── admin.py
+│ ├── apps.py
+│ ├── models.py
+│ ├── serializers.py
+│ ├── tests.py
+│ ├── urls.py
+│ └── views.py
 ├── media/
 ├── static/
 ├── staticfiles/
 ├── templates/
-├── venv/  # virtual environment folder (optional)
+├── venv/ # virtual environment folder (optional)
 ├── db.sqlite3
 ├── manage.py
 └── requirements.txt
-
 
 ## 🌐 Frontend – Nuxt 4 Project Structure
 
@@ -56,20 +55,20 @@ NUXTJS/
 ├── .nuxt/
 ├── .output/
 ├── app/
-│   ├── assets/
-│   ├── components/
-│   ├── composable/
-│   ├── layouts/
-│   ├── middleware/
-│   ├── models/
-│   ├── pages/
-│   ├── plugins/
-│   ├── services/
-│   ├── stores/
-│   ├── utilities/
-│   ├── app.vue
-│   ├── error.vue
-│   └── service-worker.js
+│ ├── assets/
+│ ├── components/
+│ ├── composable/
+│ ├── layouts/
+│ ├── middleware/
+│ ├── models/
+│ ├── pages/
+│ ├── plugins/
+│ ├── services/
+│ ├── stores/
+│ ├── utilities/
+│ ├── app.vue
+│ ├── error.vue
+│ └── service-worker.js
 ├── node_modules/
 ├── public/
 ├── .env
@@ -79,7 +78,7 @@ NUXTJS/
 ├── package.json
 ├── README.md
 └── tsconfig.json
-
+```
 
 ## 📦 Setup Instructions (Optional)
 
