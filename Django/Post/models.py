@@ -10,7 +10,7 @@ from Post.utils import send_push_to_all
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="نام دسته‌بندی")
     slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
-
+    meta_description = models.CharField(max_length=200, default=" ")
     class Meta:
         verbose_name = "دسته‌بندی"
         verbose_name_plural = "دسته‌بندی‌ها"
@@ -28,7 +28,7 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=30, verbose_name="نام برچسب")
     slug = models.SlugField(unique=True, allow_unicode=True, blank=True, verbose_name="اسلاگ")
-
+    meta_description = models.CharField(max_length=200,default=" ")
     class Meta:
         verbose_name = "برچسب"
         verbose_name_plural = "برچسب‌ها"

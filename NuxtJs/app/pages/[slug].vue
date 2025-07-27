@@ -23,15 +23,34 @@
 
 
 import { getSinglePostService } from '~/services/Post.Service';
+import { generateSeoMeta } from '~/utilities/seo';
 
 const route=useRoute()
-const {error,pending,data}=useAsyncData("single-post",()=>getSinglePostService(route.params.slug as string))
+const { data , pending } = await useAsyncData(() =>
+  getSinglePostService(route.params.slug as string)
+)
 
 
 
 watchEffect(() => {
   if (!pending.value && !data.value) {
     throw createError({ statusCode: 404, statusMessage: 'Page Not Found', fatal: true })
+  }
+})
+const setting=useMySettingDataStore().siteSettingData
+
+watchEffect(() => {
+  if (!pending.value && data.value && setting) {
+    const seo = generateSeoMeta({
+      title: `${setting.site_name} - ${data.value.title}`,
+      description: data.value.seo_description || setting.meta_description,
+      image: data.value.image || setting.site_logo || setting.site_icon,
+      url: `${setting.site_url}/${data.value.slug}`,
+      keywords:data.value.seo_keywords?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
+      author: data.value.author || setting.meta_author,
+      type: 'article'
+    })
+    useHead(seo)
   }
 })
 

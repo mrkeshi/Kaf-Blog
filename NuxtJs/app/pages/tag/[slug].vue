@@ -46,6 +46,7 @@
 import { ref, computed, watch } from 'vue'
 import { getPostListTagService } from '~/services/Post.Service'
 import { useRoute, useRouter } from 'vue-router'
+import { generateSeoMeta } from '~/utilities/seo'
 
 const pageSize = 8
 const route = useRoute()
@@ -54,7 +55,7 @@ const nuxt = useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
 const key = computed(() => `post-list-${currentPage.value}-${route.params.slug}`)
 
-const { data, pending, refresh,error } = useAsyncData(key, () => {
+const { data, pending, refresh,error } =await useAsyncData(key, () => {
   return getPostListTagService(currentPage.value, route.params.slug as string)
 }, {
   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
@@ -85,6 +86,27 @@ watch(route, (newRoute) => {
 watchEffect(() => {
   if (!pending.value && !data.value) {
     throw createError({ statusCode: 404, statusMessage: 'Page Not Found', fatal: true })
+  }
+})
+
+const setting=useMySettingDataStore().siteSettingData
+
+const tag = computed(() => 
+  data.value?.results[0]?.tags.find(item => item.slug === route.params.slug)
+)
+
+watchEffect(() => {
+  if (!pending.value && data.value && setting) {
+    const seo = generateSeoMeta({
+      title: `${setting.site_name} - ${tag.value?.name}`,
+      description: tag.value?.meta_description || setting.meta_description,
+      image: setting.site_logo || setting.site_icon,
+      url: `${setting.site_url}/tag/${route.params.slug}`,
+      keywords:tag.value?.name?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
+      author:setting.meta_author,
+      type: 'tag'
+    })
+    useHead(seo)
   }
 })
 </script>
