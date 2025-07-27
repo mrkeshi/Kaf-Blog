@@ -6,58 +6,21 @@ Optimized for **SEO**, **performance**, and **user experience** with full **SSR*
 ---
 
 ## 🚀 Features
-
 - ✅ Django REST API backend  
 - ✅ Post, Comment, Tag, and Category models  
-- ✅ Private comment mode  
 - ✅ Site-wide SEO and dynamic meta tags  
 - ✅ Site settings API  
 - ✅ Unsuccessful login logging  
+- ✅ Built-in Django Admin panel for managing content and settings  
 - ✅ Nuxt 4 frontend with Vue 3 Composition API  
 - ✅ Tailwind CSS and TypeScript support  
 - ✅ Server-Side Rendering (SSR)  
 - ✅ Push Notification support for new posts  
 - ✅ Modular, clean, and scalable codebase  
 
----
-
-## 🐍 Backend – Django Project Structure
-
-Django/
-├── your_app/
-│ ├── models.py
-│ ├── views.py
-│ ├── serializers.py
-│ └── urls.py
-├── core/
-│ ├── models.py # site settings, login logs, etc.
-│ └── admin.py
-├── utilities.py
-├── settings/
-│ ├── base.py
-│ ├── dev.py
-│ └── prod.py
-├── manage.py
-└── requirements.txt
 
 
-## 🌐 Frontend – Nuxt 4 Project Structure
-
-NuxtApp/
-├── assets/ # Static assets like fonts and images
-├── components/ # UI components (PostCard, CommentBox, etc.)
-├── composables/ # Vue composables (e.g., useSeo, usePush)
-├── layouts/ # Default, error, and custom layouts
-├── middleware/ # Auth guards and route middleware
-├── pages/ # Nuxt pages (index.vue, post/[slug].vue, tag/[slug].vue)
-├── plugins/ # Nuxt plugins (e.g. push notification setup)
-├── public/ # Static public files (manifest, icons)
-├── stores/ # Pinia stores (auth, settings, etc.)
-├── models/ # TypeScript interfaces and types
-├── utils/ # Helper functions (SEO generation, formatting)
-├── nuxt.config.ts # Nuxt configuration
-└── package.json
-
+<pre lang="markdown"><code> ## 🐍 Backend – Django Project Structure ``` Django/ ├── your_app/ │ ├── models.py │ ├── views.py │ ├── serializers.py │ └── urls.py ├── core/ │ ├── models.py # site settings, login logs, etc. │ └── admin.py ├── utilities.py ├── settings/ │ ├── base.py │ ├── dev.py │ └── prod.py ├── manage.py └── requirements.txt ``` ## 🌐 Frontend – Nuxt 4 Project Structure ``` NuxtApp/ ├── assets/ # Static assets like fonts and images ├── components/ # UI components (PostCard, CommentBox, etc.) ├── composables/ # Vue composables (e.g., useSeo, usePush) ├── layouts/ # Default, error, and custom layouts ├── middleware/ # Auth guards and route middleware ├── pages/ # Nuxt pages (index.vue, post/[slug].vue, tag/[slug].vue) ├── plugins/ # Nuxt plugins (e.g. push notification setup) ├── public/ # Static public files (manifest, icons) ├── stores/ # Pinia stores (auth, settings, etc.) ├── models/ # TypeScript interfaces and types ├── utils/ # Helper functions (SEO generation, formatting) ├── nuxt.config.ts # Nuxt configuration └── package.json ``` </code></pre>
 
 ## 📦 Setup Instructions (Optional)
 
