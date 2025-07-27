@@ -18,9 +18,8 @@ Optimized for **SEO**, **performance**, and **user experience** with full **SSR*
 - ✅ Push Notification support for new posts  
 - ✅ Modular, clean, and scalable codebase  
 
-```
 ## 🐍 Backend – Django Project Structure
-
+```
 Django/
 ├── BlogDjango/
 │ ├── init.py
@@ -48,9 +47,10 @@ Django/
 ├── db.sqlite3
 ├── manage.py
 └── requirements.txt
+```
 
 ## 🌐 Frontend – Nuxt 4 Project Structure
-
+```
 NUXTJS/
 ├── .nuxt/
 ├── .output/
