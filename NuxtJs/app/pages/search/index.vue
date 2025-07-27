@@ -90,21 +90,30 @@ watch(route, (newRoute) => {
   }
 })
 const setting=useMySettingDataStore().siteSettingData
+watchEffect(() => {
+  if (!pending.value && data.value && setting) {
+    const keywords = route.query.q
+      ? route.query.q.split(',').map(k => k.trim())
+      : setting.meta_keywords
+        ? setting.meta_keywords.split(',').map(k => k.trim())
+        : []
 
-// watchEffect(() => {
-//   if (!pending.value && data.value && setting) {
-//     const seo = generateSeoMeta({
-//       title: `${setting.site_name} - ${category.value?.name}`,
-//       description: category.value?.meta_description || setting.meta_description,
-//       image: setting.site_logo || setting.site_icon,
-//       url: `${setting.site_url}/tag/${route.params.slug}`,
-//       keywords:category.value?.name?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
-//       author:setting.meta_author,
-//       type: 'tag'
-//     })
-//     useHead(seo)
-//   }
-// })
+    const seo = generateSeoMeta({
+      title: `${setting.site_name} - ${route.query.q || 'جستجو'}`,
+      description: route.query.q
+        ? `نتیجه جستجو برای "${route.query.q}"`
+        : setting.meta_description,
+      image: setting.site_logo || setting.site_icon,
+      url: `${setting.site_url}${route.fullPath}`,
+      keywords,
+      author: setting.meta_author,
+      type: 'search'
+    })
+
+    useHead(seo)
+  }
+})
+
 </script>
 
 
