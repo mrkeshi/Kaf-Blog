@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/app/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/app/pages/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/nuxt.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/nuxt.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NuxtJs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../NuxtJs/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="bba99456-46e0-452f-85ca-4361ab0b2cc5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -153,7 +144,7 @@
       <workItem from="1753392960989" duration="9119000" />
       <workItem from="1753466195882" duration="5259000" />
       <workItem from="1753611512513" duration="1334000" />
-      <workItem from="1753634686336" duration="1610000" />
+      <workItem from="1753634686336" duration="2224000" />
     </task>
     <servers />
   </component>
