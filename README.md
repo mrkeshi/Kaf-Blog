@@ -19,8 +19,67 @@ Optimized for **SEO**, **performance**, and **user experience** with full **SSR*
 - ✅ Modular, clean, and scalable codebase  
 
 
+## 🐍 Backend – Django Project Structure
 
-<pre lang="markdown"><code> ## 🐍 Backend – Django Project Structure ``` Django/ ├── your_app/ │ ├── models.py │ ├── views.py │ ├── serializers.py │ └── urls.py ├── core/ │ ├── models.py # site settings, login logs, etc. │ └── admin.py ├── utilities.py ├── settings/ │ ├── base.py │ ├── dev.py │ └── prod.py ├── manage.py └── requirements.txt ``` ## 🌐 Frontend – Nuxt 4 Project Structure ``` NuxtApp/ ├── assets/ # Static assets like fonts and images ├── components/ # UI components (PostCard, CommentBox, etc.) ├── composables/ # Vue composables (e.g., useSeo, usePush) ├── layouts/ # Default, error, and custom layouts ├── middleware/ # Auth guards and route middleware ├── pages/ # Nuxt pages (index.vue, post/[slug].vue, tag/[slug].vue) ├── plugins/ # Nuxt plugins (e.g. push notification setup) ├── public/ # Static public files (manifest, icons) ├── stores/ # Pinia stores (auth, settings, etc.) ├── models/ # TypeScript interfaces and types ├── utils/ # Helper functions (SEO generation, formatting) ├── nuxt.config.ts # Nuxt configuration └── package.json ``` </code></pre>
+Django/
+├── BlogDjango/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── Contact/
+├── Post/
+├── Setting/
+│   ├── migrations/
+│   │   └── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── media/
+├── static/
+├── staticfiles/
+├── templates/
+├── venv/  # virtual environment folder (optional)
+├── db.sqlite3
+├── manage.py
+└── requirements.txt
+
+
+## 🌐 Frontend – Nuxt 4 Project Structure
+
+NUXTJS/
+├── .nuxt/
+├── .output/
+├── app/
+│   ├── assets/
+│   ├── components/
+│   ├── composable/
+│   ├── layouts/
+│   ├── middleware/
+│   ├── models/
+│   ├── pages/
+│   ├── plugins/
+│   ├── services/
+│   ├── stores/
+│   ├── utilities/
+│   ├── app.vue
+│   ├── error.vue
+│   └── service-worker.js
+├── node_modules/
+├── public/
+├── .env
+├── .gitignore
+├── nuxt.config.ts
+├── package-lock.json
+├── package.json
+├── README.md
+└── tsconfig.json
+
 
 ## 📦 Setup Instructions (Optional)
 
