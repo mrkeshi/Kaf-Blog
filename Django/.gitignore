@@ -3,8 +3,6 @@
 # Python cache
 __pycache__/
 
-# SQLite database file
-db.sqlite3
 
 # Virtual environment folders
 venv/
