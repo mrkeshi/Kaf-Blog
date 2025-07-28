@@ -43,7 +43,7 @@ definePageMeta({
   layout: 'simple-layout'
 })
 
-const { data, pending } = useAsyncData('about-me', () => getAboutMe(), {
+const { data, pending } =await useAsyncData('about-me', () => getAboutMe(), {
   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
 });
 const route = useRoute()

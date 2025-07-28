@@ -55,7 +55,7 @@ const nuxt = useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
 const key = computed(() => `post-list-${currentPage.value}-${route.params.slug}`)
 
-const { data, pending, refresh,error } = useAsyncData(key, () => {
+const { data, pending, refresh,error } =await useAsyncData(key, () => {
   return getPostListCategoryService(currentPage.value, route.params.slug as string)
 }, {
   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
