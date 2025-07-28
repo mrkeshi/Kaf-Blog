@@ -63,7 +63,7 @@ const nuxt=useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
 const key = computed(() => `post-list-${currentPage.value}-${route.query.q}`)
 
-const { data, pending, refresh } =  useAsyncData(key, () => {
+const { data, pending, refresh } =  await useAsyncData(key, () => {
    ui.closeSearch()
 
   return getSearchedPostListServices(route.query.q,currentPage.value)
