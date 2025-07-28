@@ -51,11 +51,11 @@ const setting = useMySettingDataStore()
 watchEffect(() => {
   if (setting.siteSettingData) {
     const seo = generateSeoMeta({
-      title: `${setting.siteSettingData.site_name} - درباره ما`,
-      description: 'در این صفحه با ما و اهدافمان آشنا شوید. مأموریت و ارزش‌های ما را بررسی کنید.',
+      title: `${setting.siteSettingData.site_name} - درباره من`,
+      description: 'در این صفحه با من و اهدافم آشنا شوید',
       image: setting.siteSettingData.site_logo || setting.siteSettingData.site_icon,
       url: `${setting.siteSettingData.site_url}${route.fullPath}`,
-      keywords: ['درباره ما', 'مأموریت', 'ارزش‌ها', 'تیم', 'معرفی'],
+      keywords: ['درباره ما', 'درباره من', `${setting.siteSettingData.site_name}`, 'معرفی'],
       author: setting.siteSettingData.meta_author,
       type: 'about'
     })

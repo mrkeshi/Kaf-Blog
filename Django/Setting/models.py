@@ -65,10 +65,10 @@ class NotificationSubscription(models.Model):
     browser_info = models.CharField(max_length=255, verbose_name="مدل مرورگر")
     device_info = models.CharField(max_length=255, verbose_name="مدل دیوایس")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
-
+    name=models.CharField(max_length=150, verbose_name="نام",default="ناشناس")
     class Meta:
         verbose_name = "مشترکان "
         verbose_name_plural = "مشترکان"
 
     def __str__(self):
-        return f"Subscription from {self.ip_address} - {self.browser_info} - {self.device_info}"
+        return f"Subscription from {self.ip_address} - {self.name}"
