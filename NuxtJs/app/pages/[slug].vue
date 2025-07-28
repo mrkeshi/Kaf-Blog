@@ -1,6 +1,6 @@
 <template>
   <div class="articles flex flex-col" v-if="!pending && data">
-    <article class="mt-6" >
+    <article class="mt-2" >
       <PostSingle v-if="data?.id" :post="data"></PostSingle>
       <div class="h-0.5 w-full bg-black-100 my-8 max-md:my-4"></div>
       <div class="comments flex flex-col">
