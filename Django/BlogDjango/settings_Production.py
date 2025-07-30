@@ -26,9 +26,13 @@ SECRET_KEY = 'django-insecure-u94yalk5h0opwa0w+re68=%!_h^mkm-kdi-joboaj*!sj6o3eo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['penvis.ir', 'www.penvis.ir', '127.0.0.1']
 
 
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -173,7 +177,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.AnonRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1000/hour',
+        'anon': '150/hour',
     },
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 8,
@@ -186,8 +190,11 @@ else:
     locale.setlocale(locale.LC_ALL, "fa_IR.UTF-8")
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://penvis.ir",
+    "https://www.penvis.ir",
+]
 
 
 VAPID_PRIVATE_KEY = "VdQh39PVZiSYLNqG8yhHDtnloDQyuG67sqT429XdZpI"
-BASE_URL="http://localhost:3000/"
+BASE_URL="https://penvis.ir/"
