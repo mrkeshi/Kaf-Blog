@@ -10,21 +10,37 @@ export async function Fetch<G>(
   config: FetchOptions<"json"> = {}
 ): Promise<ApiResponse<G>> {
   const nuxtConfig = useRuntimeConfig();
+  const isProduction = nuxtConfig.public.isProduction;
+
   const method = config.method?.toUpperCase() || "GET";
   const csrfToken = useCookie("csrftoken").value;
 
-  if (["POST", "PUT", "PATCH", "DELETE"].includes(method) && csrfToken) {
+  if (
+    isProduction &&
+    ["POST", "PUT", "PATCH", "DELETE"].includes(method) &&
+    csrfToken
+  ) {
     config.headers = {
       ...config.headers,
       "X-CSRFToken": csrfToken,
     };
+  } else {
+    config.headers = {
+      ...config.headers,
+    };
   }
-
-  config = {
-    ...config,
-    baseURL: nuxtConfig.public.baseURL, 
-    credentials: "include",
-  };
+  if (isProduction) {
+    config = {
+      ...config,
+      baseURL: nuxtConfig.public.baseURL,
+      credentials: "include",
+    };
+  } else {
+    config = {
+      ...config,
+      baseURL: nuxtConfig.public.baseURL,
+    };
+  }
 
   return $fetch<ApiResponse<G>>(url, config)
     .then((res) => res)
