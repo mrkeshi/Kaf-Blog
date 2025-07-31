@@ -32,13 +32,13 @@ export async function Fetch<G>(
   if (isProduction) {
     config = {
       ...config,
-      baseURL: nuxtConfig.public.baseURL,
+      baseURL:nuxtConfig.public.baseURL,
       credentials: "include",
     };
   } else {
     config = {
       ...config,
-      baseURL: nuxtConfig.public.baseURL,
+      baseURL:nuxtConfig.public.baseURL,
     };
   }
 
