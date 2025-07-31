@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h3 class="text-xl max-md:text-lg font-bold text-black-400">
+      <h3 class="text-xl max-md:text-[17px] mt-2 font-bold text-black-400">
                     <b class="text-blue-600 font-black" v-persian-number="commentCount"></b>
                      کامنت ثبت شده است. 
                   </h3>

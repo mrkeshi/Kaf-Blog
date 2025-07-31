@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :for="name + 'id'" class="block text-base text-black-400 font-bold text-right">{{ label }} :</label>
+    <label :for="name + 'id'" class="block text-base text-black-400 font-bold text-right max-md:text-sm-2">{{ label }} :</label>
     <div class="mt-2.5">
       <input
         :type="type"

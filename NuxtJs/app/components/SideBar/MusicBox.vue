@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="rounded-xl my-8 max-md:my-2">
+    <hr class="lg:hidden -mt-8 opacity-65 mb-8">
+    <div class="rounded-xl my-8 max-md:my-4">
       <div class="header-aside-box flex items-center">
         <svg width="21" height="31" viewBox="0 0 21 31" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.5 0.125V18.1479C9.49208 17.5671 8.33042 17.2083 7.08333 17.2083C3.30792 17.2083 0.25 20.2663 0.25 24.0417C0.25 27.8171 3.30792 30.875 7.08333 30.875C10.8588 30.875 13.9167 27.8171 13.9167 24.0417V6.95833H20.75V0.125H10.5Z" fill="black"/>
@@ -12,10 +13,10 @@
         </span>
         <h4 class="text-[17px] max-md:text-base text-black-300 font-black">موسیقی</h4>
       </div>
-      <div class="BodyCardCateGory w-full flex flex-col mt-5">
-        <img :src="cover" class="w-full rounded-2xl h-auto" loading="lazy"  :alt="music_title+music_artist"/>
-        <h4 class="font-black text-center text-[17px] mt-3 text-black-400">{{ music_title }} </h4>
-        <h5 class="font-medium text-base text-center text-black-200">{{music_artist}}</h5>
+      <div class="BodyCardCateGory w-full flex flex-col mt-5 max-lg:mx-auto">
+        <img :src="cover" class="w-full rounded-2xl h-auto max-lg:w-4/5 max-lg:mx-auto" loading="lazy"  :alt="music_title+music_artist"/>
+        <h4 class="font-black text-center text-[17px] mt-3 max-md:text-base text-black-400">{{ music_title }} </h4>
+        <h5 class="font-medium text-base text-center max-md:text-sm text-black-200">{{music_artist}}</h5>
         <div class="rounded-xl p-0 w-full mt-2">
           <audio ref="audioRef"  preload="none" :src="audioSrc"></audio>
           <div class="flex flex-row-reverse items-end justify-between gap-3">
@@ -26,7 +27,7 @@
               <span class="text-sm text-gray-600 mt-1">{{ currentTime }}</span>
             </div>
             <div class="flex flex-col items-center justify-end flex-1">
-              <div ref="equalizerRef" class="flex items-end justify-between h-14 w-full flex-row-reverse"></div>
+              <div ref="equalizerRef" class="flex items-end justify-between h-12 w-full flex-row-reverse"></div>
               <div class="text-sm text-gray-600 mt-2 self-start">{{ duration }}</div>
             </div>
           </div>
