@@ -73,7 +73,7 @@
 
     </div>
     <div class="BodyArticle my-8 mb-4 max-md:my-4">
-      <div class="text-[16.5px]  px-2 text-black-300 font-medium leading-9 text-justify" v-html="post?.content">
+      <div class="text-base  px-2 text-black-300 font-medium leading-9 text-justify" v-html="post?.content">
 
       </div>
     </div>

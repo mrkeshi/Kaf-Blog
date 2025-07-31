@@ -1,6 +1,4 @@
-  // https://nuxt.com/docs/api/configuration/nuxt-config
-
-  import tailwindcss from "@tailwindcss/vite";
+ import tailwindcss from "@tailwindcss/vite";
 
   export default defineNuxtConfig({
     compatibilityDate: "2025-07-15",
@@ -22,12 +20,16 @@
     },
 
     schemaOrg: {
-      host: 'https://penvis.ir',
-      canonicalHost: 'https://penvis.ir',
+      host: process.env.NUXT_PUBLIC_HOST,
+      canonicalHost: process.env.NUXT_PUBLIC_HOST,
     },
   pwa: {
-      registerType: 'autoUpdate',
-      manifest: {
+
+        registerType: 'autoUpdate',
+        strategies: 'injectManifest', 
+        srcDir: '', 
+        filename: 'service-worker.js',
+        manifest: {
         name: 'کاف بیگانه',
         short_name: 'کاف بیگانه ',
         description: 'نوشته های یک کافه بیگانه',

@@ -2,7 +2,9 @@ import os
 import sys
 import locale
 from pathlib import Path
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,6 +23,7 @@ if MODE == 'production':
 else:
     ALLOWED_HOSTS = []
     DEBUG=True
+
 
 
 # Base URL
@@ -179,5 +182,9 @@ if MODE == 'production':
     CSRF_COOKIE_SAMESITE = 'Lax'
 else:
     CORS_ALLOW_ALL_ORIGINS = True
-    CORS_ALLOWED_ORIGINS = FRONTEND_DOMAINS
+
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000",
+    ]
+    CSRF_TRUSTED_ORIGINS = FRONTEND_DOMAINS
 
