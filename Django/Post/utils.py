@@ -1,4 +1,5 @@
 import json
+from ipware import get_client_ip as ipware_get_client_ip
 
 from django.conf import settings
 from pywebpush import webpush, WebPushException
@@ -7,13 +8,10 @@ from Setting.models import NotificationSubscription
 
 
 def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+    ip, is_routable = ipware_get_client_ip(request)
 
+    print(ip)
+    return ip
 
 def send_push_to_all(title: str, body: str, url: str):
     url= f"{settings.BASE_URL}{url}"
