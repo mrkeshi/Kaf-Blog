@@ -188,3 +188,4 @@ else:
     ]
     CSRF_TRUSTED_ORIGINS = FRONTEND_DOMAINS
 
+API_BASE_URL = os.getenv("API_BASE_URL", "api/")

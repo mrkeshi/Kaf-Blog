@@ -62,7 +62,8 @@
     public: {
       baseURL: process.env.NUXT_PUBLIC_BASE_URL || "http://127.0.0.1:8000/api/",
       vapidKey: process.env.NUXT_PUBLIC_VAPID_KEY || 'BAv9jq1Ff_uckKKEIuOCqVUTXQuTftPfdUILI97PvF5UvdcWsf72tk4N-1SCur4tlSV_9J8Xg_NzWVxOCCQSyq8',
-      isProduction: process.env.NUXT_PUBLIC_NODE_ENV === 'production'
+      isProduction: process.env.NUXT_PUBLIC_NODE_ENV === 'production',
+      
     }
   }
 
