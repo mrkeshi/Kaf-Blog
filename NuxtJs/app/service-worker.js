@@ -1,3 +1,8 @@
+import { precacheAndRoute } from 'workbox-precaching';
+
+// Inject file list into the service worker at build time
+precacheAndRoute(self.__WB_MANIFEST)
+
 self.addEventListener('push', function(event) {
   let data = {};
   try {
