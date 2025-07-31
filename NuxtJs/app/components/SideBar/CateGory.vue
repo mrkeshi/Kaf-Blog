@@ -1,5 +1,5 @@
 <template>
-  <div class=" rounded-xl my-8 max-md:my-6  ">
+  <div class=" rounded-xl my-8   ">
         <div class="header-aside-box flex items-center">
             <svg width="35" height="35" viewBox="0 0 37 37" class="fill-black-300" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_62_179)">

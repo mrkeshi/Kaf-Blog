@@ -1,6 +1,6 @@
 <template>
 
-  <Form @submit="sendComment" :validation-schema="CommentSchema" v-slot="{ meta, resetForm }" class="">
+  <Form @submit="sendComment" :validation-schema="CommentSchema" v-slot="{ meta, resetForm }" class="mt-1">
     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
       <base-input v-model="CommentData.name" :disabled="loading" type="text" name="name"
         placeholder="لطفا نام خود را وارد نمایید. " label="نام شما"></base-input>

@@ -1,6 +1,6 @@
 <!-- components/BaseButton.vue -->
 <template>
-  <button :type="type" :disabled="disabled" class="block w-full rounded-xl cursor-pointer px-3.5 py-3.5 text-center text-base font-semibold text-white shadow-xs
+  <button :type="type" :disabled="disabled" class="block w-full rounded-xl cursor-pointer max-lg:text-sm-2 max-lg:py-3 px-3.5 py-3.5 text-center text-base font-semibold text-white shadow-xs
     focus-visible:outline-2 focus-visible:outline-offset-2
     transition duration-200
     disabled:opacity-50 disabled:cursor-not-allowed

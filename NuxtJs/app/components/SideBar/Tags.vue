@@ -1,5 +1,5 @@
 <template>
-    <div class=" rounded-xl my-8 max-md:my-6  ">
+    <div class=" rounded-xl my-8   ">
         <div class="header-aside-box flex items-center">
             <svg width="36" height="36" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M34.1666 17.0834V13.6667H27.3333V6.83337H23.9166V13.6667H17.0833V6.83337H13.6666V13.6667H6.83325V17.0834H13.6666V23.9167H6.83325V27.3334H13.6666V34.1667H17.0833V27.3334H23.9166V34.1667H27.3333V27.3334H34.1666V23.9167H27.3333V17.0834H34.1666ZM23.9166 23.9167H17.0833V17.0834H23.9166V23.9167Z" fill="#323232"/>
