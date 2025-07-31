@@ -105,8 +105,7 @@ class LikeCreateView(APIView):
 
 class LikeCheckView(APIView):
     def get(self, request, pk):
-        ip = request.META.get('REMOTE_ADDR')
-
+        ip = get_client_ip(request)
         try:
             post = Post.objects.get(pk=pk)
         except Post.DoesNotExist:

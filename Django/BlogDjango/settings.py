@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # باید بالا باشه
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -191,3 +191,4 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 VAPID_PRIVATE_KEY = "VdQh39PVZiSYLNqG8yhHDtnloDQyuG67sqT429XdZpI"
 BASE_URL="http://localhost:3000/"
+

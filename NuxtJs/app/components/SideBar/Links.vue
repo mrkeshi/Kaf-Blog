@@ -25,7 +25,7 @@
         <ul class="flex flex-col ">
 
             <li v-for="item in data" class="bluew-auto flex justify-between my-1.5 ">
-                <a :href="item.link" target="_blank" class="text-base font-bold flex items-center text-black-400 transition hover:text-blue-600 max-md:text-sm-2">
+                <a :href="item.link" rel="nofollow " target="_blank" class="text-base font-bold flex items-center text-black-400 transition hover:text-blue-600 max-md:text-sm-2">
                     <svg width="24" height="24" viewBox="0 0 24 24" class="ml-1.5 mb-1 fill-blue-600"  xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_62_402)">
                         <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" />
