@@ -42,7 +42,7 @@ const setting=useMySettingDataStore().siteSettingData
 watchEffect(() => {
   if (!pending.value && data.value && setting) {
     const seo = generateSeoMeta({
-       title: `${setting.site_name} - ${data.value.title}`, 
+       title: `${setting.site_name} - ${data.value.title}`,   
       description: data.value.seo_description || setting.meta_description,
       image: data.value.image || setting.site_logo || setting.site_icon,
       url: `${setting.site_url}${route.fullPath}`,
