@@ -27,7 +27,6 @@ export default defineEventHandler(async (event) => {
     const headers = { ...event.req.headers,
       'Security-Token':config.private.private_header_key
      };
-    delete headers.host;
 
     if (Object.keys(body).length && !headers['content-type']) {
       headers['content-type'] = 'application/json';
