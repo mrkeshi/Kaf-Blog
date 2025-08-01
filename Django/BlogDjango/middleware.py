@@ -7,9 +7,6 @@ class SecurityTokenMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         self.secret_token = getattr(settings, 'PRIVATE_HEADER_KEY', None)
-
-
-
     def __call__(self, request):
         if request.path.startswith('/api/my-api-reverse/'):
             token = request.META.get('HTTP_SECURITY_TOKEN')

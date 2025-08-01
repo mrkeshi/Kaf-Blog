@@ -4,7 +4,7 @@
       <header>
         <div class="flex px-2 p-8 max-sm:p-5 items-center justify-between">
           <div class="flex flex-col">
-            <h1 class="text-3xl text-black-400 font-bold max-sm:text-2xl">{{ title }} </h1>
+            <h1 class="text-3xl text-black-400 font-bold max-sm:text-2xl"><NuxtLink to="{name:'index'}">{{ title }}</NuxtLink></h1>
             <h3 class="text-base max-sm:text-[15px] font-medium text-black-400 mt-1">{{ description }}</h3>
           </div>
           <div class="flex flex-col w-[153px]">
