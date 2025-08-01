@@ -32,25 +32,25 @@ export async function Fetch<G>(
   if (isProduction) {
     config = {
       ...config,
-      baseURL:nuxtConfig.public.baseURL,
+      baseURL:"http://localhost:3000/api/proxy",
       credentials: "include",
     };
   } else {
     config = {
       ...config,
-      baseURL:nuxtConfig.public.baseURL,
+      baseURL:"http://localhost:3000/api/proxy",
     };
   }
 
   return $fetch<ApiResponse<G>>(url, config)
     .then((res) => res)
     .catch((e: FetchError) => {
-      const errorDetail = e.data?.detail || e.message || "خطای نامشخص";
-      showError({
-        title: "خطا",
-        message: errorDetail,
-      });
-      console.error(e);
+      // const errorDetail = e.data?.detail || e.message || "خطای نامشخص";
+      // showError({
+      //   title: "خطا",
+      //   message: errorDetail,
+      // });
+      // console.error(e);
       throw e;
     });
 }
