@@ -62,7 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware'
+    'axes.middleware.AxesMiddleware',
+    'BlogDjango.middleware.SecurityTokenMiddleware'
 ]
 
 # URL Config
@@ -189,3 +190,5 @@ else:
     CSRF_TRUSTED_ORIGINS = FRONTEND_DOMAINS
 
 API_BASE_URL = os.getenv("API_BASE_URL", "api/")
+
+PRIVATE_HEADER_KEY = os.environ.get('PRIVATE_HEADER_KEY', 'ALIREZA')
