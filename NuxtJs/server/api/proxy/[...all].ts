@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
 
     const fullUrl = event.req.url || '';
     const config=useRuntimeConfig()
+ 
 
     const proxyPrefix = '/api/proxy';
     let targetPath = '';
@@ -23,7 +24,9 @@ export default defineEventHandler(async (event) => {
     }
 
 
-    const headers = { ...event.req.headers };
+    const headers = { ...event.req.headers,
+      'Security-Token':config.private.private_header_key
+     };
     delete headers.host;
 
     if (Object.keys(body).length && !headers['content-type']) {

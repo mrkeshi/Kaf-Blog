@@ -14,7 +14,7 @@
         <skeleton-simple v-else class="w-full h-12 rounded-2xl mb-8" />
 
         <blockquote v-if="!pending" v-html="data?.description"
-          class="relative text-justify text-black-300 leading-loose text-base sm:text-lg font-normal italic pr-6 border-r-4 border-black-200">
+          class="relative text-justify text-black-300 leading-loose text-base sm:text-lg font-normal italic pr-6 max-lg:pr-3 border-r-4 border-black-200">
 
         </blockquote>
         <skeleton-simple v-else :repeat="15" class="w-full h-6 rounded-lg " />
