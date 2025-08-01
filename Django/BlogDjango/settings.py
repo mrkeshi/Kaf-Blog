@@ -192,3 +192,17 @@ else:
 API_BASE_URL = os.getenv("API_BASE_URL", "api/")
 
 PRIVATE_HEADER_KEY = os.environ.get('PRIVATE_HEADER_KEY', 'ALIREZA')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}

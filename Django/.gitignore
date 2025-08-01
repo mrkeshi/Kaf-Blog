@@ -16,3 +16,4 @@ env/
 
 #hidden sqlite
 db.sqlite3
+db.sqlite3.*

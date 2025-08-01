@@ -10,7 +10,6 @@ from Setting.models import NotificationSubscription
 def get_client_ip(request):
     ip, is_routable = ipware_get_client_ip(request)
 
-    print(ip)
     return ip
 
 def send_push_to_all(title: str, body: str, url: str):
