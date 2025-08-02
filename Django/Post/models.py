@@ -78,7 +78,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
         if self.send_notification:
-            send_push_to_all(self.title, re.sub('<[^<]+?>', '', self.content)[0:100] ,self.slug)
+            send_push_to_all(self.title, self.seo_description,self.slug)
             self.send_notification = False
             super().save(update_fields=['send_notification'])
 

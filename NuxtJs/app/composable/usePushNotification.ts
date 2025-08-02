@@ -19,15 +19,24 @@ export function usePushNotification() {
   const { showError, showSuccess } = useCustomToastify();
 
   async function subscribeUserToPush() {
-    const setting = useMySettingDataStore();  
+    const setting = useMySettingDataStore();
 
     if (!('serviceWorker' in navigator)) return console.log("Service Worker پشتیبانی نمی‌شود.");
     if (!('PushManager' in window)) return console.log("Push Notification پشتیبانی نمی‌شود.");
 
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') {
-      return showError({ title: "ناموفق", message: "مجوز درخواست نوتیفیکیشن رد شد." });
+    if (Notification.permission === 'default') {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        return showError({ title: "ناموفق", message: "مجوز درخواست نوتیفیکیشن رد شد." });
+      }
+    } else if (Notification.permission === 'denied') {
+      return showError({
+        title: "رد مجوز",
+        message: "شما قبلاً مجوز نوتیفیکیشن را رد کرده‌اید. لطفاً از تنظیمات مرورگر فعال کنید.",
+      });
     }
+
+    // اگر permission برابر 'granted' هست، ادامه میده
 
     let reg: ServiceWorkerRegistration;
     try {
@@ -68,7 +77,7 @@ export function usePushNotification() {
   }
 
   async function unsubscribeUserFromPush() {
-    const setting = useMySettingDataStore(); 
+    const setting = useMySettingDataStore();
 
     try {
       const reg = await navigator.serviceWorker.getRegistration();

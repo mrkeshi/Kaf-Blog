@@ -35,4 +35,8 @@ def send_push_to_all(title: str, body: str, url: str):
             )
             print("\n \n SUCCESS SENDING NOT \n \n")
         except WebPushException as ex:
-            print(f"⚠️ خطا در ارسال نوتیف به {sub}: {repr(ex)}")
+            if ex.response and ex.response.status_code in [404, 410]:
+                print(f"اشتراک منقضی شده یا نامعتبر، حذف می‌شود: {sub}")
+                sub.delete()  # حذف اشتراک از دیتابیس
+            else:
+                print(f"⚠️ خطا در ارسال نوتیف به {sub}: {repr(ex)}")
