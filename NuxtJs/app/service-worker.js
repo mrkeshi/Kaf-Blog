@@ -27,7 +27,7 @@ self.addEventListener('push', function(event) {
       clientsList.forEach(client => {
         client.postMessage({
           type: 'push',
-          title: data.title || "نوتیف جدید",
+          title: data.title || "نوتیفیکیشن جدید ",
           body: data.body || "شما یک نوتیف جدید دارید"
         });
       });

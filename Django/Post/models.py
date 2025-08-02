@@ -1,7 +1,11 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+import re
 
+def strip_html_and_send(self):
+    plain_text = re.sub('<[^<]+?>', '', self.content)  # حذف تگ‌ها
+    send_push_to_all(self.title, plain_text[:100], self.slug)
 
 
 from Post.utils import send_push_to_all
@@ -74,7 +78,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
         if self.send_notification:
-            send_push_to_all(self.title,"یک پست جدید در دسترس است. لطفا کلیک کنید.", self.slug)
+            send_push_to_all(self.title, re.sub('<[^<]+?>', '', self.content)[0:100] ,self.slug)
             self.send_notification = False
             super().save(update_fields=['send_notification'])
 
