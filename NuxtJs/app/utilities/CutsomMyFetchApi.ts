@@ -15,10 +15,10 @@ export async function Fetch<G>(
   const method = config.method?.toUpperCase() || "GET";
   const csrfToken = useCookie("csrftoken").value;
 
-config.headers = {
-  ...config.headers,
-  'Nuxt-token': nuxtConfig.private.private_header_key
-}
+  config.headers={
+    ...config.headers,
+    'Nuxt-token':nuxtConfig.public.private_header_key
+  }
   if (
     isProduction &&
     ["POST", "PUT", "PATCH", "DELETE"].includes(method) &&
