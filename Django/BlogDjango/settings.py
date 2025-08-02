@@ -150,7 +150,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.AnonRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '150/hour' if MODE == 'production' else '1000/hour',
+        'anon': '500/hour' if MODE == 'production' else '1000/hour',
     },
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 8,
@@ -191,7 +191,7 @@ else:
         "http://localhost:3000",
     ]
     CSRF_TRUSTED_ORIGINS = FRONTEND_DOMAINS
-    
+
 CORS_ALLOW_HEADERS = list(default_headers) + [
         "Nuxt-Token",
     ]
