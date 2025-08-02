@@ -49,12 +49,12 @@ export async function Fetch<G>(
   return $fetch<ApiResponse<G>>(url, config)
     .then((res) => res)
     .catch((e: FetchError) => {
-      // const errorDetail = e.data?.detail || e.message || "خطای نامشخص";
-      // showError({
-      //   title: "خطا",
-      //   message: errorDetail,
-      // });
-      // console.error(e);
+      const errorDetail = e.data?.detail || e.message || "خطای نامشخص";
+      showError({
+        title: "خطا",
+        message: errorDetail,
+      });
+      console.error(e);
       throw e;
     });
 }
