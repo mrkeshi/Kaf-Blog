@@ -2,6 +2,8 @@ import os
 import sys
 import locale
 from pathlib import Path
+
+from corsheaders.defaults import default_headers
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -181,6 +183,9 @@ if MODE == 'production':
     CSRF_COOKIE_HTTPONLY = False
     CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = 'Lax'
+    # CORS_ALLOW_HEADERS = list(default_headers) + [
+    #     "Security-Token",
+    # ]
 else:
     CORS_ALLOW_ALL_ORIGINS = True
 

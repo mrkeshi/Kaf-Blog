@@ -9,8 +9,7 @@ class SecurityTokenMiddleware:
         self.secret_token = getattr(settings, 'PRIVATE_HEADER_KEY', None)
     def __call__(self, request):
         if request.path.startswith('/api/my-api-reverse/'):
-            token = request.META.get('HTTP_SECURITY_TOKEN')
-            logger.info(f"Received Security-Token header: {token}")
+            token = request.META.get('HTTP_NUXT_TOKEN')
             if not token or token != self.secret_token:
                 return JsonResponse({'error': 'Unauthorized'}, status=401)
         return self.get_response(request)
