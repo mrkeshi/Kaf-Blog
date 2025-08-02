@@ -183,9 +183,7 @@ if MODE == 'production':
     CSRF_COOKIE_HTTPONLY = False
     CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = 'Lax'
-    # CORS_ALLOW_HEADERS = list(default_headers) + [
-    #     "Security-Token",
-    # ]
+
 else:
     CORS_ALLOW_ALL_ORIGINS = True
 
@@ -193,7 +191,10 @@ else:
         "http://localhost:3000",
     ]
     CSRF_TRUSTED_ORIGINS = FRONTEND_DOMAINS
-
+    
+CORS_ALLOW_HEADERS = list(default_headers) + [
+        "Nuxt-Token",
+    ]
 API_BASE_URL = os.getenv("API_BASE_URL", "api/")
 
 PRIVATE_HEADER_KEY = os.environ.get('PRIVATE_HEADER_KEY', 'ALIREZA')
