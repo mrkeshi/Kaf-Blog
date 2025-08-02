@@ -15,6 +15,10 @@ export async function Fetch<G>(
   const method = config.method?.toUpperCase() || "GET";
   const csrfToken = useCookie("csrftoken").value;
 
+config.headers = {
+  ...config.headers,
+  'Nuxt-token': nuxtConfig.private.private_header_key
+}
   if (
     isProduction &&
     ["POST", "PUT", "PATCH", "DELETE"].includes(method) &&
@@ -32,13 +36,13 @@ export async function Fetch<G>(
   if (isProduction) {
     config = {
       ...config,
-      baseURL:nuxtConfig.public.proxy,
+      baseURL:nuxtConfig.public.baseURL,
       credentials: "include",
     };
   } else {
     config = {
       ...config,
-      baseURL:nuxtConfig.public.proxy,
+      baseURL:nuxtConfig.public.baseURL,
     };
   }
 
