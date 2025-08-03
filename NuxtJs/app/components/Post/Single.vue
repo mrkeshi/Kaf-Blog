@@ -73,14 +73,13 @@
 
     </div>
     <div class="BodyArticle my-8 mb-4 max-md:my-4">
-      <div class="text-base  px-2 text-black-300 font-medium leading-9 text-justify" v-html="post?.content">
+      <div class="text-base   text-black-300 font-medium leading-9 text-justify" v-html="post?.content">
 
       </div>
     </div>
-    <div class="tag mb-6 max-md:mb-4 flex gap-2 items-center">
-      <b>برچسپ:</b>
-      <ul class="flex gap-2 flex-wrap ">
-
+    <div class="tag mb-6 max-md:mb-4 mt-6 max-lg:mt-3 flex gap-2 items-center">
+      <b>تگ ها:</b>
+      <ul class="flex gap-1 flex-wrap ">
         <li class="bluew-auto flex justify-between my-1 " v-for="item in post?.tags">
           <NuxtLink  :to="{name:'tag-slug',params:{slug:item.slug}}"
             class="text-black-400 border-1 border-black-400 px-2.5 py-1.5 text-center rounded-3xl  hover:text-white transition hover:bg-black-400 text-sm max-md:text-sm-2 font-medium">
