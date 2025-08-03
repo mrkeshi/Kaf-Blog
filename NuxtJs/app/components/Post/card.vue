@@ -74,23 +74,19 @@
 import { type PostListDTO } from '~/models/Post/PostDTO';
 import { computed } from 'vue';
 import type Slug from '~/pages/[slug].vue';
+import decodeHtml from '~/utilities/decodeHtml';
 const props=defineProps<{post:PostListDTO}>()
 
 const truncatedContent = computed(() => {
   if (!props.post.content) return ''
 
   const maxLength = 450
+  const noTags = props.post.content.replace(/<[^>]+>/g, '')
+  const plainText = decodeHtml(noTags)
 
-  const decodeHtml = (html: string): string => {
-    const el = document.createElement('textarea')
-    el.innerHTML = html
-    return el.value
-  }
-
-  const plainText = decodeHtml(props.post.content.replace(/<[^>]+>/g, ''))
-
-  if (plainText.length <= maxLength) return plainText
-  return plainText.slice(0, maxLength) + '...'
+  return plainText.length <= maxLength
+    ? plainText
+    : plainText.slice(0, maxLength) + '...'
 })
 </script>
 
