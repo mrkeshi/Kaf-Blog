@@ -78,8 +78,16 @@ const props=defineProps<{post:PostListDTO}>()
 
 const truncatedContent = computed(() => {
   if (!props.post.content) return ''
+
   const maxLength = 450
-  const plainText = props.post.content.replace(/<[^>]+>/g, '')
+
+  const decodeHtml = (html: string): string => {
+    const el = document.createElement('textarea')
+    el.innerHTML = html
+    return el.value
+  }
+
+  const plainText = decodeHtml(props.post.content.replace(/<[^>]+>/g, ''))
 
   if (plainText.length <= maxLength) return plainText
   return plainText.slice(0, maxLength) + '...'
