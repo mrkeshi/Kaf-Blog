@@ -98,7 +98,7 @@ class Comment(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام")
     email = models.EmailField(verbose_name="ایمیل")
     message = models.TextField(verbose_name="متن دیدگاه")
-    answer = models.TextField(verbose_name="پاسخ دیدگاه" , blank=True)
+    answer = RichTextField(verbose_name="پاسخ دیدگاه" , blank=True)
     active=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
     privte=models.BooleanField(default=False, verbose_name=" نظرخصوصی ")

@@ -1,1 +1,3 @@
 Django/db.sqlite3
+Django/db.sqlite3
+*.sqlite3

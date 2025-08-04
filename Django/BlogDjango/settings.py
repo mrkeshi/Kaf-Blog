@@ -6,6 +6,7 @@ from pathlib import Path
 from corsheaders.defaults import default_headers
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -114,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Language and Timezone
 LANGUAGE_CODE = 'fa'
-TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -212,3 +212,4 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+TIME_ZONE = 'Asia/Tehran'

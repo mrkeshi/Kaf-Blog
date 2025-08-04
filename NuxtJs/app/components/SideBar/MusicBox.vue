@@ -1,6 +1,6 @@
 <template>
   <div>
-    <hr class="lg:hidden -mt-4 opacity-65 mb-8">
+    <hr class="lg:hidden -mt-4 opacity-10 mb-8">
     <div class="rounded-xl my-8 max-md:my-4">
       <div class="header-aside-box flex items-center">
         <svg width="21" height="31" viewBox="0 0 21 31" fill="none" xmlns="http://www.w3.org/2000/svg">

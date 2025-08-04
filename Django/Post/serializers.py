@@ -1,10 +1,13 @@
+from django.utils import timezone
 from jalali_date import datetime2jalali
 from rest_framework import serializers
 from .models import Tag, Category, Post, Comment, Like
 
 
 def to_jalali_readable2(datetime_obj):
-    jalali = datetime2jalali(datetime_obj)
+    local_dt = timezone.localtime(datetime_obj)
+
+    jalali = datetime2jalali(local_dt)
 
     def to_persian_number(s):
         return str(s).translate(str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹'))
@@ -12,7 +15,7 @@ def to_jalali_readable2(datetime_obj):
     day = to_persian_number(jalali.day)
     month = jalali.strftime('%B')
     year = to_persian_number(jalali.year)
-    time = to_persian_number(datetime_obj.strftime('%H:%M'))
+    time = to_persian_number(local_dt.strftime('%H:%M'))
 
     return f"{day} {month} {year} | {time}"
 
@@ -40,6 +43,7 @@ class CategoryWithPostCountSerializer(serializers.ModelSerializer):
 
 class CommentListSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
+    message = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
@@ -47,6 +51,9 @@ class CommentListSerializer(serializers.ModelSerializer):
 
     def get_created_at(self, obj):
         return to_jalali_readable2(obj.created_at)
+
+    def get_message(self, obj):
+        return obj.message.replace('\n', '<br>') if obj.message else ""
 
 
 class PostListSerializer(serializers.ModelSerializer):
