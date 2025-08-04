@@ -31,13 +31,14 @@
                               
                             </div>
                       </div>
-                      <p class="text-black-300 my-2 mr-1 max-md:text-sm">
-                        {{comment.message}}
+                      <p class="text-black-300 my-2 mr-1 max-md:text-sm" v-html="comment.message">
                       </p>
                       <div class="flex items-center max-md:text-sm flex-wrap">
                         <b class="text-blue-600" v-if="comment.answer">پاسخ :</b>
                         <p class="text-black-300 my-2 mr-1" v-if="comment.answer">
-                         {{comment.answer}}
+                         <div v-html="comment.answer">
+
+                         </div>
                         </p>
                       </div>
                     </div>
