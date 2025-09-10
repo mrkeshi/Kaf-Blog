@@ -27,6 +27,7 @@ urlpatterns = [
     path(f'{api_base_url}', include('Setting.urls')),
     path(f'{api_base_url}', include('Contact.urls')),
     path(f'{api_base_url}', include('Post.urls')),
+    path(f'{api_base_url}', include('Gallery.urls')),
     path(f'{api_base_url}metadata/', Post.views.HomeSidebarDataView.as_view()),
 ]
 

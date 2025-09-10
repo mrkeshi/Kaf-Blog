@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'Setting',
     'Contact',
-    'Post'
+    'Post',
+    'Gallery'
 ]
 
 # Middleware

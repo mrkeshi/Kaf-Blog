@@ -4,7 +4,7 @@ from django.utils.text import slugify
 import re
 
 def strip_html_and_send(self):
-    plain_text = re.sub('<[^<]+?>', '', self.content)  # حذف تگ‌ها
+    plain_text = re.sub('<[^<]+?>', '', self.content)
     send_push_to_all(self.title, plain_text[:100], self.slug)
 
 
