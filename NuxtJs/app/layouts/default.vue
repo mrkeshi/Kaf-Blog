@@ -5,10 +5,15 @@
      :count="mySettingStore.siteSettingData?.count"
      :icon="mySettingStore.siteSettingData?.site_icon"
      ></TheHeader>
+
+
+
+
      <div class="container mx-auto mt-10 max-md:mt-4  px-4 flex flex-col lg:flex-row gap-36 max-xl:gap-12 max-2xl:gap-24  max-lg:gap-6  min-h-screen">
 
     <!-- Main content -->
     <main class="w-full lg:w-3/4 flex-1 lg:mt-4 max-md:mt-2">
+        <RadialFabMenu />
        <slot />
     </main>
   
