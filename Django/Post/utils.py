@@ -1,7 +1,10 @@
 import json
+
+import pytz
 from ipware import get_client_ip as ipware_get_client_ip
 
 from django.conf import settings
+from jalali_date import date2jalali
 from pywebpush import webpush, WebPushException
 
 from Setting.models import NotificationSubscription
@@ -37,6 +40,20 @@ def send_push_to_all(title: str, body: str, url: str):
         except WebPushException as ex:
             if ex.response and ex.response.status_code in [404, 410]:
                 print(f"اشتراک منقضی شده یا نامعتبر، حذف می‌شود: {sub}")
-                sub.delete()  # حذف اشتراک از دیتابیس
+                sub.delete()
             else:
                 print(f"⚠️ خطا در ارسال نوتیف به {sub}: {repr(ex)}")
+
+def jalali_converter(datetime_obj):
+    local_time = datetime_obj.astimezone(pytz.timezone('Asia/Tehran'))
+    jalali_date = date2jalali(local_time)
+    months = [
+        "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
+        "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
+    ]
+    year = jalali_date.year
+    month_name = months[jalali_date.month - 1]
+    day = jalali_date.day
+    hour = local_time.hour
+    minute = local_time.minute
+    return f"{day} {month_name} {year} - {hour:02d}:{minute:02d}"

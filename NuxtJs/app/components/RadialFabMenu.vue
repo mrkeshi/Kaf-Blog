@@ -7,23 +7,20 @@
                h-12 md:h-14
                w-[clamp(180px,calc(100vw-112px),260px)]
                md:w-[clamp(240px,calc(100vw-120px),360px)]"
-        :class="{'is-open': open && !closing, 'is-closing': closing}"
+        :class="{
+          'is-open': open && !closing,
+          'is-closing': closing,
+          'shadow-[0_20px_50px_rgba(0,0,0,0.45)]': open && !closing
+        }"
         role="menu"
         aria-label="منوی کشویی"
+        @animationend="onAnimEnd"
       >
-        <div
-          class="h-full w-full bg-[rgba(12,16,24,0.92)] text-white/90 shadow-2xl rounded-full overflow-hidden backdrop-blur-[2px]"
-        >
-          <div
-            dir="ltr"
-            class="h-full grid items-stretch gap-0 divide-x divide-white/10"
-            :style="{ gridTemplateColumns: 'repeat(3, 1fr)' }"
-          >
+        <div class="h-full w-full bg-[rgba(12,16,24,0.92)] text-white/90 shadow-2xl rounded-full overflow-hidden backdrop-blur-[2px]">
+          <div dir="ltr" class="h-full grid items-stretch gap-0 divide-x divide-white/10" :style="{ gridTemplateColumns: 'repeat(3, 1fr)' }">
             <component
               :is="linkTag" :to="isNuxt ? '/about' : undefined" :href="!isNuxt ? '/about' : undefined"
-              class="menu-item px-3 md:px-5 flex items-center justify-center
-                     hover:bg-blue-600 active:bg-blue-700 hover:text-white active:text-white
-                     transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]"
+              class="menu-item px-3 md:px-5 flex items-center justify-center hover:bg-blue-600 active:bg-blue-700 hover:text-white active:text-white transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]"
               role="menuitem" aria-label="درباره من" @click="closeWithAnim"
             >
               <span class="sr-only">درباره من</span>
@@ -32,9 +29,7 @@
 
             <component
               :is="linkTag" :to="isNuxt ? '/gallery' : undefined" :href="!isNuxt ? '/gallery' : undefined"
-              class="menu-item px-3 md:px-5 flex items-center justify-center
-                     hover:bg-blue-600 active:bg-blue-700 hover:text-white active:text-white
-                     transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]"
+              class="menu-item px-3 md:px-5 flex items-center justify-center hover:bg-blue-600 active:bg-blue-700 hover:text-white active:text-white transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]"
               role="menuitem" aria-label="گالری" @click="closeWithAnim"
             >
               <span class="sr-only">گالری</span>
@@ -43,9 +38,7 @@
 
             <component
               :is="linkTag" :to="isNuxt ? '/' : undefined" :href="!isNuxt ? '/' : undefined"
-              class="menu-item px-3 md:px-5 flex items-center justify-center
-                     hover:bg-blue-600 active:bg-blue-700 hover:text-white active:text-white
-                     transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]"
+              class="menu-item px-3 md:px-5 flex items-center justify-center hover:bg-blue-600 active:bg-blue-700 hover:text-white active:text-white transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]"
               role="menuitem" aria-label="خانه" @click="closeWithAnim"
             >
               <span class="sr-only">خانه</span>
@@ -57,15 +50,13 @@
 
       <button
         ref="triggerRef"
-        class="relative z-10 w-12 h-12 md:w-14 md:h-14 grid place-items-center rounded-full text-white shadow-2xl cursor-pointer
-               transition-colors duration-200 ease-[cubic-bezier(.2,.8,.2,1)] overflow-visible"
+        class="relative z-10 w-12 h-12 md:w-14 md:h-14 grid place-items-center rounded-full text-white shadow-2xl cursor-pointer transition-colors duration-200 ease-[cubic-bezier(.2,.8,.2,1)] overflow-visible outline-none focus:outline-none"
         :class="open ? 'bg-blue-600 hover:bg-blue-700' : 'bg-black/90 hover:bg-black'"
         :aria-expanded="open ? 'true' : 'false'"
         :aria-label="open ? 'بستن منو' : 'باز کردن منو'"
+        :disabled="animating"
         @click="toggle"
       >
-        <span v-if="!open" class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-blue-500/25 animate-ping"></span>
-        <span v-if="!open" class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-blue-500/20"></span>
         <BarsIcon v-if="!open" class="w-6 h-6" />
         <CloseIcon v-else class="w-6 h-6" />
       </button>
@@ -79,24 +70,41 @@ import { ref, computed, h, resolveComponent } from 'vue'
 const open = ref(false)
 const visible = ref(false)
 const closing = ref(false)
+const animating = ref(false)
 
-const isNuxt = computed(() => !!resolveComponent('NuxtLink'))
-const linkTag = computed(() => (resolveComponent('NuxtLink') as any) || 'a')
+let maybeNuxt: any = null
+try { maybeNuxt = resolveComponent('NuxtLink') } catch (_) { maybeNuxt = null }
+const isNuxt = computed(() => !!maybeNuxt)
+const linkTag = computed(() => (maybeNuxt as any) || 'a')
 
 function toggle() {
+  if (animating.value) return
   if (!open.value) {
     visible.value = true
     closing.value = false
+    animating.value = true
     requestAnimationFrame(() => { open.value = true })
   } else {
     closeWithAnim()
   }
 }
+
 function closeWithAnim() {
-  if (!visible.value) return
+  if (!visible.value || animating.value) return
   closing.value = true
   open.value = false
-  setTimeout(() => { visible.value = false; closing.value = false }, 420)
+  animating.value = true
+}
+
+function onAnimEnd(e: AnimationEvent) {
+  if (e.animationName === 'revealStrip') {
+    closing.value = false
+    animating.value = false
+  } else if (e.animationName === 'hideStrip') {
+    visible.value = false
+    closing.value = false
+    animating.value = false
+  }
 }
 
 function BarsIcon(){ return h('svg',{xmlns:'http://www.w3.org/2000/svg',viewBox:'0 0 24 24'},[h('path',{fill:'currentColor',d:'M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z'})]) }
@@ -116,22 +124,16 @@ function UserIcon(){ return h('svg',{xmlns:'http://www.w3.org/2000/svg',viewBox:
   will-change: clip-path, transform, opacity;
   clip-path: inset(0 100% 0 0 round 9999px);
 }
-
-.strip-shell.is-open {
-  animation: revealStrip 420ms cubic-bezier(.16,.84,.24,1) forwards;
-}
-.strip-shell.is-closing {
-  animation: hideStrip 360ms cubic-bezier(.2,.8,.2,1) forwards;
-}
+.strip-shell.is-open { animation: revealStrip 420ms cubic-bezier(.16,.84,.24,1) forwards; }
+.strip-shell.is-closing { animation: hideStrip 360ms cubic-bezier(.2,.8,.2,1) forwards; }
 
 @keyframes revealStrip {
   from { clip-path: inset(0 100% 0 0 round 9999px); filter: blur(0.8px); opacity: .0; }
   60%  { filter: blur(0.25px); }
-  to   { clip-path: inset(0 0 0 0 round 9999px);   filter: blur(0);     opacity: 1; }
+  to   { clip-path: inset(0 0 0 0 round 9999px); filter: blur(0); opacity: 1; }
 }
-
 @keyframes hideStrip {
-  from { clip-path: inset(0 0 0 0 round 9999px);   filter: blur(0);     opacity: 1; }
+  from { clip-path: inset(0 0 0 0 round 9999px); filter: blur(0); opacity: 1; }
   to   { clip-path: inset(0 100% 0 0 round 9999px); filter: blur(.35px); opacity: .98; }
 }
 

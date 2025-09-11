@@ -34,9 +34,7 @@ const loading = ref(false)
 
 const CommentSchema = Yup.object().shape({
   name: Yup.string().required("وارد کردن  نام ضروری هست.").min(1, "حداقل باید یک کاراکتر وارد کنید."),
-  email: Yup.string()
-    .required("وارد کردن ایمیل الزامی‌ست.")
-    .email("ایمیل وارد شده معتبر نیست"),
+  email: Yup.string().email("ایمیل وارد شده معتبر نیست"),
 
   message: Yup.string()
     .required("نوشتن پیام الزامی است.")
