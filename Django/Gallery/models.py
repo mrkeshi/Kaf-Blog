@@ -26,7 +26,6 @@ class GalleryItem(models.Model):
 
     location = models.CharField("لوکیشن", max_length=255)
     sender_name = models.CharField("نام فرستنده", max_length=100)
-    sender_email = models.EmailField("ایمیل فرستنده", blank=True, null=True)
     photo = models.ImageField(
         "عکس", upload_to=image_upload_path, validators=[validate_image_size]
     )

@@ -6,7 +6,7 @@ class GalleryItemPublicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GalleryItem
-        fields = ["id", "location", "sender_name", "sender_email", "photo", "status", "created_at"]
+        fields = ["id", "location", "sender_name", "photo", "status", "created_at"]
         read_only_fields = ["id", "status", "created_at"]
 
     def validate_sender_name(self, value):

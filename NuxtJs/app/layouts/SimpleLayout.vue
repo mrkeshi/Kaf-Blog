@@ -1,4 +1,6 @@
 <template>
+          <RadialFabMenu />
+
   <div >
      <TheHeader :title="mySettingStore.siteSettingData?.site_name"
       :description="mySettingStore.siteSettingData?.meta_description"

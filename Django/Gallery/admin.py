@@ -5,9 +5,9 @@ from .models import GalleryItem
 
 @admin.register(GalleryItem)
 class GalleryItemAdmin(admin.ModelAdmin):
-    list_display = ("id", "sender_name", "location", "sender_email", "status", "created_at_jalali")
+    list_display = ("id", "sender_name", "location", "status", "created_at_jalali")
     list_filter = ("status", "created_at")
-    search_fields = ("sender_name", "location", "sender_email")
+    search_fields = ("sender_name", "location")
     list_editable = ("status",)
 
     actions = ["approve_items", "reject_items"]
