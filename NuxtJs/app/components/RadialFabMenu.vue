@@ -24,7 +24,7 @@
               role="menuitem" aria-label="درباره من" @click="closeWithAnim"
             >
               <span class="sr-only">درباره من</span>
-              <UserIcon class="w-5 h-5 md:w-6 md:h-6 opacity-95" />
+              <UserIcon class="w-4 h-4 md:w-6 md:h-6 opacity-95" />
             </component>
 
             <component
@@ -33,7 +33,7 @@
               role="menuitem" aria-label="گالری" @click="closeWithAnim"
             >
               <span class="sr-only">گالری</span>
-              <GalleryIcon class="w-5 h-5 md:w-6 md:h-6 opacity-95" />
+              <GalleryIcon class="w-6 h-6 md:w-7 md:h-7 opacity-95" />
             </component>
 
             <component
@@ -57,6 +57,8 @@
         :disabled="animating"
         @click="toggle"
       >
+        <span v-if="!open" class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-blue-500/25 animate-ping"></span>
+        <span v-if="!open" class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-blue-500/20"></span>
         <BarsIcon v-if="!open" class="w-6 h-6" />
         <CloseIcon v-else class="w-6 h-6" />
       </button>
@@ -65,12 +67,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h, resolveComponent } from 'vue'
+import { ref, computed, h, resolveComponent, onBeforeUnmount } from 'vue'
 
 const open = ref(false)
 const visible = ref(false)
 const closing = ref(false)
 const animating = ref(false)
+let openTimer: number | null = null
+let closeTimer: number | null = null
 
 let maybeNuxt: any = null
 try { maybeNuxt = resolveComponent('NuxtLink') } catch (_) { maybeNuxt = null }
@@ -84,6 +88,8 @@ function toggle() {
     closing.value = false
     animating.value = true
     requestAnimationFrame(() => { open.value = true })
+    if (openTimer) clearTimeout(openTimer)
+    openTimer = window.setTimeout(() => { animating.value = false }, 100)
   } else {
     closeWithAnim()
   }
@@ -94,18 +100,31 @@ function closeWithAnim() {
   closing.value = true
   open.value = false
   animating.value = true
+  if (closeTimer) clearTimeout(closeTimer)
+  closeTimer = window.setTimeout(() => {
+    visible.value = false
+    closing.value = false
+    animating.value = false
+  }, 700)
 }
 
 function onAnimEnd(e: AnimationEvent) {
   if (e.animationName === 'revealStrip') {
-    closing.value = false
+    if (openTimer) clearTimeout(openTimer)
     animating.value = false
+    closing.value = false
   } else if (e.animationName === 'hideStrip') {
+    if (closeTimer) clearTimeout(closeTimer)
     visible.value = false
     closing.value = false
     animating.value = false
   }
 }
+
+onBeforeUnmount(() => {
+  if (openTimer) clearTimeout(openTimer)
+  if (closeTimer) clearTimeout(closeTimer)
+})
 
 function BarsIcon(){ return h('svg',{xmlns:'http://www.w3.org/2000/svg',viewBox:'0 0 24 24'},[h('path',{fill:'currentColor',d:'M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z'})]) }
 function CloseIcon(){ return h('svg',{xmlns:'http://www.w3.org/2000/svg',viewBox:'0 0 24 24'},[h('path',{d:'M6 6L18 18M18 6L6 18',stroke:'currentColor','stroke-width':'2.4','stroke-linecap':'round'})]) }
