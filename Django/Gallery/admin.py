@@ -1,20 +1,6 @@
-import pytz
 from django.contrib import admin
-from jalali_date import date2jalali
-def jalali_converter(datetime_obj):
-    local_time = datetime_obj.astimezone(pytz.timezone('Asia/Tehran'))
-    jalali_date = date2jalali(local_time)
-    months = [
-        "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
-        "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
-    ]
-    year = jalali_date.year
-    month_name = months[jalali_date.month - 1]
-    day = jalali_date.day
-    hour = local_time.hour
-    minute = local_time.minute
-    return f"{day} {month_name} {year} - {hour:02d}:{minute:02d}"
 
+from Post.admin import jalali_converter
 from .models import GalleryItem
 
 @admin.register(GalleryItem)

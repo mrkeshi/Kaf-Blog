@@ -96,7 +96,7 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name="پست")
     name = models.CharField(max_length=100, verbose_name="نام")
-    email = models.EmailField(verbose_name="ایمیل")
+    email = models.EmailField(verbose_name="ایمیل",blank=True)
     message = models.TextField(verbose_name="متن دیدگاه")
     answer = RichTextField(verbose_name="پاسخ دیدگاه" , blank=True)
     active=models.BooleanField(default=False)
