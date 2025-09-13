@@ -3,13 +3,16 @@ from rest_framework import viewsets, permissions
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.exceptions import NotFound
 from .models import GalleryItem
+from .pagination import DefaultPagination
 from .serializers import GalleryItemPublicSerializer, GalleryItemAdminSerializer
 from .permissions import IsAdminOrReadCreateOnly
+
 
 class GalleryItemViewSet(viewsets.ModelViewSet):
     queryset = GalleryItem.objects.all()
     permission_classes = [IsAdminOrReadCreateOnly]
     parser_classes = [MultiPartParser, FormParser]
+    pagination_class = DefaultPagination
 
     def get_serializer_class(self):
         user = getattr(self.request, "user", None)

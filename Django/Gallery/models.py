@@ -1,10 +1,13 @@
 # gallery_app/models.py
-import uuid, os
+import os
+import uuid
 from io import BytesIO
+
+from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.db import models
-from django.core.exceptions import ValidationError
-from PIL import Image
+
+from PIL import Image, ImageOps
 
 
 def image_upload_path(instance, filename):
@@ -13,7 +16,7 @@ def image_upload_path(instance, filename):
 
 
 def validate_image_size(image):
-    max_size_mb = 10
+    max_size_mb = 15
     if image.size > max_size_mb * 1024 * 1024:
         raise ValidationError(f"حداکثر حجم مجاز تصویر {max_size_mb}MB است.")
 
@@ -38,26 +41,114 @@ class GalleryItem(models.Model):
     )
     created_at = models.DateTimeField("زمان ایجاد", auto_now_add=True)
 
+
+    MAX_SIDE = 2560
+
+    def _should_downscale(self, width: int, height: int) -> bool:
+        max_side = max(width, height)
+        return max_side > self.MAX_SIDE
+
+    def _save_image_safely(self, pil_img: Image.Image, original_ext: str) -> ContentFile | None:
+        fmt = (pil_img.format or "").upper()
+        ext = original_ext.lower()
+        buf = BytesIO()
+
+        if not fmt:
+            if ext in [".jpg", ".jpeg"]:
+                fmt = "JPEG"
+            elif ext == ".png":
+                fmt = "PNG"
+            elif ext == ".webp":
+                fmt = "WEBP"
+            elif ext == ".gif":
+                fmt = "GIF"
+            elif ext == ".bmp":
+                fmt = "BMP"
+            else:
+                fmt = None
+
+        save_kwargs = {}
+
+        will_be_jpeg = fmt == "JPEG" or ext in (".jpg", ".jpeg")
+        if will_be_jpeg and pil_img.mode in ("RGBA", "LA", "P"):
+            background = Image.new("RGB", pil_img.size, (255, 255, 255))
+            if pil_img.mode in ("RGBA", "LA"):
+                background.paste(pil_img, mask=pil_img.split()[-1])
+            else:
+                background.paste(pil_img)
+            pil_img = background
+        elif pil_img.mode == "P" and fmt != "GIF":
+            pil_img = pil_img.convert("RGBA")
+
+        # تنظیمات فرمت‌ها
+        if fmt == "JPEG":
+            save_kwargs.update(
+                dict(
+                    format="JPEG",
+                    quality=82,
+                    optimize=True,
+                    progressive=True,
+                    subsampling=0,
+                )
+            )
+        elif fmt == "PNG":
+            save_kwargs.update(
+                dict(
+                    format="PNG",
+                    optimize=True,
+                    compress_level=6,
+                )
+            )
+        elif fmt == "WEBP":
+            lossless = bool(pil_img.info.get("lossless", False))
+            if lossless:
+                save_kwargs.update(dict(format="WEBP", lossless=True, quality=100, method=6))
+            else:
+                save_kwargs.update(dict(format="WEBP", quality=92, method=6))
+        elif fmt in ("GIF", "BMP"):
+            save_kwargs.update(dict(format=fmt))
+        else:
+
+            if ext in (".jpg", ".jpeg"):
+                save_kwargs.update(dict(format="JPEG", quality=92, optimize=True, progressive=True, subsampling=0))
+            elif ext == ".png":
+                save_kwargs.update(dict(format="PNG", optimize=True, compress_level=6))
+            elif ext == ".webp":
+                save_kwargs.update(dict(format="WEBP", quality=92, method=6))
+            else:
+                save_kwargs.update(dict(format=fmt or "PNG"))
+
+        pil_img.save(buf, **save_kwargs)
+        buf.seek(0)
+        return ContentFile(buf.getvalue())
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        if self.photo:
-            img = Image.open(self.photo.path)
-            new_width = img.width // 2
-            new_height = img.height // 2
-            img = img.resize((new_width, new_height), Image.LANCZOS)
+        if not self.photo:
+            return
 
-            if img.mode in ("RGBA", "P"):
-                img = img.convert("RGB")
+        self.photo.open("rb")
+        original_bytes = self.photo.read()
+        self.photo.close()
 
-            buffer = BytesIO()
-            img.save(buffer, format="JPEG", quality=75, optimize=True)
+        img_file = BytesIO(original_bytes)
+        with Image.open(img_file) as im:
+            original_ext = os.path.splitext(self.photo.name)[1]
+            orig_w, orig_h = im.width, im.height
 
-            file_name = os.path.basename(self.photo.name)
-            self.photo.save(file_name, ContentFile(buffer.getvalue()), save=False)
+            im_fixed = ImageOps.exif_transpose(im)
 
-            buffer.close()
-            super().save(update_fields=["photo"])
+            changed = False
+            if self._should_downscale(orig_w, orig_h):
+                im_fixed.thumbnail((self.MAX_SIDE, self.MAX_SIDE), Image.LANCZOS)
+                changed = True
+
+            if im_fixed.size != (orig_w, orig_h) or changed:
+                content = self._save_image_safely(im_fixed, original_ext)
+                file_name = os.path.basename(self.photo.name)
+                self.photo.save(file_name, content, save=False)
+                super().save(update_fields=["photo"])
 
     class Meta:
         ordering = ["-created_at"]

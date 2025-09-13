@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { getPostListCategoryService } from '~/services/Post.Service'
 import { useRoute, useRouter } from 'vue-router'
 import { generateSeoMeta } from '~/utilities/seo'
@@ -55,14 +55,11 @@ const nuxt = useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
 const key = computed(() => `post-list-${currentPage.value}-${route.params.slug}`)
 
-const { data, pending, refresh,error } =await useAsyncData(key, () => {
+const { data, pending, refresh, error } = await useAsyncData(key, () => {
   return getPostListCategoryService(currentPage.value, route.params.slug as string)
 }, {
   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
 })
-
-
-
 
 const totalPages = computed(() => {
   if (!data.value?.count) return 1
@@ -72,9 +69,8 @@ const totalPages = computed(() => {
 function goToPage(page: number) {
   if (page < 1 || page > totalPages.value) return
   currentPage.value = page
+  router.replace({ query: { ...route.query, page: page === 1 ? undefined : page } })
 }
-
-
 
 watch(route, (newRoute) => {
   const pageFromQuery = Number(newRoute.query.page) || 1
@@ -89,26 +85,53 @@ watchEffect(() => {
   }
 })
 
+const setting = useMySettingDataStore().siteSettingData
+const category = computed(() => data.value?.results[0]?.category)
 
-const setting=useMySettingDataStore().siteSettingData
+const pageSuffix = computed(() => currentPage.value > 1 ? ` (صفحه ${currentPage.value})` : '')
 
+const canonicalUrl = computed(() => {
+  const base = `${setting.site_url}${route.path}`
+  return currentPage.value > 1 ? `${base}?page=${currentPage.value}` : base
+})
 
-const category = computed(() => 
-  data.value?.results[0]?.category
-)
+const prevUrl = computed(() => {
+  if (currentPage.value <= 1) return null
+  const base = `${setting.site_url}${route.path}`
+  const p = currentPage.value - 1
+  return p > 1 ? `${base}?page=${p}` : base
+})
+
+const nextUrl = computed(() => {
+  if (currentPage.value >= totalPages.value) return null
+  const base = `${setting.site_url}${route.path}`
+  const p = currentPage.value + 1
+  return `${base}?page=${p}`
+})
 
 watchEffect(() => {
   if (!pending.value && data.value && setting) {
     const seo = generateSeoMeta({
-      title: `${setting.site_name} - ${category.value?.name}`,
-      description: category.value?.meta_description || setting.meta_description,
+      title: `${setting.site_name} - ${category.value?.name}${pageSuffix.value}`,
+      description: `${category.value?.meta_description || setting.meta_description}${pageSuffix.value}`,
       image: setting.site_logo || setting.site_icon,
-      url: `${setting.site_url}${route.fullPath}`,
-      keywords:category.value?.name?.split(',').map(k => k.trim()) || setting.meta_keywords?.split(',').map(k => k.trim()) || [],
-      author:setting.meta_author,
+      url: canonicalUrl.value,
+      keywords:
+        category.value?.name?.split(',').map(k => k.trim())
+        || setting.meta_keywords?.split(',').map(k => k.trim())
+        || [],
+      author: setting.meta_author,
       type: 'category'
     })
-    useHead(seo)
+    useHead({
+      ...seo,
+      link: [
+        { rel: 'canonical', href: canonicalUrl.value },
+        ...(prevUrl.value ? [{ rel: 'prev', href: prevUrl.value }] : []),
+        ...(nextUrl.value ? [{ rel: 'next', href: nextUrl.value }] : []),
+      ]
+    })
   }
 })
+
 </script>
