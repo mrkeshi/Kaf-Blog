@@ -7,7 +7,6 @@ from .pagination import DefaultPagination
 from .serializers import GalleryItemPublicSerializer, GalleryItemAdminSerializer
 from .permissions import IsAdminOrReadCreateOnly
 
-
 class GalleryItemViewSet(viewsets.ModelViewSet):
     queryset = GalleryItem.objects.all()
     permission_classes = [IsAdminOrReadCreateOnly]
@@ -23,18 +22,22 @@ class GalleryItemViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         qs = super().get_queryset()
         user = getattr(self.request, "user", None)
-        if not (user and user.is_staff):
-            qs = qs.filter(status=GalleryItem.Status.APPROVED)
+
         location = self.request.query_params.get("location")
         name = self.request.query_params.get("name")
         status_q = self.request.query_params.get("status")
+
+        if user and user.is_staff and status_q in dict(GalleryItem.Status.choices):
+            qs = qs.filter(status=status_q)
+        else:
+            qs = qs.filter(status=GalleryItem.Status.APPROVED)
+
         if location:
             qs = qs.filter(location__icontains=location)
         if name:
             qs = qs.filter(sender_name__icontains=name)
-        if status_q and user and user.is_staff:
-            qs = qs.filter(status=status_q)
-        return qs
+
+        return qs.order_by("-created_at", "-id")
 
     def get_object(self):
         obj = super().get_object()
