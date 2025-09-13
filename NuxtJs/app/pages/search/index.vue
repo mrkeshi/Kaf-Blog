@@ -51,7 +51,7 @@
 <script setup lang="ts">
 const ui = useUIStore()
 
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { getSearchedPostListServices } from '~/services/Post.Service'
 import { useRoute, useRouter } from 'vue-router'
 import { generateSeoMeta } from '~/utilities/seo'
@@ -59,16 +59,15 @@ import { generateSeoMeta } from '~/utilities/seo'
 const pageSize = 8
 const route = useRoute()
 const router = useRouter()
-const nuxt=useNuxtApp()
+const nuxt = useNuxtApp()
 const currentPage = ref(Number(route.query.page) || 1)
 const key = computed(() => `post-list-${currentPage.value}-${route.query.q}`)
 
-const { data, pending, refresh } =  await useAsyncData(key, () => {
-   ui.closeSearch()
-
-  return getSearchedPostListServices(route.query.q,currentPage.value)
-},{
-   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
+const { data, pending, refresh } = await useAsyncData(key, () => {
+  ui.closeSearch()
+  return getSearchedPostListServices(route.query.q, currentPage.value)
+}, {
+  getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
 })
 
 const totalPages = computed(() => {
@@ -79,9 +78,8 @@ const totalPages = computed(() => {
 function goToPage(page: number) {
   if (page < 1 || page > totalPages.value) return
   currentPage.value = page
+  router.replace({ query: { ...route.query, page: page === 1 ? undefined : page } })
 }
-
-
 
 watch(route, (newRoute) => {
   const pageFromQuery = Number(newRoute.query.page) || 1
@@ -89,28 +87,67 @@ watch(route, (newRoute) => {
     currentPage.value = pageFromQuery
   }
 })
-const setting=useMySettingDataStore().siteSettingData
+
+const setting = useMySettingDataStore().siteSettingData
+
+const pageSuffix = computed(() => currentPage.value > 1 ? ` (صفحه ${currentPage.value})` : '')
+const canonicalUrl = computed(() => {
+  const base = `${setting.site_url}${route.path}`
+  const q = route.query.q ? `?q=${encodeURIComponent(String(route.query.q))}` : ''
+  if (currentPage.value > 1) {
+    const sep = q ? '&' : '?'
+    return `${base}${q}${sep}page=${currentPage.value}`
+  }
+  return `${base}${q}`
+})
+const prevUrl = computed(() => {
+  if (currentPage.value <= 1) return null
+  const base = `${setting.site_url}${route.path}`
+  const q = route.query.q ? `?q=${encodeURIComponent(String(route.query.q))}` : ''
+  const p = currentPage.value - 1
+  if (p > 1) {
+    const sep = q ? '&' : '?'
+    return `${base}${q}${sep}page=${p}`
+  }
+  return `${base}${q}`
+})
+const nextUrl = computed(() => {
+  if (currentPage.value >= totalPages.value) return null
+  const base = `${setting.site_url}${route.path}`
+  const q = route.query.q ? `?q=${encodeURIComponent(String(route.query.q))}` : ''
+  const p = currentPage.value + 1
+  const sep = q ? '&' : '?'
+  return `${base}${q}${sep}page=${p}`
+})
+
 watchEffect(() => {
   if (!pending.value && data.value && setting) {
     const keywords = route.query.q
-      ? route.query.q.split(',').map(k => k.trim())
+      ? String(route.query.q).split(',').map(k => k.trim())
       : setting.meta_keywords
         ? setting.meta_keywords.split(',').map(k => k.trim())
         : []
-
+    const baseTitle = `${setting.site_name} - ${route.query.q || 'جستجو'}`
+    const baseDesc = route.query.q
+      ? `نتیجه جستجو برای "${route.query.q}"`
+      : setting.meta_description
     const seo = generateSeoMeta({
-      title: `${setting.site_name} - ${route.query.q || 'جستجو'}`,
-      description: route.query.q
-        ? `نتیجه جستجو برای "${route.query.q}"`
-        : setting.meta_description,
+      title: `${baseTitle}${pageSuffix.value}`,
+      description: `${baseDesc}${pageSuffix.value}`,
       image: setting.site_logo || setting.site_icon,
-      url: `${setting.site_url}${route.fullPath}`,
+      url: canonicalUrl.value,
       keywords,
       author: setting.meta_author,
       type: 'search'
     })
-
-    useHead(seo)
+    useHead({
+      ...seo,
+      link: [
+        { rel: 'canonical', href: canonicalUrl.value },
+        ...(prevUrl.value ? [{ rel: 'prev', href: prevUrl.value }] : []),
+        ...(nextUrl.value ? [{ rel: 'next', href: nextUrl.value }] : []),
+      ]
+    })
   }
 })
 

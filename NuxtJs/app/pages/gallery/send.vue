@@ -88,6 +88,7 @@ import { Form, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
 import { sendImageDataService } from '~/services/Gallery.service'
 import { useCustomToastify } from '~/composable/useCustomToastify'
+import { generateSeoMeta } from '~/utilities/seo';
 
 const { showSuccess, showError, showInfo } = useCustomToastify()
 const loading = ref(false)
@@ -130,6 +131,30 @@ async function sendDataContact(values: typeof initialValues, actions: { resetFor
     loading.value = false
   }
 }
+const route = useRoute()
+const setting = useMySettingDataStore()
+
+watchEffect(() => {
+  if (setting.siteSettingData) {
+    const seo = generateSeoMeta({
+      title: `${setting.siteSettingData.site_name} - ارسال به گالری من`,
+      description: 'در این صفحه می‌توانید تصاویر خود را برای گالری من ارسال کنید.',
+      image: setting.siteSettingData.site_logo || setting.siteSettingData.site_icon,
+      url: `${setting.siteSettingData.site_url}${route.fullPath}`,
+      keywords: [
+        'ارسال تصویر',
+        'آپلود گالری',
+        `${setting.siteSettingData.site_name}`,
+        'ارسال به گالری من'
+      ],
+      author: setting.siteSettingData.meta_author,
+      type: 'article'
+    })
+
+    useHead(seo)
+  }
+})
+
 </script>
 
 <style scoped>

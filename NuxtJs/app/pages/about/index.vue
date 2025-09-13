@@ -19,10 +19,10 @@
         </blockquote>
         <skeleton-simple v-else :repeat="15" class="w-full h-6 rounded-lg " />
         <div class="my-12">
-          <a href="#"
+          <NuxtLink :to="{name:'contact'}"
             class="inline-block px-6 py-3 text-base font-bold text-white bg-black-400 border border-black-400 rounded-full transition-all duration-300 hover:bg-black-150 hover:text-black-400">
             تماس با من
-          </a>
+          </NuxtLink>
         </div>
       </section>
 
@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts" setup>
+import { NuxtLink } from '#components';
 import { getAboutMe } from '~/services/About.Service';
 import { generateSeoMeta } from '~/utilities/seo';
 
