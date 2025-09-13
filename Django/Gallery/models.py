@@ -5,6 +5,7 @@ from io import BytesIO
 
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.db import models
 
 from PIL import Image, ImageOps
@@ -29,9 +30,7 @@ class GalleryItem(models.Model):
 
     location = models.CharField("لوکیشن", max_length=255)
     sender_name = models.CharField("نام فرستنده", max_length=100)
-    photo = models.ImageField(
-        "عکس", upload_to=image_upload_path, validators=[validate_image_size]
-    )
+    photo = models.ImageField("عکس", upload_to=image_upload_path, validators=[validate_image_size])
     status = models.CharField(
         "وضعیت",
         max_length=20,
@@ -41,14 +40,12 @@ class GalleryItem(models.Model):
     )
     created_at = models.DateTimeField("زمان ایجاد", auto_now_add=True)
 
-
     MAX_SIDE = 2560
 
     def _should_downscale(self, width: int, height: int) -> bool:
-        max_side = max(width, height)
-        return max_side > self.MAX_SIDE
+        return max(width, height) > self.MAX_SIDE
 
-    def _save_image_safely(self, pil_img: Image.Image, original_ext: str) -> ContentFile | None:
+    def _save_image_safely(self, pil_img: Image.Image, original_ext: str) -> ContentFile:
         fmt = (pil_img.format or "").upper()
         ext = original_ext.lower()
         buf = BytesIO()
@@ -80,25 +77,10 @@ class GalleryItem(models.Model):
         elif pil_img.mode == "P" and fmt != "GIF":
             pil_img = pil_img.convert("RGBA")
 
-        # تنظیمات فرمت‌ها
         if fmt == "JPEG":
-            save_kwargs.update(
-                dict(
-                    format="JPEG",
-                    quality=82,
-                    optimize=True,
-                    progressive=True,
-                    subsampling=0,
-                )
-            )
+            save_kwargs.update(dict(format="JPEG", quality=82, optimize=True, progressive=True, subsampling=0))
         elif fmt == "PNG":
-            save_kwargs.update(
-                dict(
-                    format="PNG",
-                    optimize=True,
-                    compress_level=6,
-                )
-            )
+            save_kwargs.update(dict(format="PNG", optimize=True, compress_level=6))
         elif fmt == "WEBP":
             lossless = bool(pil_img.info.get("lossless", False))
             if lossless:
@@ -108,7 +90,6 @@ class GalleryItem(models.Model):
         elif fmt in ("GIF", "BMP"):
             save_kwargs.update(dict(format=fmt))
         else:
-
             if ext in (".jpg", ".jpeg"):
                 save_kwargs.update(dict(format="JPEG", quality=92, optimize=True, progressive=True, subsampling=0))
             elif ext == ".png":
@@ -123,10 +104,20 @@ class GalleryItem(models.Model):
         return ContentFile(buf.getvalue())
 
     def save(self, *args, **kwargs):
+        old_path = None
+        if self.pk:
+            try:
+                old = type(self).objects.only("photo").get(pk=self.pk)
+                old_path = old.photo.name or None
+            except type(self).DoesNotExist:
+                old_path = None
+
         super().save(*args, **kwargs)
 
         if not self.photo:
             return
+
+        current_path = self.photo.name
 
         self.photo.open("rb")
         original_bytes = self.photo.read()
@@ -134,7 +125,7 @@ class GalleryItem(models.Model):
 
         img_file = BytesIO(original_bytes)
         with Image.open(img_file) as im:
-            original_ext = os.path.splitext(self.photo.name)[1]
+            original_ext = os.path.splitext(current_path)[1]
             orig_w, orig_h = im.width, im.height
 
             im_fixed = ImageOps.exif_transpose(im)
@@ -146,9 +137,12 @@ class GalleryItem(models.Model):
 
             if im_fixed.size != (orig_w, orig_h) or changed:
                 content = self._save_image_safely(im_fixed, original_ext)
-                file_name = os.path.basename(self.photo.name)
-                self.photo.save(file_name, content, save=False)
+                default_storage.delete(current_path)
+                self.photo.save(current_path, content, save=False)
                 super().save(update_fields=["photo"])
+
+        if old_path and old_path != current_path:
+            default_storage.delete(old_path)
 
     class Meta:
         ordering = ["-created_at"]
