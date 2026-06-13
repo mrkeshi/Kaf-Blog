@@ -1,62 +1,60 @@
 <template>
-  <div>
-     <TheHeader :title="mySettingStore.siteSettingData?.site_name" 
-     :description="mySettingStore.siteSettingData?.meta_description"
-     :count="mySettingStore.siteSettingData?.count"
-     :icon="mySettingStore.siteSettingData?.site_icon"
-     ></TheHeader>
+  <div class="flex min-h-dvh flex-col bg-base text-ink">
+    <TheHeader
+      :title="store.siteSettingData?.site_name"
+      :description="store.siteSettingData?.meta_description"
+      :count="store.siteSettingData?.count"
+      :icon="store.siteSettingData?.site_icon"
+    />
 
-
-
-
-     <div class="container mx-auto mt-10 max-md:mt-4  px-4 flex flex-col lg:flex-row gap-36 max-xl:gap-12 max-2xl:gap-24  max-lg:gap-6  min-h-screen">
-
-    <!-- Main content -->
-    <main class="w-full lg:w-3/4 flex-1 lg:mt-4 max-md:mt-2">
+    <div class="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-10 px-4 py-8 md:px-6 lg:flex-row lg:items-start lg:gap-12 lg:px-8 lg:py-12">
+      <main id="main-content" role="main" class="min-w-0 flex-1">
         <RadialFabMenu />
-       <slot />
-    </main>
-  
-    <!-- Sidebar -->
-    <SideBar v-if="!pending" :musicData="
-    {
-      music:mySettingStore.siteSettingData?.music,
-      cover:mySettingStore.siteSettingData?.music_cover,
-      music_artist:mySettingStore.siteSettingData?.music_artist,
-      music_title:mySettingStore.siteSettingData?.music_title,
-      
-    }
-    "
-    :MetaData="data"
-    ></SideBar> 
-    <div v-else class="w-full lg:w-1/4"> 
-    <skeleton-simple class="h-28 w-auto rounded-2xl mb-8" :repeat="7"  />
+        <slot />
+      </main>
+
+      <aside aria-label="ستون کناری" class="w-full shrink-0 lg:sticky lg:top-24 lg:w-[380px] xl:w-[400px]">
+        <SideBar
+          v-if="!pending"
+          :musicData="{
+            music: store.siteSettingData?.music,
+            cover: store.siteSettingData?.music_cover,
+            music_artist: store.siteSettingData?.music_artist,
+            music_title: store.siteSettingData?.music_title,
+          }"
+          :MetaData="sidebarData"
+        />
+
+        <div v-else class="flex flex-col gap-6">
+          <div v-for="i in 4" :key="i" class="rounded-3xl border border-line bg-card p-6 shadow-card">
+            <skeleton-simple class="mb-4 h-6 w-32 rounded-md" />
+            <skeleton-simple :repeat="4" class="mb-3 h-5 w-full rounded-md" />
+          </div>
+        </div>
+      </aside>
     </div>
 
-
-  </div>
-
-  <TheFooter></TheFooter>
+    <TheFooter />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { getSideBarDataService } from '~/services/MetaData.service'
 import { getSettingDataService } from '~/services/SiteSetting.Service'
-const mySettingStore = useMySettingDataStore()
-const nuxt=useNuxtApp()
+
+const store = useMySettingDataStore()
+const nuxt = useNuxtApp()
+
 await callOnce(async () => {
-  if (!mySettingStore.siteSettingData) {
+  if (!store.siteSettingData) {
     const res = await getSettingDataService()
-    mySettingStore.setData(res)
+    store.setData(res)
   }
 })
 
-const {data,pending}=useAsyncData("sidebar-data",()=>getSideBarDataService(),{
-   getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key]
-})
-
+const { data: sidebarData, pending } = useAsyncData(
+  'sidebar-data',
+  () => getSideBarDataService(),
+  { getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key] }
+)
 </script>
-<style>
-
-</style>

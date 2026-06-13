@@ -1,6 +1,16 @@
 <template>
-  <div class="flex flex-col items-start">
-    <label :for="name + 'id'" class="text-base text-black-400 font-bold cursor-pointer flex items-center gap-2">
+  <div class="flex flex-col gap-1.5">
+    <label :for="name + 'id'" class="inline-flex select-none items-center gap-2.5" :class="disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'">
+      <span
+        class="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] text-white transition-all duration-200"
+        :class="value ? 'border-brand bg-brand shadow-[0_0_0_3px_rgb(124_107_255_/_0.18)]' : 'border-line bg-card-soft'"
+        aria-hidden="true"
+      >
+        <svg v-if="value" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+
       <input
         type="checkbox"
         :id="name + 'id'"
@@ -8,13 +18,18 @@
         :checked="value"
         :disabled="disabled"
         @change="handle"
-        class="w-5 h-5 accent-blue-600 cursor-pointer rounded border-gray-300"
+        class="sr-only"
+        :aria-describedby="errorMessage ? `${name}-error` : undefined"
       />
-      {{ label }}
+
+      <span class="text-sm font-semibold text-ink-soft">{{ label }}</span>
     </label>
+
     <span
       v-if="!ignoreErrorMessage && errorMessage"
-      class="text-red-500 text-base block text-right"
+      :id="`${name}-error`"
+      class="block text-sm text-bad"
+      role="alert"
     >
       {{ errorMessage }}
     </span>
@@ -34,15 +49,15 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const { errorMessage, value, handleChange, setValue } = useField<boolean>(props.name, undefined, {
-  initialValue: props.modelValue,
-})
+const { errorMessage, value, handleChange, setValue } = useField<boolean>(
+  props.name, undefined, { initialValue: props.modelValue }
+)
 
 watch(() => props.modelValue, (val) => setValue(val))
 
 function handle(e: Event) {
-  const target = e.target as HTMLInputElement
-  emit('update:modelValue', target.checked)
+  const checked = (e.target as HTMLInputElement).checked
+  emit('update:modelValue', checked)
   handleChange(e)
 }
 </script>

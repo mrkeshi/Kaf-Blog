@@ -1,71 +1,60 @@
 <template>
-  <div>
-      <h3 class="text-xl max-md:text-[17px] mt-2 font-bold text-black-400">
-                    <b class="text-blue-600 font-black" v-persian-number="commentCount"></b>
-                     کامنت ثبت شده است. 
-                  </h3>
-                  <div class="comments-box flex my-4 flex-col gap-y-8">
+  <section aria-labelledby="comments-heading">
+    <h3 id="comments-heading" class="mb-6 flex items-center gap-2 text-xl font-extrabold text-ink">
+      <span class="font-extrabold text-brand" v-persian-number="commentCount"></span>
+      نظر ثبت شده
+    </h3>
 
-                    <div class="comment w-full p-6 max-md:p-3 border-2 rounded-3xl border-black-100" v-for="comment in comments">
-                      <div class="flex justify-between">
-                          <div class="user">
-                            <li class="bluew-auto flex items-center justify-between font-bold">
-                              <a href="#" class="text-base ml-1 font-bold flex items-center text-blue-600 transition  hover:text-blue-600 max-md:text-sm-2">
-                                  <svg width="22" height="22" viewBox="0 0 24 24" class=" mb-1 fill-blue-600" xmlns="http://www.w3.org/2000/svg">
-                                      <g clip-path="url(#clip0_62_402)">
-                                      <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"></path>
-                                      </g>
-                                      <defs>
-                                      <clipPath id="clip0_62_402">
-                                      <rect width="24" height="24" fill="white"></rect>
-                                      </clipPath>
-                                      </defs>
-                                      </svg>
-                                      
-                                  {{comment.name}} 
-                              </a>
-                              گفته:
-                          </li>
-                          </div>
-                            <div class="date text-black-200 text-sm-2 max-md:text-sm" v-persian-number="comment.created_at">
-                              
-                            </div>
-                      </div>
-                      <p class="text-black-300 my-2 mr-1 max-md:text-sm" v-html="comment.message">
-                      </p>
-                      <div class="flex items-center max-md:text-sm flex-wrap">
-                        <b class="text-blue-600" v-if="comment.answer">پاسخ :</b>
-                        <p class="text-black-300 my-2 mr-1" v-if="comment.answer">
-                         <div v-html="comment.answer">
+    <div v-if="comments?.length" role="list" class="flex flex-col gap-4">
+      <article
+        v-for="comment in comments"
+        :key="comment.id ?? comment.name"
+        role="listitem"
+        class="animate-fade-in rounded-3xl border border-line bg-card p-6 shadow-card transition-colors duration-200 hover:border-brand/30"
+      >
+        <div class="mb-3 flex items-start justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand bg-brand/10 text-base font-extrabold uppercase text-brand" aria-hidden="true">
+              {{ comment.name?.charAt(0) || '؟' }}
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-[15px] font-bold text-brand">{{ comment.name }}</span>
+              <span class="text-sm text-ink-soft">گفته:</span>
+            </div>
+          </div>
 
-                         </div>
-                        </p>
-                      </div>
-                    </div>
-                    
-                  </div>
-  </div>
+          <time class="shrink-0 whitespace-nowrap text-xs text-ink-faint" v-persian-number="comment.created_at" :datetime="comment.created_at"></time>
+        </div>
+
+        <div class="text-[15px] leading-7 text-ink-soft" v-html="comment.message"></div>
+
+        <div v-if="comment.answer" role="note" aria-label="پاسخ مدیر" class="mt-3.5 rounded-2xl border border-line border-e-[3px] border-e-brand bg-card-soft p-3.5">
+          <div class="mb-1.5 flex items-center gap-1.5 text-sm font-bold text-brand">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z" />
+            </svg>
+            پاسخ:
+          </div>
+          <div class="text-sm leading-7 text-ink-soft" v-html="comment.answer"></div>
+        </div>
+      </article>
+    </div>
+
+    <div v-else role="status" aria-live="polite" class="flex flex-col items-center py-12 text-center text-ink-faint">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" class="mb-3 opacity-20" aria-hidden="true">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+      </svg>
+      <p class="text-[15px]">هنوز نظری ثبت نشده. اولین نفر باشید!</p>
+    </div>
+  </section>
 </template>
 
 <script lang="ts" setup>
-import type { Prop, PropType } from 'vue';
-import { number } from 'yup';
-import type { CommentDTO } from '~/models/Post/PostDTO';
-
+import type { PropType } from 'vue'
+import type { CommentDTO } from '~/models/Post/PostDTO'
 
 defineProps({
-  commentCount:{
-    type:Number,
-    default:0
-  },
-  comments:{
-    type:Object as PropType<CommentDTO[]>
-  }
+  commentCount: { type: Number, default: 0 },
+  comments: { type: Object as PropType<CommentDTO[]> }
 })
-
-
 </script>
-
-<style>
-
-</style>

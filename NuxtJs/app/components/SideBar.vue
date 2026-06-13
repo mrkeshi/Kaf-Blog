@@ -1,47 +1,33 @@
 <template>
-    <aside class="w-full lg:w-1/4  rounded-2xl  space-y-4">
-        <SideBarMusicBox :music="musicData.music" :cover="musicData.cover" :music_title="musicData.music_title"
-            :music_artist="musicData.music_artist"></SideBarMusicBox>
-
-        <SideBarCateGory :data="MetaData?.categories"></SideBarCateGory>
-        <SideBarTags :data="MetaData?.tags"></SideBarTags>
-        <SideBarLinks :data="MetaData?.links"></SideBarLinks>
-    </aside>
-
+  <div class="flex flex-col gap-6">
+    <SideBarMusicBox
+      :music="musicData.music"
+      :cover="musicData.cover"
+      :music_title="musicData.music_title"
+      :music_artist="musicData.music_artist"
+    />
+    <SideBarCateGory :data="MetaData?.categories" />
+    <SideBarTags :data="MetaData?.tags" />
+    <SideBarLinks :data="MetaData?.links" />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { type LinkDTO, type SidebarDataDTO, type TagDTO } from '~/models/SideBarData/MetaDataDTO';
-import type { PropType } from 'vue';
+import type { PropType } from 'vue'
+import type { SidebarDataDTO } from '~/models/SideBarData/MetaDataDTO'
+
 defineProps({
-
-    MetaData:{
-        type:Object as PropType<SidebarDataDTO>
-    },
-
-//     Tag: {
-//     type: Object as PropType<TagDTO>,
-//     required: true,
-//   },
-//     Link: {
-//     type: Object as PropType<LinkDTO>,
-//     required: true,
-//   },
-//     CateGory: {
-//     type: Object as PropType<CategoryDTO>,
-//     required: true,
-//   },
-
-    musicData: {
-        type: Object as PropType<{
-            music?: string,
-            cover?: string,
-            music_artist?: string,
-            music_title?: string,
-        }>,
-        default: () => ({})
-    }
+  MetaData: {
+    type: Object as PropType<SidebarDataDTO>
+  },
+  musicData: {
+    type: Object as PropType<{
+      music?: string
+      cover?: string
+      music_artist?: string
+      music_title?: string
+    }>,
+    default: () => ({})
+  }
 })
 </script>
-
-<style></style>
