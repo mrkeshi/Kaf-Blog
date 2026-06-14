@@ -1,5 +1,8 @@
 <template>
   <div class="animate-fade-in">
+    <!-- Task 5: Reading Progress Indicator -->
+    <PostReadingProgress :wordCount="wordCount" />
+
     <div v-if="post?.image" class="mb-8 overflow-hidden rounded-3xl shadow-pop">
       <img
         :src="post.image"
@@ -14,9 +17,14 @@
       {{ post?.title }}
     </h1>
 
-    <div role="list" aria-label="اطلاعات مقاله" class="mx-auto mb-8 flex max-w-fit flex-wrap items-center justify-center gap-4 rounded-full border border-line bg-card-soft px-6 py-3 text-sm text-ink-faint shadow-soft">
+    <!-- Meta bar -->
+    <div
+      role="list"
+      aria-label="اطلاعات مقاله"
+      class="mx-auto mb-8 flex max-w-fit flex-wrap items-center justify-center gap-4 rounded-full border border-line bg-card-soft px-6 py-3 text-sm text-ink-faint shadow-soft"
+    >
       <div role="listitem" class="flex items-center gap-1.5">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" class="opacity-60" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" class="text-teal" aria-hidden="true">
           <path opacity="0.3" d="M5 8H19V6H5V8Z" />
           <path d="M19 4H18V2H16V4H8V2H6V4H5C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V10H19V20ZM19 8H5V6H19V8Z" />
         </svg>
@@ -25,14 +33,18 @@
 
       <span aria-hidden="true" class="text-line">·</span>
 
-      <NuxtLink :to="{ name: 'category-slug', params: { slug: post.category.slug } }" role="listitem" class="font-bold text-brand transition-opacity duration-200 hover:opacity-75">
+      <NuxtLink
+        :to="{ name: 'category-slug', params: { slug: post.category.slug } }"
+        role="listitem"
+        class="font-bold text-brand transition-opacity duration-200 hover:opacity-75"
+      >
         #{{ post?.category.name }}
       </NuxtLink>
 
       <span aria-hidden="true" class="text-line">·</span>
 
       <div role="listitem" class="flex items-center gap-1.5" :aria-label="`${post?.views + 1} بازدید`">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="opacity-60" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="text-rose" aria-hidden="true">
           <path d="M12.9866 8.23335C11.94 5.51335 8.21329 5.36668 9.11329 1.41335C9.17996 1.12001 8.86663 0.893346 8.61329 1.04668C6.19329 2.47335 4.45329 5.33335 5.91329 9.08001C6.03329 9.38668 5.67329 9.67335 5.41329 9.47335C4.20663 8.56001 4.07996 7.24668 4.18663 6.30668C4.22663 5.96001 3.77329 5.79335 3.57996 6.08001C3.12663 6.77335 2.66663 7.89335 2.66663 9.58001C2.91996 13.3133 6.07329 14.46 7.20663 14.6067C8.82663 14.8133 10.58 14.5133 11.84 13.36C13.2266 12.0733 13.7333 10.02 12.9866 8.23335Z" />
         </svg>
         <span v-persian-number="post?.views + 1"></span>
@@ -42,11 +54,21 @@
       <span aria-hidden="true" class="text-line">·</span>
 
       <div role="listitem" class="flex items-center gap-1.5" :aria-label="`${post?.comment_count} نظر`">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="currentColor" class="opacity-60" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="currentColor" class="text-ok" aria-hidden="true">
           <path d="M16.4925 1.5H1.5V13.5H13.5L16.5 16.5L16.4925 1.5ZM13.5 10.5H4.5V9H13.5V10.5ZM13.5 8.25H4.5V6.75H13.5V8.25ZM13.5 6H4.5V4.5H13.5V6Z" />
         </svg>
         <span v-persian-number="post?.comment_count"></span>
         <span>نظر</span>
+      </div>
+
+      <!-- Task 5: Reading time chip in meta bar -->
+      <span aria-hidden="true" class="text-line">·</span>
+      <div role="listitem" class="flex items-center gap-1.5 text-amber" :aria-label="`زمان مطالعه: ${readingTime} دقیقه`">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+        </svg>
+        <span v-persian-number="readingTime"></span>
+        <span>دقیقه</span>
       </div>
     </div>
 
@@ -95,7 +117,7 @@
         :aria-label="liked ? 'لغو لایک' : 'لایک کردن'"
         :class="[
           'inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-bold transition-all duration-200',
-          liked ? 'border-brand bg-brand/10 text-brand' : 'border-line bg-card-soft text-ink-soft hover:border-brand/40 hover:bg-brand/10 hover:text-brand'
+          liked ? 'border-rose bg-rose/10 text-rose' : 'border-line bg-card-soft text-ink-soft hover:border-rose/40 hover:bg-rose/10 hover:text-rose'
         ]"
       >
         <svg
@@ -118,7 +140,7 @@
         aria-label="اشتراک‌گذاری"
         class="inline-flex items-center gap-2 rounded-full border border-line bg-card-soft px-5 py-2.5 text-sm font-bold text-ink-soft transition-all duration-200 hover:border-brand/40 hover:bg-brand/10 hover:text-brand disabled:opacity-50"
       >
-        <svg width="18" height="18" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 28 28" fill="currentColor" class="text-teal" aria-hidden="true">
           <path d="M21 18.76C20.1133 18.76 19.32 19.11 18.7133 19.6584L10.395 14.8167C10.4533 14.5484 10.5 14.28 10.5 14C10.5 13.72 10.4533 13.4517 10.395 13.1834L18.62 8.38837C19.25 8.97171 20.0783 9.33337 21 9.33337C22.9367 9.33337 24.5 7.77004 24.5 5.83337C24.5 3.89671 22.9367 2.33337 21 2.33337C19.0633 2.33337 17.5 3.89671 17.5 5.83337C17.5 6.11337 17.5467 6.38171 17.605 6.65004L9.38 11.445C8.75 10.8617 7.92167 10.5 7 10.5C5.06333 10.5 3.5 12.0634 3.5 14C3.5 15.9367 5.06333 17.5 7 17.5C7.92167 17.5 8.75 17.1384 9.38 16.555L17.6867 21.4084C17.6283 21.6534 17.5933 21.91 17.5933 22.1667C17.5933 24.045 19.1217 25.5734 21 25.5734C22.8783 25.5734 24.4067 24.045 24.4067 22.1667C24.4067 20.2884 22.8783 18.76 21 18.76Z" />
         </svg>
         <span>اشتراک‌گذاری</span>
@@ -128,7 +150,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useCustomToastify } from '~/composable/useCustomToastify'
 import type { PostDetailDTO } from '~/models/Post/PostDTO'
 import { checkingLikePostService, toggleLikeService } from '~/services/Post.Service'
@@ -136,8 +158,20 @@ import { checkingLikePostService, toggleLikeService } from '~/services/Post.Serv
 const { post } = defineProps<{ post: PostDetailDTO }>()
 const { showSuccess } = useCustomToastify()
 
-const liked = ref(false)
+const liked     = ref(false)
 const isSharing = ref(false)
+
+// Task 5: word count for reading time
+const wordCount = computed(() => {
+  if (!post?.content) return 0
+  const text = post.content.replace(/<[^>]+>/g, ' ')
+  return text.trim().split(/\s+/).filter(Boolean).length
+})
+
+const WORDS_PER_MINUTE = 200
+const readingTime = computed(() =>
+  wordCount.value > 0 ? Math.max(1, Math.ceil(wordCount.value / WORDS_PER_MINUTE)) : 0
+)
 
 onMounted(async () => {
   const data = await checkingLikePostService(post.id)
@@ -146,7 +180,7 @@ onMounted(async () => {
 
 const toggleLike = () => {
   toggleLikeService(post.id).then((res) => {
-    if (res.code === 1) { liked.value = true; post.like_count++ }
+    if (res.code === 1) { liked.value = true;  post.like_count++ }
     if (res.code === 2) { liked.value = false; post.like_count-- }
   })
 }
@@ -154,10 +188,9 @@ const toggleLike = () => {
 function sharePost() {
   if (isSharing.value) return
   isSharing.value = true
-
   const title = post?.title || 'مشاهده مطلب'
-  const url = window.location.href
-  const text = `این مطلب رو ببین: ${title}`
+  const url   = window.location.href
+  const text  = `این مطلب رو ببین: ${title}`
 
   if (navigator.share) {
     navigator.share({ title, text, url })

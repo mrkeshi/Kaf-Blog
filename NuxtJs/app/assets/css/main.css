@@ -7,7 +7,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Pelak';
   src: url('../fonts/Pelak-Regular.woff2') format('woff2');
@@ -15,7 +14,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Pelak';
   src: url('../fonts/Pelak-Medium.woff2') format('woff2');
@@ -23,7 +21,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Pelak';
   src: url('../fonts/Pelak-Bold.woff2') format('woff2');
@@ -31,7 +28,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Pelak';
   src: url('../fonts/Pelak-ExtraBold.woff2') format('woff2');
@@ -43,6 +39,53 @@
 @theme {
   --font-sans: 'Pelak', system-ui, sans-serif;
 
+  /* ── DEFAULT = Light Mode (Task 3) ── */
+  --color-base: #f7f7fc;
+  --color-base-soft: #eeeef8;
+  --color-card: #ffffff;
+  --color-card-soft: #f3f3fa;
+  --color-card-hover: #eaeaf5;
+  --color-line: #e2e2ef;
+  --color-line-soft: #ededf8;
+  --color-ink: #12121e;
+  --color-ink-soft: #525270;
+  --color-ink-faint: #9696b5;
+
+  /* ── Richer accent palette (Task 4) ── */
+  --color-brand: #5a48e6;
+  --color-brand-soft: #7c6bff;
+  --color-brand-strong: #4030cc;
+  --color-teal: #0891b2;
+  --color-teal-soft: #22d3ee;
+  --color-rose: #e11d48;
+  --color-rose-soft: #fb7185;
+  --color-amber: #d97706;
+  --color-gold: #b45309;
+  --color-ok: #059669;
+  --color-ok-soft: #34d399;
+  --color-bad: #dc2626;
+  --color-warn: #d97706;
+
+  /* ── Soft, modern shadows (Task 1) ── */
+  --shadow-soft: 0 1px 3px rgb(90 72 230 / 0.07), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-card: 0 2px 8px -2px rgb(90 72 230 / 0.09), 0 12px 32px -12px rgb(90 72 230 / 0.08);
+  --shadow-pop:  0 6px 20px -6px rgb(90 72 230 / 0.13), 0 24px 56px -20px rgb(90 72 230 / 0.11);
+  --shadow-glow: 0 8px 24px -6px rgb(90 72 230 / 0.32), 0 3px 10px -2px rgb(90 72 230 / 0.20);
+  --shadow-glow-lg: 0 16px 48px -12px rgb(90 72 230 / 0.36), 0 6px 18px -4px rgb(90 72 230 / 0.24);
+
+  --radius-4xl: 32px;
+
+  --animate-fade-in: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-down: slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slide-up 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+  --animate-spin-slow: spin 6s linear infinite;
+  --animate-glow-pulse: glow-pulse 2.4s ease-in-out infinite;
+  --animate-notification-in: notification-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-notification-out: notification-out 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* ── Dark mode (opt-in via data-theme="dark") ── */
+[data-theme="dark"] {
   --color-base: #08080d;
   --color-base-soft: #0e0e16;
   --color-card: #14141f;
@@ -56,82 +99,58 @@
   --color-brand: #7c6bff;
   --color-brand-soft: #a193ff;
   --color-brand-strong: #5a48e6;
+  --color-teal: #22d3ee;
+  --color-teal-soft: #67e8f9;
+  --color-rose: #fb7185;
+  --color-rose-soft: #fda4af;
+  --color-amber: #fbbf24;
   --color-gold: #ffb454;
   --color-ok: #34d399;
+  --color-ok-soft: #6ee7b7;
   --color-bad: #f87171;
   --color-warn: #fbbf24;
 
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.5), 0 1px 1px rgb(0 0 0 / 0.35);
-  --shadow-card: 0 2px 10px -2px rgb(0 0 0 / 0.45), 0 16px 48px -16px rgb(0 0 0 / 0.55);
-  --shadow-pop: 0 8px 24px -8px rgb(0 0 0 / 0.55), 0 30px 70px -24px rgb(0 0 0 / 0.6);
-  --shadow-glow: 0 12px 32px -10px rgb(124 107 255 / 0.55), 0 4px 14px -2px rgb(124 107 255 / 0.4);
-  --shadow-glow-lg: 0 20px 60px -16px rgb(124 107 255 / 0.5), 0 8px 24px -6px rgb(124 107 255 / 0.4);
-
-  --radius-4xl: 32px;
-
-  --animate-fade-in: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-slide-down: slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-slide-up: slide-up 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
-  --animate-spin-slow: spin 6s linear infinite;
-  --animate-glow-pulse: glow-pulse 2.4s ease-in-out infinite;
+  /* Softer dark shadows (Task 1) */
+  --shadow-soft: 0 1px 3px rgb(0 0 0 / 0.28), 0 1px 2px rgb(0 0 0 / 0.20);
+  --shadow-card: 0 2px 8px -2px rgb(0 0 0 / 0.32), 0 12px 32px -12px rgb(0 0 0 / 0.36);
+  --shadow-pop:  0 6px 20px -6px rgb(0 0 0 / 0.38), 0 24px 56px -20px rgb(0 0 0 / 0.42);
+  --shadow-glow: 0 8px 24px -6px rgb(124 107 255 / 0.44), 0 3px 10px -2px rgb(124 107 255 / 0.28);
+  --shadow-glow-lg: 0 16px 48px -12px rgb(124 107 255 / 0.40), 0 6px 18px -4px rgb(124 107 255 / 0.30);
 }
 
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slide-down {
   from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slide-up {
   from { opacity: 1; transform: translateY(0); }
   to   { opacity: 0; transform: translateY(-12px); }
 }
-
 @keyframes glow-pulse {
   0%, 100% { box-shadow: var(--shadow-glow); }
   50%      { box-shadow: var(--shadow-glow-lg); }
 }
-
-[data-theme="light"] {
-  --color-base: #f6f6fb;
-  --color-base-soft: #eeeef7;
-  --color-card: #ffffff;
-  --color-card-soft: #f3f3fa;
-  --color-card-hover: #eaeaf6;
-  --color-line: #e4e4f0;
-  --color-line-soft: #ededf7;
-  --color-ink: #14141f;
-  --color-ink-soft: #5d5d78;
-  --color-ink-faint: #a4a4c0;
-  --color-brand: #5a48e6;
-  --color-brand-soft: #7c6bff;
-  --color-brand-strong: #4636bf;
-  --color-gold: #e08a2e;
-
-  --shadow-soft: 0 1px 2px rgb(20 20 40 / 0.04), 0 1px 1px rgb(20 20 40 / 0.03);
-  --shadow-card: 0 2px 8px -2px rgb(20 20 40 / 0.06), 0 16px 40px -20px rgb(20 20 40 / 0.10);
-  --shadow-pop: 0 8px 24px -8px rgb(20 20 40 / 0.10), 0 30px 60px -24px rgb(20 20 40 / 0.14);
-  --shadow-glow: 0 12px 32px -10px rgb(90 72 230 / 0.30), 0 4px 14px -2px rgb(90 72 230 / 0.22);
-  --shadow-glow-lg: 0 20px 60px -16px rgb(90 72 230 / 0.32), 0 8px 24px -6px rgb(90 72 230 / 0.24);
+@keyframes notification-in {
+  from { opacity: 0; transform: translateX(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes notification-out {
+  from { opacity: 1; transform: translateX(0) scale(1); max-height: 120px; margin-bottom: 8px; }
+  to   { opacity: 0; transform: translateX(20px) scale(0.96); max-height: 0; margin-bottom: 0; }
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  color-scheme: dark;
+  color-scheme: light; /* default light */
 }
-
-[data-theme="light"] {
-  color-scheme: light;
-}
+[data-theme="dark"] { color-scheme: dark; }
 
 body {
   font-family: var(--font-sans);
@@ -145,24 +164,27 @@ body {
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-line);
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ink-faint);
-}
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-ink-faint); }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-brand) 30%, transparent);
+  background: color-mix(in srgb, var(--color-brand) 22%, transparent);
   color: var(--color-ink);
+}
+
+/* ── Reading progress bar (Task 5) ── */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  z-index: 100;
+  background: linear-gradient(to left, var(--color-brand-soft), var(--color-brand));
+  transform-origin: right;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

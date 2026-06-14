@@ -1,8 +1,8 @@
 <template>
   <div v-if="music || cover" class="rounded-3xl border border-line bg-gradient-to-b from-card-soft to-card p-6 shadow-card">
     <div class="mb-4 flex items-center gap-2.5 border-b border-line pb-4 text-base font-extrabold text-ink">
-      <span class="h-5 w-[3px] shrink-0 rounded-full bg-brand" aria-hidden="true"></span>
-      <svg width="14" height="22" viewBox="0 0 21 31" fill="currentColor" class="text-brand" aria-hidden="true">
+      <span class="h-5 w-[3px] shrink-0 rounded-full bg-amber" aria-hidden="true"></span>
+      <svg width="14" height="22" viewBox="0 0 21 31" fill="currentColor" class="text-amber" aria-hidden="true">
         <path d="M10.5 0.125V18.1479C9.49208 17.5671 8.33042 17.2083 7.08333 17.2083C3.30792 17.2083 0.25 20.2663 0.25 24.0417C0.25 27.8171 3.30792 30.875 7.08333 30.875C10.8588 30.875 13.9167 27.8171 13.9167 24.0417V6.95833H20.75V0.125H10.5Z" />
       </svg>
       <span>موسیقی</span>
@@ -58,17 +58,17 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 defineProps({
-  music: { type: String, default: '' },
-  cover: { type: String, default: '' },
-  music_title: { type: String, default: '' },
+  music:        { type: String, default: '' },
+  cover:        { type: String, default: '' },
+  music_title:  { type: String, default: '' },
   music_artist: { type: String, default: '' },
 })
 
-const audioRef = ref<HTMLAudioElement | null>(null)
-const equalizerRef = ref<HTMLDivElement | null>(null)
-const isPlaying = ref(false)
-const currentTime = ref('۰:۰۰')
-const duration = ref('۰:۰۰')
+const audioRef      = ref<HTMLAudioElement | null>(null)
+const equalizerRef  = ref<HTMLDivElement | null>(null)
+const isPlaying     = ref(false)
+const currentTime   = ref('۰:۰۰')
+const duration      = ref('۰:۰۰')
 
 const BAR_COUNT = 28
 const bars: HTMLDivElement[] = []
@@ -78,14 +78,14 @@ const toPersian = (n: number | string) =>
   n.toString().replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[parseInt(d)])
 
 const formatTime = (s: number) => {
-  const m = Math.floor(s / 60)
+  const m   = Math.floor(s / 60)
   const sec = Math.floor(s % 60)
   return `${toPersian(m)}:${toPersian(sec.toString().padStart(2, '0'))}`
 }
 
 const updateVisualizer = () => {
   if (!audioRef.value || !isPlaying.value) return
-  const progress = audioRef.value.currentTime / (audioRef.value.duration || 1)
+  const progress   = audioRef.value.currentTime / (audioRef.value.duration || 1)
   const activeBars = Math.round(BAR_COUNT * progress)
   bars.forEach((bar, i) => {
     bar.style.opacity = i < activeBars ? '1' : '0.18'
@@ -111,8 +111,8 @@ onMounted(() => {
 
   for (let i = 0; i < BAR_COUNT; i++) {
     const bar = document.createElement('div')
-    bar.className = 'w-[3px] rounded-full bg-brand transition-opacity duration-300'
-    bar.style.height = `${Math.random() * 20 + 8}px`
+    bar.className = 'w-[3px] rounded-full bg-amber transition-opacity duration-300'
+    bar.style.height  = `${Math.random() * 20 + 8}px`
     bar.style.opacity = '0.18'
     equalizerRef.value.appendChild(bar)
     bars.push(bar)

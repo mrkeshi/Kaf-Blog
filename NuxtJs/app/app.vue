@@ -17,7 +17,8 @@ useHead({
 })
 
 if (process.client) {
-  const saved = localStorage.getItem('theme') ?? 'dark'
+  // Task 3: Default to light mode – only override if user explicitly saved 'dark'
+  const saved = localStorage.getItem('theme') ?? 'light'
   document.documentElement.setAttribute('data-theme', saved)
 }
 
@@ -25,8 +26,8 @@ if (process.client && 'serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('message', event => {
     if (event.data?.type === 'push') {
       showInfo({
-        message: `پست با عنوان "${event.data.title}" منتشر شد.`,
-        title: 'اعلان'
+        title: 'اعلان',
+        message: `پست با عنوان "${event.data.title}" منتشر شد.`
       })
     }
   })

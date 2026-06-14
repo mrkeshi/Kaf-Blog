@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'Setting',
     'Contact',
     'Post',
-    'Gallery'
+    'Gallery',
+    'Notification'
 ]
 
 # Middleware

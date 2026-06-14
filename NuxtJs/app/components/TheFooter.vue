@@ -8,13 +8,17 @@
       <nav aria-label="پیمایش پایین صفحه" class="flex items-center gap-1">
         <NuxtLink :to="{ name: 'index' }" class="rounded-lg px-3 py-1.5 text-sm text-ink-soft transition-colors duration-200 hover:bg-brand/10 hover:text-brand">خانه</NuxtLink>
         <span class="text-line" aria-hidden="true">·</span>
-        <NuxtLink :to="{ name: 'contact' }" class="rounded-lg px-3 py-1.5 text-sm text-ink-soft transition-colors duration-200 hover:bg-brand/10 hover:text-brand">تماس با من</NuxtLink>
+        <NuxtLink :to="{ name: 'contact' }" class="rounded-lg px-3 py-1.5 text-sm text-ink-soft transition-colors duration-200 hover:bg-teal/10 hover:text-teal">تماس با من</NuxtLink>
         <span class="text-line" aria-hidden="true">·</span>
-        <NuxtLink :to="{ name: 'about' }" class="rounded-lg px-3 py-1.5 text-sm text-ink-soft transition-colors duration-200 hover:bg-brand/10 hover:text-brand">درباره من</NuxtLink>
+        <NuxtLink :to="{ name: 'about' }" class="rounded-lg px-3 py-1.5 text-sm text-ink-soft transition-colors duration-200 hover:bg-rose/10 hover:text-rose">درباره من</NuxtLink>
       </nav>
     </div>
 
-    <div class="mx-auto mt-8 h-px w-full max-w-[1440px] bg-gradient-to-r from-transparent via-brand/40 to-transparent" aria-hidden="true"></div>
+    <!-- gradient divider -->
+    <div
+      class="mx-auto mt-8 h-px w-full max-w-[1440px] bg-gradient-to-r from-transparent via-brand/30 to-transparent"
+      aria-hidden="true"
+    ></div>
   </footer>
 </template>
 

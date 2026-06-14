@@ -57,4 +57,7 @@ const { data: sidebarData, pending } = useAsyncData(
   () => getSideBarDataService(),
   { getCachedData: key => nuxt.payload.static?.[key] ?? nuxt.payload.data?.[key] }
 )
+
+// Task 2: start polling for notifications
+useNotifications()
 </script>

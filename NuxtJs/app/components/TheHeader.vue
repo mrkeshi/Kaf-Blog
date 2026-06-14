@@ -7,8 +7,15 @@
     <div class="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-4 px-4 md:h-[68px] md:px-6 lg:px-8">
 
       <div class="flex min-w-0 flex-col gap-0.5">
-        <NuxtLink :to="{ name: 'index' }" class="group flex items-center gap-2.5 text-lg font-extrabold text-ink transition-colors duration-200 hover:text-brand md:text-xl" aria-label="برگشت به خانه">
-          <span class="h-2 w-2 shrink-0 rounded-full bg-brand shadow-[0_0_12px_var(--color-brand)] transition-transform duration-300 group-hover:scale-125" aria-hidden="true"></span>
+        <NuxtLink
+          :to="{ name: 'index' }"
+          class="group flex items-center gap-2.5 text-lg font-extrabold text-ink transition-colors duration-200 hover:text-brand md:text-xl"
+          aria-label="برگشت به خانه"
+        >
+          <span
+            class="h-2 w-2 shrink-0 rounded-full bg-brand shadow-[0_0_10px_var(--color-brand)] transition-transform duration-300 group-hover:scale-125"
+            aria-hidden="true"
+          ></span>
           <span class="truncate">{{ title }}</span>
         </NuxtLink>
         <p class="hidden truncate text-xs text-ink-faint sm:block">{{ description }}</p>
@@ -28,6 +35,9 @@
           <span>دنبال‌کننده</span>
         </div>
 
+        <!-- Notification Bell (Task 2) -->
+        <NotificationBell />
+
         <button
           @click="ui.openSearch"
           class="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-card-soft text-ink-soft transition-all duration-200 hover:border-brand/40 hover:text-brand"
@@ -39,16 +49,19 @@
           </svg>
         </button>
 
+        <!-- Theme toggle – Task 3: default isDark = false -->
         <button
           @click="toggleTheme"
           class="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-card-soft text-ink-soft transition-all duration-200 hover:border-brand/40 hover:text-brand"
           :aria-label="isDark ? 'تغییر به حالت روشن' : 'تغییر به حالت تاریک'"
           :title="isDark ? 'حالت روشن' : 'حالت تاریک'"
         >
-          <svg v-if="isDark" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Sun shown when dark (switch to light) -->
+          <svg v-if="isDark" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-amber" aria-hidden="true">
             <path d="M12 7C9.24 7 7 9.24 7 12s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0z" />
           </svg>
-          <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Moon shown when light (switch to dark) -->
+          <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-brand" aria-hidden="true">
             <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
           </svg>
         </button>
@@ -100,20 +113,23 @@ import { useRouter } from 'vue-router'
 import { useUIStore } from '~/stores/useUIStore'
 
 const props = defineProps({
-  icon: { type: String, default: '' },
-  title: { type: String, default: 'کافه بیگانه' },
+  icon:        { type: String, default: '' },
+  title:       { type: String, default: 'کافه بیگانه' },
   description: { type: String, default: 'نوشته‌های یک کافه‌بیگانه' },
-  count: { type: Number, default: 0 }
+  count:       { type: Number, default: 0 }
 })
 
 const ui = useUIStore()
 const router = useRouter()
 const searchInputRef = ref<HTMLInputElement | null>(null)
-const isDark = ref(true)
+
+// Task 3: default to light (false = light mode)
+const isDark = ref(false)
 
 onMounted(() => {
   const saved = localStorage.getItem('theme')
-  isDark.value = saved ? saved === 'dark' : true
+  // If no saved preference → light (false). Saved value must be explicitly 'dark'.
+  isDark.value = saved === 'dark'
   applyTheme(isDark.value)
 })
 
